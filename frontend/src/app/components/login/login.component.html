@@ -1,1 +1,44 @@
-<p>login works!</p>
+<app-nav></app-nav>
+
+<body>
+  <div class="ext-box">
+    <div class="wrapper">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-6 side-image">
+            <div>
+              <img src="badminton-racket.jpg" alt="Image" width="100%" height="100%">
+            </div>
+          </div>
+          <div class="col-md-6 right">
+            <div>
+              <div class="input-box">
+                <header class="header">เข้าสู่ระบบ
+                </header>
+                <form>
+                  <div class="input-field">
+                    <input formControlName="email" type="email" class="input" id="login-email" required
+                      autocomplete="off" />
+                    <label for="login-email">Email</label>
+                  </div>
+                  <div class="input-field">
+                    <input formControlName="password" class="input" id="login-password" required />
+                    <label for="password">Password</label>
+                    <i class="fa fa-eye password-toggle"></i>
+                  </div>
+                  <div class="input-field">
+                    <button type="submit" class="submit">เข้าสู่ระบบ</button>
+                  </div>
+                  <div class="signin">
+                    <span>หรือ
+                      <a href="/register">ลงทะเบียน</a></span>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>

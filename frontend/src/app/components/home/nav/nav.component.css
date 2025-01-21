@@ -1,0 +1,42 @@
+
+.custom-rounded {
+    border-radius: 20px; /* กำหนดค่าความโค้งที่ต้องการ */
+}
+.custom-bg {
+    background-color: #787FF6; /* เปลี่ยนสีพื้นหลัง */
+    color: white; /* เปลี่ยนสีตัวอักษร */
+}
+.custom-bg:hover {
+    background-color: #5756BB; /* สีพื้นหลังเมื่อ hover */
+}
+.SUTMintontext-gradient {
+    background: linear-gradient(40deg, #787FF6, #7BD5F5); /* ไล่ระดับสีจากส้มไปฟ้า */
+    -webkit-background-clip: text; /* ใช้สีพื้นหลังกับตัวอักษร */
+    -webkit-text-fill-color: transparent; /* ทำให้พื้นหลังโปร่งใส */
+    font-weight: bold;
+}
+.custom-nav .nav-link {
+    color: #616161; /* สีของข้อความ */ 
+    /*font-weight: bold; /* ตัวอักษรหนา */
+    transition: color 0.3s; /* เพิ่มการเปลี่ยนสีแบบ smooth */
+}
+.custom-nav .nav-link:hover {
+    color: #787FF6; /* สีเมื่อชี้เมาส์ */
+    /*text-decoration: underline; /* ขีดเส้นใต้เมื่อ hover */
+}
+.navbar {
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* กำหนดเงา */
+}
+  .text-left {
+    text-align: left; /* จัดข้อความชิดซ้าย */
+    padding-left: 10px; /* เพิ่มระยะห่างจากขอบซ้าย (ถ้าต้องการ) */
+  }
+  /* กำหนดให้ navbar อยู่คงที่ */
+  .fixed-nav {
+    position: fixed; /* ตำแหน่งคงที่ */
+    top: 0; /* ระยะห่างจากด้านบน */
+    left: 0;
+    right: 0;
+    z-index: 1000; /* ให้แน่ใจว่า navbar อยู่เหนือเนื้อหา */
+    background-color: #f8f9fa; /* สีพื้นหลัง */
+}

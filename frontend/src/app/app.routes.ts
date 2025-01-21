@@ -24,7 +24,7 @@ export const routes: Routes = [
         component:LoginComponent,
     },
     {
-        path : "manager/myprofile",
+        path : "myprofile",
         component:MyprofileComponent,
     },
     {
@@ -46,5 +46,9 @@ export const routes: Routes = [
     {
         path : "sandbag",
         component:SandbagComponent,
+    },
+    {
+        path : "home",
+        component:HomeComponent,
     },
 ];

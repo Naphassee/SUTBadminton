@@ -1,0 +1,271 @@
+@import url('https://fonts.googleapis.com/css2?family=Prompt:wght@400;500;700&display=swap');
+*{
+    font-family: 'Prompt', sans-serif;
+    margin: 0;
+    padding: 0;
+}
+  body {
+    /*background-image: url("https://images.unsplash.com/photo-1506822731334-a3a0eba9ec01?q=80&w=1887&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D");*/
+    background: linear-gradient(to top, #787FF6, #7BD5F5,#ffffff,#ffffff);
+    background-size: cover; /* ทำให้ภาพพื้นหลังขยายเต็มพื้นที่ */
+    background-position: center; /* จัดตำแหน่งภาพให้อยู่ตรงกลาง */
+    background-repeat: no-repeat; /* ป้องกันการทำซ้ำของภาพพื้นหลัง */
+    overflow: hidden;
+  }
+  body::before {
+    content: "";
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    /*background-image: url("../../../assets/regis-background.png");*/
+    position: absolute;
+    background-size: cover; /* ทำให้ภาพพื้นหลังขยายเต็มพื้นที่ */
+    background-position: center; /* จัดตำแหน่งภาพให้อยู่ตรงกลาง */
+    background-repeat: no-repeat; /* ป้องกันการทำซ้ำของภาพพื้นหลัง */
+    filter: blur(10px); /* เบลอภาพพื้นหลัง */
+    z-index: -1; /* ให้ภาพเบลออยู่ด้านหลังเนื้อหา */
+  }
+  
+  .main {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+  }
+  .header {
+    margin-top: -50px;
+    margin-bottom: 20px;
+    font-size:40px;
+    background: #5756BB; /* ไล่ระดับสีจากส้มไปฟ้า */
+    -webkit-background-clip: text; /* ใช้สีพื้นหลังกับตัวอักษร */
+    -webkit-text-fill-color: transparent; /* ทำให้พื้นหลังโปร่งใส */
+    font-weight:bolder;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .ext-box {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+  }
+  /* สำหรับ .wrapper ให้อยู่ตรงกลางและกำหนดขนาดที่แน่นอน */
+  .wrapper {
+    width: 8000px;
+    padding: 0;
+  }
+  
+  /* สำหรับ .container ให้อยู่ตรงกลางภายใน wrapper และสามารถปรับขนาดได้ */
+  .container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%; /* ใช้ความกว้างเต็มของ wrapper */
+    max-width: 100%; /* จำกัดความกว้างสูงสุดให้ไม่เกินขนาดของ wrapper */
+    padding: 20px; /* เพิ่ม padding สำหรับ container */
+    box-sizing: border-box; /* รวม padding และ border ไว้ในขนาดของกล่อง */
+  }
+  
+  .side-image {
+    /*background-image: url("../../../assets/regis-background.png");*/
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    position: relative;
+    border-radius: 10px 0 0 10px; /* เพิ่มเฉพาะมุมของฝั่งรูปภาพ */
+    margin: 0; /* นำ margin ออกเพื่อให้รูปภาพชิดกับ box */
+  }
+  .img {
+    width: 35px;
+    position: absolute;
+    top: 30px;
+    left: 30px;
+  }
+  .row {
+    width: 900px;
+    height: 550px;
+    border-radius: 30px;
+    background: #fff;
+    box-shadow: 1px 5px 10px 1px rgba(0,0,0,0.2);
+    overflow: hidden; /* ทำให้เนื้อหาที่เกินจาก box ถูกตัด */
+    margin-bottom: 55px;
+  }
+  .text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+  .text p {
+    color: #fff;
+    font-size: 18px;
+  }
+  i {
+    font-weight: 400;
+    font-size: 15px;
+  }
+  .right {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+  }
+  .input-box {
+    width: 330px;
+    box-sizing: border-box;
+  }
+  
+  .input-box-header {
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 45px;
+  }
+  
+  .input-field {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    padding: 0 10px; /* เพิ่ม padding เพื่อให้มีพื้นที่รอบ ๆ input */
+    margin-bottom: 20px; /* เพิ่มระยะห่างระหว่าง input-field */
+  }
+  
+  .input {
+    height: 45px; /* ความสูงของ input */
+    width: 100%; /* ใช้ความกว้างเต็มของ input-field */
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+    outline: none;
+    color: #40414a;
+    box-sizing: border-box; /* รวม padding และ border ไว้ในขนาดของ input */
+  }
+  
+  .input-box .input-field label {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    pointer-events: none;
+    transition: 0.5s;
+    color: #aaa; /* สีของ label ในตอนเริ่มต้น */
+  }
+  
+  .input-field .input:focus ~ label,
+  .input-field .input:valid ~ label {
+    top: -10px;
+    font-size: 13px;
+    color: #5d5076;
+  }
+  
+  .input-field .input:focus,
+  .input-field .input {
+    border-bottom: 1px solid #743ae1; /* สีของขอบเมื่อมีการโฟกัส */
+  }
+  
+  .submit {
+    width: 100%; /* ใช้ความกว้างเต็มของ input-box */
+    height: 45px;
+    background: linear-gradient(40deg, #787FF6, #7BD5F5);
+    border: none;
+    border-radius: 30px;
+    transition: 0.4s;
+    color: #fff;
+  }
+  
+  .submit:hover {
+    background: rgba(37, 95, 156, 0.1);
+    color: #fff;
+  }
+  
+  .signin {
+    text-align: center;
+    font-size: small;
+    margin-top: 25px;
+    
+  }
+  
+  span a {
+    text-decoration: none;
+    font-weight: 700;
+    color: #743ae1;
+    transition: 0.5s;
+  }
+  
+  span a:hover {
+    text-decoration: underline;
+    color: #000;
+  }
+  
+  @media only screen and (max-width: 768px) {
+    .side-image {
+      border-radius: 10px 10px 0 0;
+    }
+    img {
+      width: 35px;
+      position: absolute;
+      left: 47%;
+    }
+    .text {
+      position: absolute;
+      top: 70%;
+      text-align: center;
+    }
+  
+    .text p,
+    .text i {
+      font-size: 17px;
+    }
+  
+    .row {
+      max-width: 420px;
+      width: 100%;
+    }
+  }
+  /* Add this to your existing CSS */
+  
+  /* General container for the eye icon */
+  .input-field {
+    position: relative;
+  }
+  
+  /* Adjust the position of the eye icon */
+  .input-field .fa-eye,
+  .input-field .fa-eye-slash {
+    position: absolute;
+    right: 10px; /* Align it to the right of the input */
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    color: #aaa; /* Default color for the eye icon */
+    transition: color 0.3s ease;
+  }
+  
+  /* Eye icon hover effect */
+  .input-field .fa-eye:hover,
+  .input-field .fa-eye-slash:hover {
+    color: #5d5076; /* Change color on hover */
+  }
+  
+  /* Move eye icon up along with label on focus or valid */
+  .input-field .input:focus ~ i,
+  .input-field .input:valid ~ i {
+    top: -10px;
+    font-size: 13px;
+    color: #5d5076; /* Color change */
+    transform: translateY(0); /* Adjust translation */
+  }
+  
+  /* Handle error message and adjust spacing for eye icon */
+  .input-field .input:focus:invalid ~ i,
+  .input-field .input:invalid ~ i {
+    color: red; /* Change eye icon color to red on validation error */
+  }
+  
+  .error {
+    color: red;
+    font-size: 12px;
+    position: absolute;
+    top: 55px; /* Adjust position so it doesn't overlap the icon */
+  }
+  

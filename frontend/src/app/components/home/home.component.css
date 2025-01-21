@@ -1,0 +1,116 @@
+@import url('https://fonts.googleapis.com/css2?family=Prompt:wght@400;500;700&display=swap');
+*{
+    font-family: 'Prompt', sans-serif;
+    margin: 0;
+    padding: 0;
+}
+.fix-cont{
+    padding-top: 65px;
+    padding-bottom: 15px;
+    height: 100vh;
+    background: linear-gradient(to bottom, #787FF6, #7BD5F5, #fff ); /* ไล่สีจากบนลงล่าง */
+}
+
+/* กำหนดความสูงและพื้นหลังแบบไล่สีของ container */
+.custom-container {
+    height: 20vh; /* ความสูงเต็มหน้าจอ */
+    background: linear-gradient(to right, #787FF6, #7BD5F5); /* ไล่สีจากบนลงล่าง */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  /* ปรับแต่งช่องค้นหา */
+  .search-input {
+    width: 800px; /* กำหนดความกว้างช่องค้นหา */
+    max-width: 100%; /* ทำให้ตอบสนองกับหน้าจอเล็ก */
+    border-radius: 30px; /* มุมโค้ง */
+    padding: 10px;
+  }
+
+  .search-btn {
+    width: 120px; /* ความกว้างปุ่ม */
+    border-radius: 30px; /* มุมโค้ง */
+    padding: 8px 12px;
+    background-color: white; /* สีพื้นหลัง */
+    color: #787FF6; /* สีตัวอักษร */
+    border: 2px solid #787FF6; /* สีและความหนาเส้นขอบ */
+    transition: all 0.3s ease; /* เพิ่มเอฟเฟกต์การเปลี่ยนแปลง */
+  }
+  .search-btn:hover {
+    background-color: #787FF6; /* เปลี่ยนสีพื้นหลังเมื่อ hover */
+    color: white; /* เปลี่ยนสีตัวอักษรเมื่อ hover */
+    border-color: #787FF6; /* เปลี่ยนสีเส้นขอบเมื่อ hover */
+  }
+  .custom-img {
+    width: 250px; /* กำหนดขนาดของรูปภาพ */
+    height: auto; /* รักษาสัดส่วนความสูงตามรูป */
+    margin: 10px; /* ระยะห่างรอบรูปภาพ */
+    border: 2px solid #fff; /* เพิ่มเส้นขอบ */
+    border-radius: 30px; /* มุมโค้ง */
+    box-shadow: 0 4px 6px rgba(0, 0, 0.1, 0.2); /* เพิ่มเงา */
+    padding: 3px;
+  }
+
+  .align-right {
+    float: right; /* จัดชิดขวา */
+    margin-top: 20px;
+  }
+
+  .align-left {
+    float: left; /* จัดชิดซ้าย */
+    margin-top: 20vh;
+  }
+
+  .row {
+    margin: 0; /* เอา padding หรือตัวเว้นวรรคออกเพื่อความสมบูรณ์ */
+  }
+  .custom-btn-1 {
+    background-color: #787FF6; /* สีฟ้า */
+    color: white; /* สีตัวอักษรขาว */
+    border: 2px solid white; /* เส้นขอบสีขาว */
+    border-radius: 20px; /* มุมโค้ง */
+    padding: 10px 20px; /* ขนาดปุ่ม */
+}
+
+.custom-btn-2 {
+    background-color: #fff; /* สีเขียว */
+    color: #787FF6; /* สีตัวอักษรขาว */
+    border: 2px solid #787FF6; /* เส้นขอบสีขาว */
+    border-radius: 20px; /* มุมโค้ง */
+    padding: 10px 20px; /* ขนาดปุ่ม */
+}
+.text-search {
+    font-size: 50px; /* ปรับขนาดตัวอักษร */
+    color: #fff; /* สีฟ้า */
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2); /* เพิ่มเงา */
+    margin-top: 25vh;
+}
+
+.text-tnm {
+    font-size: 60px; /* ปรับขนาดตัวอักษร */
+    color: #ff9100; /* สีส้ม */
+    font-weight: bold; /* ตัวหนา */
+    text-shadow: 3px 3px 8px rgba(0, 0, 0, 0.2); /* เพิ่มเงา */
+    -webkit-text-stroke: 1px white; /* เพิ่มขอบสีขาว */
+    text-stroke: 2px white; /* เพิ่มขอบสีขาว (อาจไม่รองรับในบางเบราว์เซอร์) */
+
+    /* เพิ่มสีไล่สี */
+    background-image: linear-gradient(45deg, #ffee00,#ff9100, #ff5733); /* สีไล่จากส้มไปแดง */
+    -webkit-background-clip: text; /* ให้พื้นหลังคลิปตามตัวอักษร */
+    background-clip: text; /* ให้พื้นหลังคลิปตามตัวอักษร (บางเบราว์เซอร์) */
+    color: transparent; /* ทำให้ข้อความโปร่งใสเพื่อแสดงสีไล่สี */
+
+    margin-top: -20px;
+}
+
+
+.text-web {
+    font-size: 15px; /* ปรับขนาดตัวอักษร */
+    color: #000000;
+    text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.1); /* เพิ่มเงา */
+    margin-top: -10px;
+}
+.twobtn{
+    margin-top: 50px;
+}

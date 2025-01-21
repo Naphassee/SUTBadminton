@@ -1,51 +1,68 @@
-<app-nav></app-nav>
-<div class="container-fluid text-center">
-    
-    <div class="card custom-card">
-        <div class="card-header custom-header">
-            ชำระเงิน
+<nav class="navbar navbar-expand-sm navbar-light bg-light">
+    <!-- Content -->
+    <div class="container-fluid">
+        <!-- Brand -->
+        <a href="#" class="navbar-brand SUTMintontext-gradient">SUTMinton</a>
+        <button class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarToggle">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <!-- Menu -->
+        <div class="collapse navbar-collapse " id="navbarToggle">
+            <ul class="navbar-nav ms-auto custom-nav">
+                <li class="nav-item">
+                    <a href="/home" class="nav-link">หน้าหลัก</a>
+                </li>
+                <li class="nav-item">
+                    <a href="/player-list" class="nav-link">รายชื่อนักกีฬา</a>
+                </li>
+                <li class="nav-item">
+                    <a href="/payment" class="nav-link">การชำระเงิน</a>
+                </li>
+                <li class="nav-item">
+                    <a href="/sandbag" class="nav-link">แจ้งข้อมูลมือหมก</a>
+                </li>
+            </ul>
+            <ul class="nav nav-pills ms-auto">
+                <li class="nav-item ">
+                    <button type="button" class="btn btn-primary custom-rounded custom-bg" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                        โปรไฟล์ของฉัน
+                    </button>
+                </li>
+            </ul>
         </div>
-        <div class="card-body custom-card-body">
-            <div class="container">
-                <table class="table table-bordered table-striped text-center">
-                    <thead class="table">
-                        <tr>
-                            <th>ชื่องาน</th>
-                            <th>จังหวัด</th>
-                            <th>ประเภท</th>
-                            <th>ชื่อนักกีฬา</th>
-                            <th>ค่าธรรมเนียม(บาท)</th>
-                            <th>การจัดการ</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>มทส. เกมส์</td>
-                            <td>นครราชสีมา</td>
-                            <td>ชายเดี่ยว</td>
-                            <td>สมชาย ใจดี</td>
-                            <td>500</td>
-                            <td class="action-buttons">
-                                <button class="btn btn-danger btn-sm">ยกเลิกการสมัคร</button>
-                            </td>
-                        </tr>
-                        <!-- สามารถเพิ่มแถวข้อมูลเพิ่มเติมได้ -->
-                    </tbody>
-                </table>
-            </div>
-        </div>
-        <div class="card-header custom-footer">
-            รวมค่าธรรมเนียมการสมัคร
-            <span>500 </span>
-            บาท
-            <div class="payment-buttons">
-                <button class="btn btn-payment btn-sm" data-bs-toggle="modal" data-bs-target="#payment">ชำระเงินที่นี่</button>
-            </div>
-        </div>
-</div>
+    </div>
+</nav>
 
-<!-- Modal payment -->
-<div class="modal fade" id="payment" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+<!-- Modal profile -->
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+            <h1 class="modal-title fs-5" id="staticBackdropLabel">โปรไฟล์ของฉัน</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <div class="myprofilephototwo ">
+                <img src="myprofile.png" alt="Image" width="110" height="100">
+            </div>
+            <div class="text-left">
+                <h5>ชื่อบัญชี</h5>
+                <h5>ชื่อ-นามสกุล</h5>
+                <h5>อีเมล</h5>
+                <h5>เบอร์โทร</h5>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-primary custom-rounded custom-bg " data-bs-toggle="modal" data-bs-target="#editprofile">
+            แก้ไขโปรไฟล์ของฉัน
+            </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<!-- Modal edit -->
+<div class="modal fade" id="editprofile" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-scrollable">
       <div class="modal-content">
         <div class="modal-header">
@@ -98,3 +115,5 @@
       </div>
     </div>
   </div>
+
+

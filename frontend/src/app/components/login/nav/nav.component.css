@@ -3,14 +3,14 @@
     border-radius: 20px; /* กำหนดค่าความโค้งที่ต้องการ */
 }
 .custom-bg {
-    background-color: #787FF6; /* เปลี่ยนสีพื้นหลัง */
-    color: white; /* เปลี่ยนสีตัวอักษร */
+    background-color: #ffffff; /* เปลี่ยนสีพื้นหลัง */
+    color: #787FF6; /* เปลี่ยนสีตัวอักษร */
 }
 .custom-bg:hover {
-    background-color: #5756BB; /* สีพื้นหลังเมื่อ hover */
+    background-color: #ffffff; /* สีพื้นหลังเมื่อ hover */
 }
 .SUTMintontext-gradient {
-    background: linear-gradient(40deg, #787FF6, #7BD5F5); /* ไล่ระดับสีจากส้มไปฟ้า */
+    background: white; /* ไล่ระดับสีจากส้มไปฟ้า */
     -webkit-background-clip: text; /* ใช้สีพื้นหลังกับตัวอักษร */
     -webkit-text-fill-color: transparent; /* ทำให้พื้นหลังโปร่งใส */
     font-weight: bold;
@@ -26,6 +26,7 @@
 }
 .navbar {
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* กำหนดเงา */
+    background: linear-gradient(40deg, #787FF6, #7BD5F5);
 }
 .modal-content {
     border-radius: 30px; /* ปรับความโค้งตามที่คุณต้องการ */
