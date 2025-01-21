@@ -1,1 +1,126 @@
-<p>create-tournament works!</p>
+<content class="container-fluid md">
+    <h2 class="ms-5 mb-3">สร้างทัวร์นาเมนต์ใหม่</h2>
+    <form [formGroup]="tournamentForm" (ngSubmit)="onSubmit()" class="bg-white rounded-4 m-3 p-2">
+        <fieldset class="m-2">
+            <h3 class="mx-5 m-3 pb-1 text-center border-bottom">ข้อมูลและช่องทางการติดต่อของผู้จัดงาน</h3>
+            <div class="row m-3">
+                <div class="col">
+                    <label for="userName" class="form-label">ผู้จัดงาน (ชื่อผู้ใช้)</label>
+                    <input type="text" class="form-control" id="userName" name="userName" formControlName="userName">
+                </div>
+                <div class="col">
+                    <label for="firstName" class="form-label">ชื่อ</label>
+                    <input type="text" class="form-control" id="firstName " name="firstName" formControlName="firstName">
+                </div>
+                <div class="col">
+                    <label for="lastName" class="form-label">นามสกุล</label>
+                    <input type="text" class="form-control" id="lastName" name="lastName" formControlName="lastName">
+                </div>
+            </div>
+            <div class="row m-3">
+                <div class="col">
+                    <label for="phoneNumber" class="form-label">เบอร์ติดต่อ</label>
+                    <input type="tel" class="form-control" id="phoneNumber" name="phoneNumber" formControlName="phoneNumber"/>
+                </div>
+                <div class="col">
+                    <label for="email" class="form-label">อีเมล</label>
+                    <input type="email" class="form-control" id="email" name="email" formControlName="email">
+                </div>
+            </div>
+        </fieldset>
+        <fieldset class="m-2">
+            <h3 class="mx-5 m-3 pb-1 text-center border-bottom">พาดหัวการแข่งขันและภาพโปรโมต</h3>
+            <div class="row m-3">
+                <div class="col form-label">ภาพโปรโมตทัวร์นาเมนต์</div>
+                <label for="promoteImage" class="form-label dropzone">
+                    <input type="file" accept="image/*" id="promoteImage" (change)="onFileSelected($event)" formControlName="promoteImage">
+                    <img [src]="imageSrc" *ngIf="imageSrc" class="preview-img">
+                </label>
+            </div>                               
+            <div class="row m-3">
+                <div class="col">
+                    <label for="tourName" class="form-label">ชื่อทัวร์นาเมนต์</label>
+                    <input type="text" class="form-control" id="tourName" formControlName="tourName"/>
+                </div>
+            </div>
+            <div class="row m-3">
+                <div class="col">
+                    <label for="tourTagline" class="form-label">พาดหัวการแข่งขัน</label>
+                    <textarea class="form-control" aria-label="With textarea" id="tourTagline" formControlName="tourTagline"></textarea>
+                </div>
+            </div>
+        </fieldset>
+        <fieldset class="m-2">
+            <h3 class="mx-5 m-3 pb-1 text-center border-bottom">วันที่และสถานที่การจัดทัวร์นาเมนต์</h3>
+            <div class="row m-3">
+                <div class="col">
+                    <label for="deadlineOfRegister" class="form-label">วันปิดรับสมัครผู้เข้าร่วมทัวร์นาเมนต์</label>
+                    <input type="date" class="form-control" id="deadlineOfRegister" formControlName="deadlineOfRegister">
+                </div>
+                <div class="col">
+                    <label for="startTour" class="form-label">วันเริ่มการแข่งขันทัวร์นาเมนต์</label>
+                    <input type="date" class="form-control" id="startTour" formControlName="startTour">
+                </div>
+                <div class="col">
+                    <label for="endTour" class="form-label">ถึง</label>
+                    <input type="date" class="form-control" id="endTour" formControlName="endTour">
+                </div>
+            </div>
+            <div class="row m-3">
+                <div class="col">
+                    <label for="location" class="form-label">สถานที่จัดทัวร์นาเมนต์</label>
+                    <select class="form-select" id="location" formControlName="location">
+                        <option selected>Open this select menu</option>
+                        <option value="1">One</option>
+                        <option value="2">Two</option>
+                        <option value="3">Three</option>
+                    </select>
+                </div>
+            </div>
+        </fieldset>
+        <fieldset formArrayName="types" class="m-2">
+            <h3 class="mx-5 m-3 pb-1 text-center border-bottom">กฎและประเภทการแข่งขัน</h3>
+            <div class="row m-3">
+                <div class="col d-flex justify-content-end">
+                    <button type="button" (click)="addType()" class="btn btn-success"><i class="bi bi-plus-circle"></i> เพิ่มประเภทการแข่งขัน</button>
+                </div>
+            </div>
+            @for (type of types().controls; track type; let i = $index) {
+                <div [formGroupName]="i" class="row m-3">
+                    <div class="col-11">
+                        <div class="row">
+                            <div class="col">
+                                <label for="typename" class="form-label">ชื่อประเภท</label>
+                                <input type="text" class="form-control" id="typename" formControlName="typename" >
+                            </div>
+                            <div class="col">
+                                <label for="participants" class="form-label">จำนวนที่เปิดรับ</label>
+                                <input type="number" class="form-control" id="participants" formControlName="participants">
+                            </div>
+                            <div class="col">
+                                <label for="registFee" class="form-label">ค่าสมัคร</label>
+                                <input type="number" class="form-control" id="registFee" formControlName="registFee">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <label for="rule" class="form-label">กฎกติกาการแข่งขัน</label>
+                                <textarea class="form-control" aria-label="With textarea" id="rule" formControlName="rule"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-1 d-flex justify-content-end">
+                        <button type="button" (click)="removeType(i)" class="btn btn-danger h-100"><i class="bi bi-trash3-fill"></i> ลบ</button>
+                    </div>
+                </div>
+            }
+        </fieldset>
+        <fieldset class="m-2 mt-5 py-5">
+            <div class="row m-3">
+                <div class="col d-flex justify-content-end">
+                    <button class="btn btn-success"><i class="bi bi-floppy-fill"></i> บันทึกการสร้างทัวร์นาเมนต์</button>
+                </div>
+            </div>
+        </fieldset>
+    </form>
+</content>

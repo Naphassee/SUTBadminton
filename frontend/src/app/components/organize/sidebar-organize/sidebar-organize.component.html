@@ -1,1 +1,27 @@
-<p>sidebar-organize works!</p>
+<aside class="sidenav" [ngClass]="isLeftSidebarCollapsed() ? 'sidenav-collapsed' : ''" >
+  <div class="logo-container">
+    <button class="logo" (click)="toggleCollapse()">
+      <i class="bi bi-list"></i>
+    </button>
+    @if (!isLeftSidebarCollapsed()) {
+    <div class="logo-text">SUTMinton</div>
+    }
+  </div>
+  <div class="sidenav-nav">
+    @for (item of items; track $index) {
+      <li class="sidenav-nav-item">
+        <a 
+          class="sidenav-nav-link"
+          [routerLink]="item.routeLink"
+          routerLinkActive="active"
+          [routerLinkActiveOptions]="{ exact: true }"
+        >
+          <i class="sidenav-link-icon" [class]="item.icon"></i>
+          @if (!isLeftSidebarCollapsed()) {
+          <span class="sidenav-link-text">{{ item.label }}</span>
+          }
+        </a>
+      </li>
+    }
+  </div>
+</aside>
