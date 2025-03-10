@@ -1,0 +1,33 @@
+.dropzone {
+    position: relative;
+    border: 1px solid #ccc;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    overflow: hidden;
+    background-size: cover; /* ปรับให้ภาพพื้นหลังเต็มพื้นที่ */
+    background-position: center; /* จัดศูนย์กลางภาพพื้นหลัง */
+}
+
+.preview-img {
+    position: absolute;
+    width: 100%; /* ให้รูปภาพเต็มช่อง */
+    height: 100%; /* ให้รูปภาพเต็มช่อง */
+    object-fit: cover; /* ให้รูปภาพปรับขนาดพอดีกับช่องโดยไม่เสียสัดส่วน */
+}
+
+input[type="file"] {
+    opacity: 0; /* ทำให้ input โปร่งใส */
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    cursor: pointer; /* ทำให้เมื่อเอาเมาส์ไปวางแสดงเคอร์เซอร์แบบ pointer */
+}
+
+.left-side{
+    background-color: #E5E5E5;
+}
+.right-side{
+    background-color: #fff;
+}

@@ -10,11 +10,11 @@ import { SandbagComponent } from './components/manager/sandbag/sandbag.component
 import { CreateTournamentComponent } from './components/organize/create-tournament/create-tournament.component';
 import { MyProfileComponent } from './components/organize/my-profile/my-profile.component';
 import { MyTournamentComponent } from './components/organize/my-tournament/my-tournament.component';
-import { SidebarOrganizeComponent } from './components/organize/sidebar-organize/sidebar-organize.component';
 import { TournamentReviewComponent } from './components/organize/tournament-review/tournament-review.component';
 import { MembershipComponent } from './components/organize/membership/membership.component';
 import { LocationAddComponent } from './components/organize/location-add/location-add.component';
 import { OrganizeComponent } from './components/organize/organize.component';
+import { UserListComponent } from './components/admin/user-list/user-list.component';
 
 
 
@@ -67,5 +67,9 @@ export const routes: Routes = [
             { path: "membership", component: MembershipComponent },
             { path: "location-add", component: LocationAddComponent },
         ]
+    },
+    {
+        path: "user-list",
+        component: UserListComponent,
     },
 ];

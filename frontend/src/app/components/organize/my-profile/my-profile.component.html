@@ -1,1 +1,98 @@
-<p>my-profile works!</p>
+<content class="container-fluid md">
+  <div class="row mx-5 mb-3">
+    <div class="col">
+      <h2>โปรไฟล์ของฉัน</h2>
+    </div>
+    <div class="col d-flex justify-content-end">
+      <button type="button" class="btn btn-success"><i class="bi bi-pencil-square"></i> แก้ไขโปรไฟล์</button>
+    </div>
+  </div>
+  <form class="bg-white rounded-4 m-3 p-0">
+    <div class="row m-0">
+      <fieldset class="col rounded-start-4 px-3 py-5 right-side">
+        <div class="mb-5">
+          <label for="promoteImage" class="form-label dropzone rounded-circle mx-auto"
+            style="background-image: url(https://i.pinimg.com/736x/bb/f9/5f/bbf95fbf868b36f4be65c55d07634962.jpg); height: 175px; width: 175px;">
+            <input type="file" accept="image/*" id="promoteImage" (change)="onFileSelected($event)"
+              formControlName="promoteImage">
+            <img [src]="imageSrc" *ngIf="imageSrc" class="preview-img">
+          </label>
+        </div>
+        <div class="row m-3">
+          <div class="col">
+            <label for="firstName" class="form-label">ชื่อ</label>
+            <input type="text" class="form-control" id="firstName " name="firstName" formControlName="firstName">
+          </div>
+          <div class="col">
+            <label for="lastName" class="form-label">นามสกุล</label>
+            <input type="text" class="form-control" id="lastName" name="lastName" formControlName="lastName">
+          </div>
+        </div>
+        <div class="row m-3">
+          <div class="col">
+            <label for="userName" class="form-label">ชื่อบัญชีผู้ใช้งาน</label>
+            <input type="tel" class="form-control" id="userName" name="userName" formControlName="userName" />
+          </div>
+        </div>
+        <div class="row m-3">
+          <div class="col">
+            <label for="password" class="form-label">รหัสผ่าน</label>
+            <input type="password" class="form-control" id="password" name="password" formControlName="password" />
+          </div>
+        </div>
+        <div class="row m-3">
+          <div class="col">
+            <label for="phoneNumber" class="form-label">เบอร์ติดต่อ</label>
+            <input type="tel" class="form-control" id="phoneNumber" name="phoneNumber" formControlName="phoneNumber" />
+          </div>
+          <div class="col">
+            <label for="email" class="form-label">อีเมล</label>
+            <input type="email" class="form-control" id="email" name="email" formControlName="email">
+          </div>
+        </div>
+        <div class="row m-3" style="padding: 12px;">
+          <div class="px-0 mb-2">คิวอาร์โค้ดรับเงินของฉัน</div>
+          <label for="promoteImage" class="form-label dropzone rounded"
+            style="background-image: url(https://i.pinimg.com/736x/bb/f9/5f/bbf95fbf868b36f4be65c55d07634962.jpg); width: 240px; height: 320px;">
+            <input type="file" accept="image/*" id="promoteImage" (change)="onFileSelected($event)"
+              formControlName="promoteImage">
+            <img [src]="imageSrc" *ngIf="imageSrc" class="preview-img">
+          </label>
+        </div>
+      </fieldset>
+      <fieldset class="col rounded-end-4 px-3 py-5 left-side">
+        <h3 class="mx-5 mb-3">ลิสต์สถานที่จัดทัวร์นาเมนต์</h3>
+        <hr>
+        <button type="button" class="btn btn-success" (click)="openModal()">เพิ่มที่อยู่สถานแข่งขัน</button>
+        <app-location-add [isOpen]="isModalOpen" [title]="'กรอกที่อยู่ของสถานแข่งขัน'" (closeModal)="closeModal()"></app-location-add>
+
+        <table class="table table-striped mt-3">
+          <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">ชื่อสถานที่</th>
+              <th scope="col">ที่ตั้ง</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th scope="row">1</th>
+              <td>สนามกลาง</td>
+              <td>...</td>
+            </tr>
+            <tr>
+              <th scope="row">2</th>
+              <td>สนามบน</td>
+              <td>...</td>
+            </tr>
+            <tr>
+              <th scope="row">3</th>
+              <td>สนามล่าง</td>
+              <td>...</td>
+            </tr>
+          </tbody>
+        </table>
+      </fieldset>
+    </div>
+  </form>
+</content>
