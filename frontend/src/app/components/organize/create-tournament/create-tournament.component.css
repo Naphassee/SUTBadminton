@@ -1,31 +1,30 @@
 .dropzone {
-    position: relative; /* ทำให้สามารถใช้ position absolute กับลูกๆ ได้ */
-    width: 100%; /* ขยายกว้างทั้งคอนเทนเนอร์ */
-    height: 300px; /* หรือความสูงที่คุณต้องการ */
+    position: relative;
+    width: 100%;
+    height: 300px;
     border: 2px dashed #ccc;
     display: flex;
     justify-content: center;
     align-items: center;
-    text-align: center;
     overflow: hidden;
-    background-size: cover; /* ปรับให้ภาพพื้นหลังเต็มพื้นที่ */
-    background-position: center; /* จัดศูนย์กลางภาพพื้นหลัง */
-}
-
-.preview-img {
-    position: absolute;
-    width: 100%; /* ให้รูปภาพเต็มช่อง */
-    height: 100%; /* ให้รูปภาพเต็มช่อง */
-    object-fit: cover; /* ให้รูปภาพปรับขนาดพอดีกับช่องโดยไม่เสียสัดส่วน */
-}
-
-input[type="file"] {
-    opacity: 0; /* ทำให้ input โปร่งใส */
+    background-size: cover;
+    background-position: center;
+  }
+  
+  .preview-img {
     position: absolute;
     width: 100%;
     height: 100%;
-    cursor: pointer; /* ทำให้เมื่อเอาเมาส์ไปวางแสดงเคอร์เซอร์แบบ pointer */
-}
+    object-fit: cover;
+  }
+  
+  input[type="file"] {
+    opacity: 0;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
+  }
 
 h2{
     font-size: 35px;

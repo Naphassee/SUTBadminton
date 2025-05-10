@@ -33,7 +33,7 @@
             <div class="row m-3">
                 <div class="col form-label">ภาพโปรโมตทัวร์นาเมนต์</div>
                 <label for="promoteImage" class="form-label dropzone">
-                    <input type="file" accept="image/*" id="promoteImage" (change)="onFileSelected($event)" formControlName="promoteImage">
+                    <input type="file" accept="image/*" id="promoteImage" (change)="onFileSelected($event)">
                     <img [src]="imageSrc" *ngIf="imageSrc" class="preview-img">
                 </label>
             </div>                               
@@ -85,8 +85,7 @@
                     <button type="button" (click)="addType()" class="btn btn-success"><i class="bi bi-plus-circle"></i> เพิ่มประเภทการแข่งขัน</button>
                 </div>
             </div>
-            @for (type of types().controls; track type; let i = $index) {
-                <div [formGroupName]="i" class="row m-3">
+                <div *ngFor="let type of types.controls; let i = index" [formGroupName]="i" class="row m-3">
                     <div class="col-11">
                         <div class="row">
                             <div class="col">
@@ -113,7 +112,6 @@
                         <button type="button" (click)="removeType(i)" class="btn btn-danger h-100"><i class="bi bi-trash3-fill"></i> ลบ</button>
                     </div>
                 </div>
-            }
         </fieldset>
         <fieldset class="m-2 mt-5 py-5">
             <div class="row m-3">

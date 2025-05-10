@@ -1,1 +1,43 @@
-<p>my-tournament works!</p>
+<ng-container *ngIf="tournaments.length; else noData">
+  <div *ngFor="let t of tournaments" class="card tournament-card mb-3">
+    <div class="row g-0 align-items-center">
+      <!-- Banner รูป -->
+      <div class="col-auto">
+        <img 
+          [src]="getBannerUrl(t.promoteImage)" 
+          alt="banner" 
+          class="img-fluid banner-img">
+      </div>
+
+      <!-- ข้อมูลหลัก -->
+      <div class="col ms-4">
+        <h4 class="mb-4">{{ t.tourName }}</h4>
+        <small class="text-muted d-block my-2">
+          <i class="bi-clock me-1"></i>
+          {{ t.startTour | date:'dd/MM/yyyy HH:mm' }}
+          –
+          {{ t.endTour   | date:'dd/MM/yyyy HH:mm' }}
+        </small>
+        <small class="text-muted d-block my-2">
+          <i class="bi-geo-alt me-1"></i>
+          Location: 
+          {{ t.location }}
+        </small>
+      </div>
+
+      <!-- ปุ่ม รายละเอียดเพิ่มเติม -->
+      <div class="col" align="center">
+        <button class="btn btn-primary mx-2">
+          ดูรายละเอียด
+        </button>
+        <button class="btn btn-success mx-2">
+          แก้ไขรายละเอียด
+        </button>
+      </div>
+    </div>
+  </div>
+</ng-container>
+
+<ng-template #noData>
+  <p class="text-center text-muted">ยังไม่มีทัวร์นาเมนต์</p>
+</ng-template>
