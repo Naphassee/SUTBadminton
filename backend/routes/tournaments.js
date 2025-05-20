@@ -18,18 +18,18 @@ router.post('/',
   upload.single('promoteImage'),    // อ่านไฟล์จาก FormData field ชื่อ promoteImage
   [
     // validation ให้ตรงกับชื่อฟิลด์ที่ส่งมา
-    check('userName',    'กรุณาระบุ userName').notEmpty(),
-    check('firstName',   'กรุณาระบุ firstName').notEmpty(),
-    check('lastName',    'กรุณาระบุ lastName').notEmpty(),
-    check('phoneNumber', 'กรุณาระบุ phoneNumber').notEmpty(),
-    check('email',       'กรุณาระบุ email').isEmail(),
-    check('tourName',    'กรุณาระบุชื่อทัวร์นาเมนต์').notEmpty(),
-    check('tourTagline', 'กรุณาระบุกล่าวนำทัวร์นาเมนต์').notEmpty(),
-    check('deadlineOfRegister', 'กรุณาระบุวันปิดรับสมัคร').isISO8601(),
-    check('startTour',   'กรุณาระบุวันเริ่มทัวร์นาเมนต์').isISO8601(),
-    check('endTour',     'กรุณาระบุวันสิ้นสุดทัวร์นาเมนต์').isISO8601(),
-    check('location',    'กรุณาระบุสถานที่แข่งขัน').notEmpty(),
-    check('types',       'กรุณาเพิ่มประเภทการแข่งขันอย่างน้อย 1 ประเภท')
+    check('userName').notEmpty().withMessage('กรุณาระบุ userName'),
+    check('firstName',          'กรุณาระบุ firstName').notEmpty(),
+    check('lastName',           'กรุณาระบุ lastName').notEmpty(),
+    check('phoneNumber',        'กรุณาระบุ phoneNumber').notEmpty(),
+    check('email',              'กรุณาระบุ email').isEmail(),
+    check('tourName').notEmpty().withMessage('กรุณาระบุชื่อทัวร์นาเมนต์'),
+    check('tourTagline').notEmpty().withMessage('กรุณาระบุกล่าวนำทัวร์นาเมนต์'),
+    check('deadlineOfRegister').isISO8601().withMessage('กรุณาระบุวันปิดรับสมัคร'),
+    check('startTour').isISO8601().withMessage('กรุณาระบุวันเริ่มทัวร์นาเมนต์'),
+    check('endTour').isISO8601().withMessage('กรุณาระบุวันสิ้นสุดทัวร์นาเมนต์'),
+    check('location').notEmpty().withMessage('กรุณาระบุสถานที่แข่งขัน'),
+    check('types', 'กรุณาเพิ่มประเภทการแข่งขันอย่างน้อย 1 ประเภท')
       .custom(v => {
         try {
           const arr = JSON.parse(v);
@@ -66,9 +66,12 @@ router.post('/',
       userName, firstName, lastName,
       phoneNumber, email,
       promoteImage,
-      tourName, tourTagline,
-      deadlineOfRegister, startTour,
-      endTour, location,
+      tourName,
+      tourTagline,
+      deadlineOfRegister,
+      startTour,
+      endTour,
+      location,
       types: typesArray
     });
 

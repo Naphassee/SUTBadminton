@@ -13,12 +13,12 @@ router.get('/', async (req, res) => {
 router.post('/',
   [
     // validation
-    check('locationName',           'กรุณาระบุชื่อสถานที่จัดแข่ง').notEmpty(),
-    check('province',               'กรุณาระบุจังหวัด').notEmpty(),
-    check('district',               'กรุณาระบุอำเภอ').notEmpty(),
-    check('subDistrict',            'กรุณาระบุตำบล').notEmpty(),
-    check('postalCode',             'กรุณาระบุรหัสไปรษณีย์').notEmpty(),
-    check('detailLocation',         'กรุณาระบุรายละเอียดสถานที่จัดแข่ง').notEmpty()
+    check('locationName').notEmpty().withMessage('กรุณาระบุชื่อสถานที่จัดแข่ง'),
+    check('province').notEmpty().withMessage('กรุณาระบุจังหวัด'),
+    check('district').notEmpty().withMessage('กรุณาระบุอำเภอ'),
+    check('subDistrict').notEmpty().withMessage('กรุณาระบุตำบล'),
+    check('postalCode').notEmpty().withMessage('กรุณาระบุรหัสไปรษณีย์'),
+    check('detailLocation').notEmpty().withMessage('กรุณาระบุรายละเอียดสถานที่จัดแข่ง')
   ],
   async (req, res) => {
     const errors = validationResult(req);

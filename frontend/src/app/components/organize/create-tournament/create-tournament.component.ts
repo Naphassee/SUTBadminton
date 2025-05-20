@@ -82,6 +82,7 @@ export class CreateTournamentComponent implements OnInit {
     const data = new FormData();
     const val = this.tournamentForm.value;
     data.append('promoteImage', val.promoteImage);
+    
     // append ฟิลด์อื่น ๆ
     ['userName','firstName','lastName','phoneNumber','email',
      'tourName','tourTagline','deadlineOfRegister',

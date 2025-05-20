@@ -1,0 +1,47 @@
+.container{
+  background-image: url('/bg-real.png');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center center;
+}
+.box-area{
+  width: 1280px;
+  height: 85vh;
+}
+.right-box{
+  background-color:#73b38f;
+  font-family: 'Dancing Script', sans-serif;
+}
+.left-box{
+  background-color: #FCF8E8;
+}
+.mid-box{
+  background-color: #FCF8E8;
+}
+
+.dropzone {
+    position: relative;
+    border: 1px solid #ccc;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    overflow: hidden;
+    background-size: cover;
+    background-position: center;
+  }
+  
+  .preview-img {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  
+  input[type="file"] {
+    opacity: 0;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
+  }

@@ -7,6 +7,8 @@ import { PaymentComponent } from './components/manager/payment/payment.component
 import { PlayerAddComponent } from './components/manager/player-add/player-add.component';
 import { PlayerListComponent } from './components/manager/player-list/player-list.component';
 import { SandbagComponent } from './components/manager/sandbag/sandbag.component';
+
+// Organizer
 import { CreateTournamentComponent } from './components/organize/create-tournament/create-tournament.component';
 import { MyProfileComponent } from './components/organize/my-profile/my-profile.component';
 import { MyTournamentComponent } from './components/organize/my-tournament/my-tournament.component';
@@ -14,6 +16,10 @@ import { TournamentReviewComponent } from './components/organize/tournament-revi
 import { MembershipComponent } from './components/organize/membership/membership.component';
 import { LocationAddComponent } from './components/organize/location-add/location-add.component';
 import { OrganizeComponent } from './components/organize/organize.component';
+import { LoginOrganizerComponent } from './components/organize/login-organizer/login-organizer.component';
+import { RegisterOrganizerComponent } from './components/organize/register-organizer/register-organizer.component';
+
+// Admin
 import { UserListComponent } from './components/admin/user-list/user-list.component';
 
 
@@ -55,6 +61,8 @@ export const routes: Routes = [
         path : "sandbag",
         component:SandbagComponent,
     },
+
+    // Organizer
     {
         path: "organize",
         component: OrganizeComponent,
@@ -65,9 +73,19 @@ export const routes: Routes = [
             { path: "my-profile", component: MyProfileComponent },
             { path: "tournament-review", component: TournamentReviewComponent },
             { path: "membership", component: MembershipComponent },
-            { path: "location-add", component: LocationAddComponent },
+            { path: "location-add", component: LocationAddComponent }
         ]
     },
+    { 
+        path: "register-organizer",
+        component: RegisterOrganizerComponent
+    },
+    { 
+        path: "login-organizer",
+        component: LoginOrganizerComponent
+    },
+
+    // Admin
     {
         path: "user-list",
         component: UserListComponent,

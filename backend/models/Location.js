@@ -8,7 +8,14 @@ const LocationSchema = new mongoose.Schema({
     district:       { type: String, required: true },
     subDistrict:    { type: String, required: true },
     postalCode:     { type: String, required: true },
-    detailLocation: { type: String, required: true },
+    detailLocation: { type: String },
+
+    // เชื่อมกับ Organizer (1 Organizer มีหลาย Location)
+    organizerId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Organizer',
+        required: true
+    }
 });
 
 module.exports = mongoose.model('Location', LocationSchema);

@@ -19,10 +19,12 @@ app.use(
 );
 
 // routes
-app.use('/api/tournaments', require('./routes/tournaments'));
 // app.use('/api/users', require('./routes/users'));
+app.use('/api/tournaments', require('./routes/tournaments'));
 
 app.use('/api/locations', require('./routes/locations'));
+
+app.use('/api/organizers', require('./routes/organizerAuth'));
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));

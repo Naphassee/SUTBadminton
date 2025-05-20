@@ -1,0 +1,17 @@
+.container{
+  background-image: url('/bg-real.png');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center center;
+}
+.box-area{
+  width: 1080px;
+  height: 70vh;
+}
+.left-box{
+  background-color:#73b38f;
+  font-family: 'Dancing Script', sans-serif;
+}
+.right-box{
+  background-color: #FCF8E8;
+}

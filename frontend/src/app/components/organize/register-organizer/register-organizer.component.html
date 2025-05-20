@@ -1,0 +1,88 @@
+<div class="container d-flex justify-content-center align-items-center min-vh-100 min-vw-100">
+  <div class="row border rounded-5 p-3 bg-white shadow box-area">
+    <form [formGroup]="registerForm" (ngSubmit)="onSubmit()"
+    class="col-md-10 rounded-start-5 d-flex justify-content-top align-items-center flex-column pt-2 left-box">
+      <h3>ลงทะเบียน</h3>
+      <div class="row rounded-5 p-1 m-2 bg-white">
+        <div class="col-md-6 border-end">
+          <div class="row m-3">
+            <label for="profileImage" class="dropzone rounded-circle"
+                [style.background-image]="imageSrc ? 'url(' + imageSrc + ')' : 'none'"
+                style="width: 160px; height: 160px;"
+            >
+                <input type="file"
+                    accept="image/*"
+                    id="profileImage"
+                    (change)="onFileSelected($event, 'profileImage')"
+                >
+                <img *ngIf="imageSrc" [src]="imageSrc" class="preview-img">
+                <ng-container *ngIf="!imageSrc">คลิกเพื่ออัปโหลดรูปโปรไฟล์</ng-container>
+            </label>
+            </div> 
+          <div class="row m-3">
+            <div class="col">
+              <label for="userName" class="form-label">ชื่อบัญชีผู้ใช้</label>
+              <input type="text" class="form-control" id="userName" name="userName" formControlName="userName">
+            </div>
+          </div>
+          <div class="row m-3">
+            <div class="col">
+              <label for="password" class="form-label">รหัสผ่าน</label>
+              <input type="password" class="form-control" id="password" name="password" formControlName="password">
+            </div>
+          </div>
+          <div class="row m-3">
+            <div class="col">
+              <label for="firstName" class="form-label">ชื่อ</label>
+              <input type="text" class="form-control" id="firstName " name="firstName" formControlName="firstName">
+            </div>
+            <div class="col">
+              <label for="lastName" class="form-label">นามสกุล</label>
+              <input type="text" class="form-control" id="lastName" name="lastName" formControlName="lastName">
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="row m-3">
+            <div class="col">
+              <label for="email" class="form-label">อีเมล</label>
+              <input type="email" class="form-control" id="email" name="email" formControlName="email">
+            </div>
+            <div class="col">
+              <label for="phoneNumber" class="form-label">เบอร์ติดต่อ</label>
+              <input type="text" class="form-control" id="phoneNumber " name="phoneNumber"
+                formControlName="phoneNumber">
+            </div>
+          </div>
+          <div class="row m-3" style="padding: 12px;">
+            <div class="px-0 mb-2">คิวอาร์โค้ดรับเงินของฉัน</div>
+            <label for="qrCode" class="dropzone rounded"
+                [style.background-image]="qrImageSrc ? 'url(' + qrImageSrc + ')' : 'none'"
+                style="width: 160px; height: 240px;"
+            >
+                <input type="file"
+                    accept="image/*"
+                    id="qrCode"
+                    (change)="onFileSelected($event, 'qrCode')"
+                >
+              <ng-container *ngIf="!qrImageSrc">คลิกอัปโหลด QR</ng-container>
+            </label>
+          </div>
+          <div class="row m-3">
+            <div class="col d-flex justify-content-end">
+              <button class="btn btn-success btn-lg">บันทึกข้อมูล</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+    <div class="col-md-2 rounded-end-5 d-flex justify-content-top align-items-center flex-column pt-5 right-box">
+      <h2 class="text-white m-2" style="font-weight: 800;">ยินดีต้อนรับสู่ SUTMinton</h2>
+      <p class="text-white text-center m-2">เว็บไซต์ที่จะช่วยคุณจัดงานสุดยอดการแข่งขันแบดมินตันที่ดีที่สุด</p>
+      <a href="/">
+        <img src="/icon1.png" alt="icon" style="height: 180px; width: 180px;">
+      </a>
+      <!-- [routerLink]="['/login-organizer']" -->
+      <button type="button" class="btn btn-outline-secondary btn-lg mt-3" [routerLink]="['/login-organizer']">เข้าสู่ระบบ</button>
+    </div>
+  </div>
