@@ -1,6 +1,7 @@
 // src/app/services/organizer.service.ts
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { Router }     from '@angular/router';
 import { Observable } from 'rxjs';
 import { AppConfig } from '../app.config';
 
@@ -24,7 +25,10 @@ export interface Organizer {
 @Injectable({ providedIn: 'root' })
 export class OrganizerService {
     private baseUrl = `${AppConfig.apiUrl}/organizers`;
-    constructor(private http: HttpClient) { }
+    constructor(
+        private http: HttpClient,
+        private router: Router
+    ) {}
 
     register(data: FormData): Observable<any> {
         return this.http.post<any>(`${this.baseUrl}/register`, data);
@@ -37,4 +41,13 @@ export class OrganizerService {
     getProfile(): Observable<Organizer> {
     return this.http.get<Organizer>(`${this.baseUrl}/me`);
     }
+
+    logout(): void {
+    // ลบ token
+    localStorage.removeItem('token');
+    // (ถ้ามี) ลบข้อมูลอื่นๆ ที่เก็บไว้
+    // localStorage.removeItem('currentUser');
+    // Redirect ไปหน้า แรก
+    this.router.navigate(['']);
+  }
 }

@@ -9,7 +9,14 @@ const app = express();
 connectDB();
 
 // มิดเดิลแวร์
-app.use(cors({ origin: 'http://localhost:4200' }));
+// ปรับ CORS ให้ explicit อนุญาต Authorization header และ Methods ต่างๆ
+app.use(cors({
+  origin: 'http://localhost:4200',
+  methods: ['GET','POST','PUT','DELETE','OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization']
+}));
+
+// จัดการ body JSON
 app.use(express.json());
 
 // ให้เบราเซอร์เข้าถึง http://localhost:5000/uploads/xxx.jpg ได้ตรง ๆ

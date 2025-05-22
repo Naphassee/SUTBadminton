@@ -23,5 +23,12 @@
         </a>
       </li>
     }
+    @if (!isLeftSidebarCollapsed()) {
+      <li class="sidebar-item logout-item" (click)="organizerService.logout()">
+        <a><i class="bi bi-box-arrow-right"></i> Logout</a>
+      </li>
+    }@else{
+      <li class="sidebar-item logout-item" (click)="organizerService.logout()"><a><i class="bi bi-box-arrow-right"></i></a></li>
+    }
   </div>
 </aside>

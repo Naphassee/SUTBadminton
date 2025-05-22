@@ -99,6 +99,29 @@
   color: #000;
 }
 
+.logout-item {
+  margin-top: 1rem;
+}
+.logout-item a {
+  display: flex;
+  align-items: center;
+  height: 3rem;
+  color: #c0392b;
+  text-decoration: none;
+  border-radius: 0.625rem;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  padding: 0 1rem;
+}
+.logout-item:hover a {
+  background-color: #c0392b;
+  color: #000;
+  transform: scale(1.05);
+}
+/* Collapse effect: shrink logout when sidebar collapsed */
+.sidenav-collapsed .logout-item a {
+  transform: scale(0.8);
+}
+
 .active {
   background-color: #fff;
 }

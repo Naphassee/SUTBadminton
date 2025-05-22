@@ -2,7 +2,8 @@ const express = require('express');
 const { check, validationResult } = require('express-validator');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken'); // สร้าง JWT
-const Organizer = require('../models/Organizer');
+const Organizer = require('../models/Organizer'); // โมเดล Mongoose ของ Organizer
+const organizerMiddleware = require('../middlewares/organizerMiddleware');
 
 const multer      = require('multer');
 const upload      = multer({ dest: 'uploads/' });  // ปรับ config ตามต้องการ
@@ -13,6 +14,18 @@ const router = express.Router();
 router.get('/', async (req, res) => {
   const orgs = await Organizer.find();
   res.json(orgs);
+});
+
+// GET /api/auth/me
+router.get('/me', organizerMiddleware, async (req, res) => {
+  try {
+    const org = await Organizer.findById(req.userId).select('-password');
+    if (!org) return res.status(404).json({ msg: 'ไม่พบผู้ใช้นี้' });
+    res.json(org);
+  } catch (err) {
+    console.error(err);
+    res.status(500).send('Server error');
+  }
 });
 
 router.post('/register', // เมื่อมี POST ไปที่ /api/auth/register เอาไปใช้ที่ server.js

@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, input, output } from '@angular/core';
 import { RouterModule } from '@angular/router';
+import { OrganizerService } from '../../../services/organizer.service';
 
 @Component({
   selector: 'app-sidebar-organize',
@@ -10,6 +11,8 @@ import { RouterModule } from '@angular/router';
   styleUrl: './sidebar-organize.component.css'
 })
 export class SidebarOrganizeComponent {
+  constructor(public organizerService: OrganizerService) {}
+  
   isLeftSidebarCollapsed = input.required<boolean>();
   changeIsLeftSidebarCollapsed = output<boolean>();
   items = [
