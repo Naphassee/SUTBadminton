@@ -1,48 +1,43 @@
-import { Component, OnInit, ViewChild } from '@angular/core'; // เพิ่ม ViewChild
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule, NgForm } from '@angular/forms'; // << เพิ่ม FormsModule และ NgForm
+import { FormsModule, NgForm } from '@angular/forms';
 import { NavComponent } from '../nav/nav.component';
 import { PlayerListService } from '../../../services/manager/player-list/player-list.service';
 import { Manager } from '../../../models/manager.model';
-// อาจจะต้อง import Bootstrap Instance สำหรับการควบคุม Modal ด้วย JavaScript
-// import { Modal } from 'bootstrap'; // ถ้าต้องการควบคุม modal ด้วย TS
 
-declare var bootstrap: any;
+declare var bootstrap: any; // สำหรับการควบคุม Bootstrap Modal ด้วย TS
 
 @Component({
   selector: 'app-player-list',
   standalone: true,
-  imports: [CommonModule, FormsModule, NavComponent], // << เพิ่ม FormsModule
+  imports: [CommonModule, FormsModule, NavComponent],
   templateUrl: './player-list.component.html',
   styleUrls: ['./player-list.component.css'],
 })
 export class PlayerListComponent implements OnInit {
-  @ViewChild('playerForm') playerForm!: NgForm; // อ้างอิงฟอร์ม
+  @ViewChild('playerForm') playerForm!: NgForm;
+  @ViewChild('editPlayerForm') editPlayerForm!: NgForm; // สำหรับฟอร์มแก้ไข
 
   amateurManagers: Manager[] = [];
   professionalManagers: Manager[] = [];
   errorMessage: string | null = null;
+  successMessage: string | null = null; // สำหรับแสดงข้อความสำเร็จ
 
-  // newPlayerData สำหรับผูกกับฟอร์มเพิ่มนักกีฬา
   newPlayerData: Manager = {
     firstName: '',
     lastName: '',
-    gender: '', // หรือค่าเริ่มต้นที่ต้องการ
-    age: '', // หรือค่าเริ่มต้นที่ต้องการ
-    role: 'Amateur', // ค่าเริ่มต้น
+    gender: '',
+    age: '',
+    role: 'Amateur',
   };
 
-  // private addPlayerModalInstance: Modal | undefined; // สำหรับควบคุม modal ด้วย TS
+  editingPlayerData: Manager | null = null; // สำหรับเก็บข้อมูลนักกีฬาที่กำลังแก้ไข
+  viewingPlayerData: Manager | null = null; // สำหรับเก็บข้อมูลนักกีฬาที่กำลังดู
 
   constructor(private managerService: PlayerListService) {}
 
   ngOnInit(): void {
     this.loadManagers();
-    // ถ้าต้องการควบคุม modal ด้วย TS
-    // const modalElement = document.getElementById('addPlayerModal');
-    // if (modalElement) {
-    //   this.addPlayerModalInstance = new Modal(modalElement);
-    // }
   }
 
   loadManagers(): void {
@@ -54,40 +49,48 @@ export class PlayerListComponent implements OnInit {
         this.professionalManagers = managers.filter(
           (manager) => manager.role === 'Professional'
         );
-        this.errorMessage = null;
+        // this.errorMessage = null; // ล้าง error message เมื่อโหลดข้อมูลสำเร็จ
       },
       error: (err) => {
-        this.errorMessage =
-          typeof err === 'string'
-            ? err
-            : err.message || 'Failed to load managers.';
-        console.error(err);
+        this.handleError(err, 'Failed to load managers.');
         this.amateurManagers = [];
         this.professionalManagers = [];
       },
     });
   }
 
+  private clearMessages(): void {
+    this.errorMessage = null;
+    this.successMessage = null;
+  }
+
+  private handleError(err: any, defaultMessage: string): void {
+    this.successMessage = null; // ล้าง success message เมื่อเกิด error
+    this.errorMessage =
+      typeof err.message === 'string'
+        ? err.message
+        : err.error?.message || defaultMessage;
+    console.error(err);
+  }
+
   prepareNewPlayerData(role: 'Amateur' | 'Professional'): void {
-    // รีเซ็ตฟอร์มก่อน (ถ้ามีข้อมูลเก่าค้างอยู่)
+    this.clearMessages();
     if (this.playerForm) {
-      this.playerForm.resetForm();
+      this.playerForm.resetForm({ role: role }); // รีเซ็ตฟอร์มและตั้งค่า role เริ่มต้น
     }
-    // ตั้งค่า role เริ่มต้นสำหรับ newPlayerData
     this.newPlayerData = {
+      _id: undefined, // ล้าง ID ถ้ามี
       firstName: '',
       lastName: '',
       gender: '',
       age: '',
-      role: role, // กำหนด role ตามปุ่มที่กด
+      role: role,
     };
-    // ไม่จำเป็นต้องเปิด modal ด้วย TS ถ้า data-bs-toggle/target ทำงานถูกต้อง
-    // this.addPlayerModalInstance?.show();
   }
 
   onSaveNewPlayer(form: NgForm): void {
+    this.clearMessages();
     if (form.invalid) {
-      // ทำเครื่องหมายว่าฟิลด์ถูก touched ทั้งหมดเพื่อแสดง validation errors
       Object.values(form.controls).forEach((control) => {
         control.markAsTouched();
       });
@@ -95,46 +98,108 @@ export class PlayerListComponent implements OnInit {
       return;
     }
 
-    console.log('Saving new player:', this.newPlayerData);
     this.managerService.createManager(this.newPlayerData).subscribe({
       next: (createdManager) => {
-        console.log('Player created successfully:', createdManager);
-        this.loadManagers(); // โหลดข้อมูลใหม่หลังจากการสร้างสำเร็จ
-        this.errorMessage = null;
-        // ปิด modal (ถ้า Bootstrap ไม่ปิดให้เอง หรือถ้าควบคุมด้วย TS)
-        // this.addPlayerModalInstance?.hide();
-        // ใช้ jQuery หรือ DOM manipulation ถ้าจำเป็นต้องปิด modal ที่เปิดด้วย data-bs-toggle
+        this.successMessage = `นักกีฬา "${createdManager.firstName}" ถูกสร้างเรียบร้อยแล้ว`;
+        this.loadManagers();
         const modalElement = document.getElementById('addPlayerModal');
         if (modalElement) {
           const bsModal = bootstrap.Modal.getInstance(modalElement);
           bsModal?.hide();
         }
-        form.resetForm(); // รีเซ็ตฟอร์มหลังจากบันทึกสำเร็จ
+        form.resetForm();
       },
       error: (err) => {
-        this.errorMessage =
-          typeof err === 'string'
-            ? err
-            : err.message || 'Failed to create player.';
-        console.error('Error creating player:', err);
+        this.handleError(err, 'Failed to create player.');
       },
     });
   }
 
-  // TODO: Implement confirmDelete, openInfoModal, openEditModal
-  confirmDelete(managerId: string): void {
-    if (confirm('คุณแน่ใจหรือไม่ว่าต้องการลบนักกีฬานี้?')) {
-      this.managerService.deleteManager(managerId).subscribe({
-        next: () => {
-          console.log('Manager deleted successfully', managerId);
-          this.loadManagers(); // โหลดข้อมูลใหม่
+  openInfoModal(managerId: string): void {
+    this.clearMessages();
+    if (!managerId) return;
+    this.managerService.getManagerById(managerId).subscribe({
+      next: (manager) => {
+        this.viewingPlayerData = manager;
+        const modalElement = document.getElementById('infoPlayerModal');
+        if (modalElement) {
+          const bsModal = new bootstrap.Modal(modalElement);
+          bsModal.show();
+        }
+      },
+      error: (err) => {
+        this.handleError(err, 'Failed to load player details.');
+      },
+    });
+  }
+
+  openEditModal(managerId: string): void {
+    this.clearMessages();
+    if (!managerId) return;
+    this.managerService.getManagerById(managerId).subscribe({
+      next: (manager) => {
+        // สร้าง object ใหม่เพื่อป้องกันการแก้ไขข้อมูลในตารางโดยตรงผ่าน two-way binding ก่อนกด save
+        this.editingPlayerData = { ...manager };
+        const modalElement = document.getElementById('editPlayerModal');
+        if (modalElement) {
+          const bsModal = new bootstrap.Modal(modalElement);
+          bsModal.show();
+        }
+      },
+      error: (err) => {
+        this.handleError(err, 'Failed to load player details for editing.');
+      },
+    });
+  }
+
+  onUpdatePlayer(form: NgForm): void {
+    this.clearMessages();
+    if (!this.editingPlayerData || !this.editingPlayerData._id) {
+      this.errorMessage = 'ไม่มีข้อมูลนักกีฬาสำหรับอัปเดต';
+      return;
+    }
+    if (form.invalid) {
+      Object.values(form.controls).forEach((control) => {
+        control.markAsTouched();
+      });
+      this.errorMessage = 'กรุณากรอกข้อมูลให้ครบถ้วนและถูกต้อง';
+      return;
+    }
+
+    this.managerService
+      .updateManager(this.editingPlayerData._id, this.editingPlayerData)
+      .subscribe({
+        next: (updatedManager) => {
+          this.successMessage = `ข้อมูลนักกีฬา "${updatedManager.firstName}" ถูกอัปเดตเรียบร้อยแล้ว`;
+          this.loadManagers();
+          const modalElement = document.getElementById('editPlayerModal');
+          if (modalElement) {
+            const bsModal = bootstrap.Modal.getInstance(modalElement);
+            bsModal?.hide();
+          }
+          this.editingPlayerData = null; // ล้างข้อมูลที่กำลังแก้ไข
         },
         error: (err) => {
-          this.errorMessage =
-            typeof err === 'string'
-              ? err
-              : err.message || 'Failed to delete manager.';
-          console.error('Error deleting manager:', err);
+          this.handleError(err, 'Failed to update player.');
+        },
+      });
+  }
+
+  confirmDelete(managerId: string | undefined): void {
+    this.clearMessages();
+    if (!managerId) {
+      this.errorMessage = 'ไม่พบ ID นักกีฬาสำหรับลบ';
+      return;
+    }
+    if (confirm('คุณแน่ใจหรือไม่ว่าต้องการลบนักกีฬานี้?')) {
+      this.managerService.deleteManager(managerId).subscribe({
+        next: (response) => {
+          // response จาก deleteManager คือ { message: string; deleted?: Manager }
+          this.successMessage = response.message || 'นักกีฬาถูกลบเรียบร้อยแล้ว';
+          this.loadManagers();
+        },
+        error: (err) => {
+          this.handleError(err, 'Failed to delete manager.');
         },
       });
     }

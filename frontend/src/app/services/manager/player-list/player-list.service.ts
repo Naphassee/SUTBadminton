@@ -23,7 +23,9 @@ export class PlayerListService {
   // GET: ดึงข้อมูล Manager ตาม ID
   getManagerById(id: string): Observable<Manager> {
     return this.http
-      .get<{ message: string; employee: Manager }>(`${this.apiUrl}/${id}`)
+      .get<{ message: string; employee: Manager }>(
+        `${this.apiUrl}/teamBy/${id}`
+      )
       .pipe(
         map((response) => response.employee), // ดึงเฉพาะ object manager ออกมา
         catchError(this.handleError)
@@ -47,7 +49,7 @@ export class PlayerListService {
   updateManager(id: string, manager: Partial<Manager>): Observable<Manager> {
     return this.http
       .put<{ message: string; employee?: Manager; updated?: Manager }>(
-        `${this.apiUrl}/${id}`,
+        `${this.apiUrl}/newTeam/${id}`,
         manager
       ) // Backend ของคุณอาจจะ return property 'employee' หรือ 'updated'
       .pipe(
@@ -61,7 +63,9 @@ export class PlayerListService {
     id: string
   ): Observable<{ message: string; deleted?: Manager }> {
     return this.http
-      .delete<{ message: string; deleted?: Manager }>(`${this.apiUrl}/${id}`)
+      .delete<{ message: string; deleted?: Manager }>(
+        `${this.apiUrl}/removeTeam/${id}`
+      )
       .pipe(catchError(this.handleError));
   }
 

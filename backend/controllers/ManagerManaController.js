@@ -15,7 +15,6 @@ exports.read = async (req, res) => {
       message: "server error",
     });
   }
-  read.send("Hello from employee controller");
 };
 // get employee list (get all)
 exports.list = async (req, res) => {
@@ -49,7 +48,6 @@ exports.create = async (req, res) => {
       message: "server error",
     });
   }
-  read.send("Hello from employee controller");
 };
 // update employee (put)
 exports.update = async (req, res) => {
