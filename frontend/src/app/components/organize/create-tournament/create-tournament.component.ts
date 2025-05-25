@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormControl, FormArray, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { TournamentService } from '../../../services/tournament.service';
+import { TournamentService } from '../../../core/services/tournament.service';
 import { AppConfig }         from '../../../app.config';
 import { Router } from '@angular/router';
 
@@ -24,19 +24,20 @@ export class CreateTournamentComponent implements OnInit {
 
   ngOnInit(): void {
     this.tournamentForm = this.fb.group({
-      userName:        ['', Validators.required],
-      firstName:       ['', Validators.required],
-      lastName:        ['', Validators.required],
-      phoneNumber:     ['', [Validators.required]],
-      email:           ['', [Validators.required, Validators.email]],
-      promoteImage:    [null],
-      tourName:        ['', Validators.required],
-      tourTagline:     ['', Validators.required],
+      promoteImage:       [null],
+      tourName:           ['', Validators.required],
+      tourTagline:        ['', Validators.required],
       deadlineOfRegister: ['', Validators.required],
-      startTour:       ['', Validators.required],
-      endTour:         ['', Validators.required],
-      location:        ['', Validators.required],
-      types:           this.fb.array([])  // จะเก็บกลุ่ม FormGroup ย่อย ๆ
+      startTour:          ['', Validators.required],
+      endTour:            ['', Validators.required],
+
+      locationName:       ['', Validators.required],
+      province:           ['', Validators.required],
+      district:           ['', Validators.required],
+      subDistrict:        ['', Validators.required],
+      detailLocation:     ['', Validators.required],
+
+      types:              this.fb.array([])  // จะเก็บกลุ่ม FormGroup ย่อย ๆ
     });
   }
 
@@ -84,9 +85,11 @@ export class CreateTournamentComponent implements OnInit {
     data.append('promoteImage', val.promoteImage);
     
     // append ฟิลด์อื่น ๆ
-    ['userName','firstName','lastName','phoneNumber','email',
+    [
      'tourName','tourTagline','deadlineOfRegister',
-     'startTour','endTour','location']
+     'startTour','endTour',
+     'locationName', 'province', 'district', 'subDistrict', 'detailLocation',
+    ]
       .forEach(key => data.append(key, val[key]));
 
     // types เก็บเป็น JSON string

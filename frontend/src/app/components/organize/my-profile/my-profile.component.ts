@@ -1,7 +1,7 @@
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { Component, OnInit, Inject, PLATFORM_ID } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule  } from '@angular/forms';
-import { OrganizerService, Organizer } from '../../../services/organizer.service';
+import { OrganizerService } from '../../../core/services/organizer.service';
 import { RouterModule } from '@angular/router';
 // import { LocationAddComponent } from '../location-add/location-add.component';
 
@@ -61,15 +61,4 @@ export class MyProfileComponent implements OnInit {
     });
   }
 }
-
-//   title = 'custom-modal-appp';
-//   isModalOpen: boolean = false;
-
-//   openModal(){
-//     this.isModalOpen = true;
-//   }
-
-//  closeModal(){
-//     this.isModalOpen = false;
-//   }
 }

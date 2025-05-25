@@ -1,0 +1,30 @@
+// src/app/services/organizer.service.ts
+import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { AppConfig } from '../../app.config';
+
+export interface Organizer {
+    _id?:           String;
+
+    // ข้อมูลผู้จัด
+    firstName:      string;
+    lastName:       string;
+    userName:       string;
+    password:       string;
+    email:          string;
+    phoneNumber:    string;
+    profileImage:   string;
+    qrCode:         string;
+}
+@Injectable({ providedIn: 'root' })
+export class OrganizerService {
+    private baseUrl = `${AppConfig.apiUrl}/auth/organizers`;
+    constructor(
+        private http: HttpClient
+    ) {}
+
+    getProfile(): Observable<Organizer> {
+    return this.http.get<Organizer>(`${this.baseUrl}/me`);
+    }
+}

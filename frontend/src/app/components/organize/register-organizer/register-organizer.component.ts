@@ -3,7 +3,7 @@ import { RouterModule, Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { OrganizeComponent } from '../organize.component';
-import { OrganizerService } from '../../../services/organizer.service';
+import { AuthService } from '../../../core/services/auth.service';
 
 @Component({
   selector: 'app-register-organizer',
@@ -26,7 +26,7 @@ export class RegisterOrganizerComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    private orgSvc: OrganizerService,
+    private authSvc: AuthService,
     private router: Router
   ) {}
 
@@ -84,7 +84,7 @@ export class RegisterOrganizerComponent implements OnInit {
       });
 
     // เรียก service
-    this.orgSvc.register(formData).subscribe({
+    this.authSvc.register('organizer', formData).subscribe({
       next: () => {
         console.log('ลงทะเบียนสำเร็จ');
         // TODO: navigate หรือแสดง toast

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router'; 
 import { DatePipe } from '@angular/common';
-import { TournamentService, Tournament } from '../../../services/tournament.service';
+import { TournamentService, Tournament } from '../../../core/services/tournament.service';
 import { AppConfig } from '../../../app.config';
 
 @Component({

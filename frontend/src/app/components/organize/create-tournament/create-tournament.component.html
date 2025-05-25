@@ -2,33 +2,6 @@
     <h2 class="ms-5 mb-3">สร้างทัวร์นาเมนต์ใหม่</h2>
     <form [formGroup]="tournamentForm" (ngSubmit)="onSubmit()" class="bg-white rounded-4 m-3 p-2">
         <fieldset class="m-2">
-            <h3 class="mx-5 m-3 pb-1 text-center border-bottom">ข้อมูลและช่องทางการติดต่อของผู้จัดงาน</h3>
-            <div class="row m-3">
-                <div class="col">
-                    <label for="userName" class="form-label">ผู้จัดงาน (ชื่อผู้ใช้)</label>
-                    <input type="text" class="form-control" id="userName" name="userName" formControlName="userName">
-                </div>
-                <div class="col">
-                    <label for="firstName" class="form-label">ชื่อ</label>
-                    <input type="text" class="form-control" id="firstName " name="firstName" formControlName="firstName">
-                </div>
-                <div class="col">
-                    <label for="lastName" class="form-label">นามสกุล</label>
-                    <input type="text" class="form-control" id="lastName" name="lastName" formControlName="lastName">
-                </div>
-            </div>
-            <div class="row m-3">
-                <div class="col">
-                    <label for="phoneNumber" class="form-label">เบอร์ติดต่อ</label>
-                    <input type="tel" class="form-control" id="phoneNumber" name="phoneNumber" formControlName="phoneNumber"/>
-                </div>
-                <div class="col">
-                    <label for="email" class="form-label">อีเมล</label>
-                    <input type="email" class="form-control" id="email" name="email" formControlName="email">
-                </div>
-            </div>
-        </fieldset>
-        <fieldset class="m-2">
             <h3 class="mx-5 m-3 pb-1 text-center border-bottom">พาดหัวการแข่งขันและภาพโปรโมต</h3>
             <div class="row m-3">
                 <div class="col form-label">ภาพโปรโมตทัวร์นาเมนต์</div>
@@ -66,15 +39,33 @@
                     <input type="date" class="form-control" id="endTour" formControlName="endTour">
                 </div>
             </div>
+        </fieldset>
+        <fieldset class="m-2">
+            <h3 class="mx-5 m-3 pb-1 text-center border-bottom">สถานที่จัดทัวร์นาเมนต์</h3>
             <div class="row m-3">
                 <div class="col">
-                    <label for="location" class="form-label">สถานที่จัดทัวร์นาเมนต์</label>
-                    <select class="form-select" id="location" formControlName="location">
-                        <option selected>Open this select menu</option>
-                        <option value="1">One</option>
-                        <option value="2">Two</option>
-                        <option value="3">Three</option>
-                    </select>
+                    <label for="locationName" class="form-label">ชื่อสถานที่การจัดทัวร์นาเมนต์</label>
+                    <input type="text" class="form-control" id="locationName" formControlName="locationName">
+                </div>
+            </div>
+            <div class="row m-3">
+                <div class="col">
+                    <label for="province" class="form-label">จังหวัด</label>
+                    <input type="text" class="form-control" id="province" formControlName="province">
+                </div>
+                <div class="col">
+                    <label for="district" class="form-label">อำเภอ</label>
+                    <input type="text" class="form-control" id="district" formControlName="district">
+                </div>
+                <div class="col">
+                    <label for="subDistrict" class="form-label">ตำบล</label>
+                    <input type="text" class="form-control" id="subDistrict" formControlName="subDistrict">
+                </div>
+            </div>
+            <div class="row m-3">
+                <div class="col">
+                    <label for="detailLocation" class="form-label">รายละเอียดที่อยู่ (เพิ่มเติม)</label>
+                    <textarea class="form-control" aria-label="With textarea" id="detailLocation" formControlName="detailLocation" placeholder="หากไม่มีให้ใส่เครื่องหมาย ' - '"></textarea>
                 </div>
             </div>
         </fieldset>

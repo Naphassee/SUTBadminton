@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, input, output } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { OrganizerService } from '../../../services/organizer.service';
+import { AuthService } from '../../../core/services/auth.service';
 
 @Component({
   selector: 'app-sidebar-organize',
@@ -11,7 +11,7 @@ import { OrganizerService } from '../../../services/organizer.service';
   styleUrl: './sidebar-organize.component.css'
 })
 export class SidebarOrganizeComponent {
-  constructor(public organizerService: OrganizerService) {}
+  constructor(public authSvc: AuthService) {}
   
   isLeftSidebarCollapsed = input.required<boolean>();
   changeIsLeftSidebarCollapsed = output<boolean>();

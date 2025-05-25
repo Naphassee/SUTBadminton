@@ -10,7 +10,7 @@ import {
 
 import { AppComponent }     from './app/app.component';
 import { routes }           from './app/app.routes';
-import { AuthInterceptor }  from './app/core/auth.interceptor';
+import { AuthInterceptor } from './app/core/interceptors/auth.interceptor';
 
 // ถ้ามี production flag ก็ใช้บล็อกนี้
 // if (environment.production) {

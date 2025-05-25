@@ -1,147 +1,81 @@
-const bcrypt = require("bcryptjs");
-const jwt = require("jsonwebtoken");
-const Employee = require("../models/Manager");
-require("dotenv").config();
+const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
 
-const COOKIE_NAME = "authenicationToken";
-const JWT_SECRET_KEY = process.env.JWT_SECRET_KEY;
+exports.register = ({ Model, role }) => async (req, res) => {
+    try{
+        // ดึงชื่อไฟล์จาก req.files มาใส่ req.body
+        if (req.files?.profileImage?.[0]) {
+            req.body.profileImage = req.files.profileImage[0].filename;
+        }
+        if (req.files?.qrCode?.[0]) {
+            req.body.qrCode = req.files.qrCode[0].filename;
+        }
 
-const COOKIE_OPTIONS = {
-  httpOnly: true,
-  secure: process.env.NODE_ENV === "production",
-  sameSite: "lax",
-  maxAge: 24 * 60 * 60 * 1000,
-};
+        // ตรวจซ้ำ email/userName
+        const { email, userName } = req.body;
+        const query = userName ? { $or: [{ email }, { userName }] }: { email };
 
-const registerEmployee = async (req, res) => {
-  try {
-    const {
-      firstName,
-      lastName,
-      email,
-      password,
-      phoneNumber = "",
-      role = "manager",
-    } = req.body;
+        if (await Model.findOne(query)) {
+            return res.status(400).json({ msg: 'ข้อมูลซ้ำ ไม่สามารถสมัครได้' });
+        }
 
-    const existingEmployee = await Employee.findOne({ email });
+        // hash รหัสผ่าน
+        const salt = await bcrypt.genSalt(10);
+        const hashed = await bcrypt.hash(req.body.password, salt);
 
-    if (existingEmployee)
-      return res.status(400).json({ message: "Email already exists" });
+        // สร้างเอกสารใหม่ในฐานข้อมูล
+        const doc = new Model({ ...req.body, password: hashed });
+        await doc.save();
 
-    const salt = await bcrypt.genSalt(10);
-    const hashedPassword = await bcrypt.hash(password, salt);
+        // สร้าง JWT เก็บ id+role ใน payload
+        const token = jwt.sign(
+            { id:doc._id, role },
+            process.env.JWT_SECRET,
+            { expiresIn: '1h' }
+        );
 
-    const employee = new Employee({
-      firstName,
-      lastName,
-      email,
-      password: hashedPassword,
-      phoneNumber,
-      role,
-    });
-
-    await employee.save();
-
-    res.status(201).json({
-      message: "Employee registered successfully",
-      employee,
-    });
-  } catch (err) {
-    console.error("Error during employee registration:", err);
-    res.status(500).json({ message: "Server error" });
-  }
-};
-
-const loginEmployee = async (req, res) => {
-  try {
-    const { email, password } = req.body;
-
-    const employee = await Employee.findOne({ email });
-
-    if (!employee)
-      return res.status(404).json({ message: "Employee not found" });
-
-    const isPasswordValid = await bcrypt.compare(password, employee.password);
-    if (!isPasswordValid)
-      return res.status(400).json({ message: "Invalid password" });
-
-    const token = jwt.sign(
-      { id: employee.id, role: employee.role },
-      JWT_SECRET_KEY,
-      {
-        expiresIn: "1d",
-      }
-    );
-
-    res.cookie(COOKIE_NAME, token, COOKIE_OPTIONS);
-
-    res.status(200).json({
-      message: "Login successful",
-      role: employee.role,
-      token: token,
-    });
-  } catch (err) {
-    console.error("Error during login:", err);
-    res.status(500).json({ message: "Server error" });
-  }
-};
-
-const logoutEmployee = (req, res) => {
-  res.cookie(COOKIE_NAME, "", { ...COOKIE_OPTIONS, maxAge: 0 });
-  res.json({ message: "Logout successful" });
-};
-
-const getEmployee = async (req, res) => {
-  try {
-    const employee = await Employee.findById(req.params.id);
-    if (!employee) {
-      return res.status(404).send({ message: "Employee not found" });
+        // ส่งกลับ token และข้อความ
+        res.status(201).json({ token, msg: `${role} ลงทะเบียนสำเร็จ` });
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ msg: 'Server error'});
     }
-
-    const { password, ...employeeData } = employee.toJSON();
-    res.status(200).json(employeeData);
-  } catch (err) {
-    console.error("Error fetching employee info:", err);
-    res.status(500).send({ message: "Internal server error" });
-  }
 };
 
-const updateEmployee = async (req, res) => {
-  try {
-    const updatedEmployee = await Employee.findByIdAndUpdate(
-      req.params.id,
-      req.body,
-      { new: true }
-    );
-    if (!updatedEmployee) {
-      return res.status(404).send({ message: "Employee not found" });
+exports.login = ({ Model, role }) => async (req, res) => {
+    try {
+        const { email, userName, password } = req.body;
+
+        // หา user จาก email หรือ userName
+        const filter  =userName ? { userName }: { email };
+        const user = await Model.findOne(filter);
+        if (!user) return res.status(404).json({ msg: 'ไม่พบบัญชีนี้' });
+
+        // ตรวจ password
+        const isMatch = await bcrypt.compare(password, user.password);
+        if (!isMatch) return res.status(400).json({ msg: 'รหัสผ่านไม่ถูกต้อง' });
+
+        // สร้าง JWT
+        const token = jwt.sign(
+            { id: user._id, role },
+            process.env.JWT_SECRET,
+            { expiresIn: '1h' }
+        );
+
+        // ส่งกลับ token
+        res.json({ token });
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ msg: 'Server error' });
     }
-    res.status(200).json(updatedEmployee);
-  } catch (err) {
-    console.error("Error updating employee info:", err);
-    res.status(500).send({ message: "Internal server error" });
-  }
 };
 
-const deleteEmployee = async (req, res) => {
-  try {
-    const deletedEmployee = await Employee.findByIdAndDelete(req.params.id);
-    if (!deletedEmployee) {
-      return res.status(404).send({ message: "Employee not found" });
+exports.getMe = (Model) => async (req, res) => {
+    try {
+        const user = await Model.findById(req.user.id).select('-password');
+        res.json(user);
+    } catch (err) {
+        console.error(err);
+        res.status(404).json({ msg: 'ไม่พบข้อมูลผู้ใช้' });
     }
-    res.status(200).send({ message: "Employee deleted successfully" });
-  } catch (err) {
-    console.error("Error deleting employee:", err);
-    res.status(500).send({ message: "Internal server error" });
-  }
-};
-
-module.exports = {
-  registerEmployee,
-  loginEmployee,
-  logoutEmployee,
-  getEmployee,
-  updateEmployee,
-  deleteEmployee,
 };

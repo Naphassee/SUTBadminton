@@ -14,7 +14,6 @@ import { MyProfileComponent } from './components/organize/my-profile/my-profile.
 import { MyTournamentComponent } from './components/organize/my-tournament/my-tournament.component';
 import { TournamentReviewComponent } from './components/organize/tournament-review/tournament-review.component';
 import { MembershipComponent } from './components/organize/membership/membership.component';
-import { LocationAddComponent } from './components/organize/location-add/location-add.component';
 import { OrganizeComponent } from './components/organize/organize.component';
 import { LoginOrganizerComponent } from './components/organize/login-organizer/login-organizer.component';
 import { RegisterOrganizerComponent } from './components/organize/register-organizer/register-organizer.component';
@@ -22,7 +21,8 @@ import { RegisterOrganizerComponent } from './components/organize/register-organ
 // Admin
 import { UserListComponent } from './components/admin/user-list/user-list.component';
 
-
+// Guard
+import { AuthGuard } from './core/guards/auth.guard';
 
 export const routes: Routes = [
     {
@@ -66,6 +66,8 @@ export const routes: Routes = [
     {
         path: "organize",
         component: OrganizeComponent,
+        canActivate: [AuthGuard],
+        data: { roles: ['organizer'] },
         children: [
             { path: "", redirectTo: "my-tournament", pathMatch: "full" },
             { path: "my-tournament", component: MyTournamentComponent },
@@ -73,7 +75,6 @@ export const routes: Routes = [
             { path: "my-profile", component: MyProfileComponent },
             { path: "tournament-review", component: TournamentReviewComponent },
             { path: "membership", component: MembershipComponent },
-            { path: "location-add", component: LocationAddComponent }
         ]
     },
     { 

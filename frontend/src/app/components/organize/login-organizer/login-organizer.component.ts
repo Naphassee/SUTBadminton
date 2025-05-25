@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import { OrganizerService } from '../../../services/organizer.service';
+import { AuthService } from '../../../core/services/auth.service';
 import { FormsModule } from '@angular/forms';
 import { RouterModule, Router } from '@angular/router';
 
@@ -20,17 +20,21 @@ export class LoginOrganizerComponent {
   password = '';
 
   constructor(
-    private organizerService: OrganizerService,
+    private authSvc: AuthService,
     private router: Router
   ) {}
 
   onSubmit(): void {
-    this.organizerService
-      .login({ userName: this.userName, password: this.password })
+    this.authSvc
+      .login('organizer', { userName: this.userName, password: this.password })
       .subscribe({
         next: (res) => {
-          // เก็บ token ไว้ใช้งานตอนเรียก API ถัดไป
-          localStorage.setItem('token', res.token);
+          /* 
+            ปกติจะเก็บ token ไว้ใช้งานตอนเรียก API ถัดไปโดยใช้ ==> localStorage.setItem('token', res.token);
+            
+            ไม่ต้องเขียน localStorage.setItem('token', …) อีกทีก็ได้ เพราะ AuthService.tap() เก็บให้แล้ว แค่เรียก this.authSvc.login(...) ก็เรียบร้อย
+          */
+
           // ไปหน้าหลักหรือ dashboard
           this.router.navigate(['/organize']);
         },

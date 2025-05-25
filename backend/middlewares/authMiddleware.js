@@ -1,30 +1,22 @@
-const jwt = require("jsonwebtoken");
-const Manager = require("../models/Manager");
+const jwt = require('jsonwebtoken');
 
-const authenticateToken = async (req, res, next) => {
-  const token = req.cookies["jwt"];
-
-  if (!token)
-    return res.status(401).send({ message: "Authentication token required" });
-
-  try {
-    const claims = jwt.verify(token, process.env.JWT_SECRET_KEY);
-
-    if (!claims._id) {
-      return res.status(401).send({ message: "Invalid authentication token" });
+module.exports = function authMiddleware(req, res, next) {
+    const authHeader = req.header('Authorization');
+    if (!authHeader) {
+        return res.status(401).json({ msg: 'ไม่มี token, ปฏิเสธการเข้าใช้งาน' });
     }
 
-    const employee = await Manager.findOne({ _id: claims._id });
-
-    if (!employee)
-      return res.status(401).send({ message: "Invalid authentication token" });
-
-    req.employee = employee;
-
-    next();
-  } catch (err) {
-    res.status(401).send({ message: "Invalid authentication token" });
-  }
+    const token = authHeader.replace('Bearer ', '');
+    try {
+        // ตรวจสอบและ decode token
+        const decoded = jwt.verify(token, process.env.JWT_SECRET);
+        // เก็บข้อมูลใน req.user เพื่อให้ใช้ต่อ
+        req.user = {
+            id: decoded.id,
+            role: decoded.role
+        };
+        next();
+    } catch (err) {
+        return res.status(401).json({ msg: 'Token ไม่ถูกต้อง' });
+    }
 };
-
-module.exports = authenticateToken;

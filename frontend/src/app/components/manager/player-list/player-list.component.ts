@@ -2,8 +2,8 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, NgForm } from '@angular/forms';
 import { NavComponent } from '../nav/nav.component';
-import { PlayerListService } from '../../../services/manager/player-list/player-list.service';
-import { Manager } from '../../../models/manager.model';
+import { PlayerListService } from '../../../core/services/manager/player-list/player-list.service';
+import { Manager } from '../../../core/models/manager.model';
 
 declare var bootstrap: any; // สำหรับการควบคุม Bootstrap Modal ด้วย TS
 
