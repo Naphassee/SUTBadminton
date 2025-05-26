@@ -1,5 +1,7 @@
 import { Routes } from '@angular/router';
 import { HomeComponent } from './components/home/home.component';
+
+// Manager
 import { RegisterComponent } from './components/register/register.component';
 import { LoginComponent } from './components/login/login.component';
 import { MyprofileComponent } from './components/manager/myprofile/myprofile.component';
@@ -21,7 +23,7 @@ import { RegisterOrganizerComponent } from './components/organize/register-organ
 // Admin
 import { UserListComponent } from './components/admin/user-list/user-list.component';
 
-// Guard
+// Guard ป้องกันการเข้าไปยังหน้าใช้งานต่างๆโดยที่ยังไม่ได้ login
 import { AuthGuard } from './core/guards/auth.guard';
 
 export const routes: Routes = [
@@ -61,6 +63,8 @@ export const routes: Routes = [
         path : "sandbag",
         component:SandbagComponent,
     },
+
+    // Manager
 
     // Organizer
     {
