@@ -1,4 +1,5 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Inject, PLATFORM_ID } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { Router }     from '@angular/router';
 import { tap }        from 'rxjs/operators';
@@ -9,16 +10,23 @@ export type Role = 'organizer' | 'manager' | 'admin';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
+  private isBrowser: boolean;
   private tokenKey = 'token';
   private roleKey  = 'userRole';
 
   // เอา apiUrl จาก AppConfig มาเก็บเป็น baseUrl
   private baseUrl = AppConfig.apiUrl;
 
+  
+
   constructor(
     private http: HttpClient,
-    private router: Router
-) {}
+    private router: Router,
+    @Inject(PLATFORM_ID) private platformId: Object
+) {
+  // กำหนด flag ว่าเรารันบนเบราว์เซอร์หรือไม่
+    this.isBrowser = isPlatformBrowser(this.platformId);
+}
 
   // REGISTER: /api/{role}s/register
   register(role: Role, creds: any): Observable<{ token: string }> {
@@ -54,15 +62,26 @@ export class AuthService {
   }
 
   isLoggedIn(): boolean {
+    if (!this.isBrowser) {
+      // ถ้าไม่ใช่เบราว์เซอร์ (เช่นบนเซิร์ฟเวอร์) คืนค่า false หรือจัดการอื่น ๆ
+      return false;
+    }
     // ตรวจว่ามี token อยู่จริงหรือไม่ (อาจ decode ตรวจ exp เพิ่มได้)
     return !!localStorage.getItem(this.tokenKey);
   }
 
   getUserRole(): Role | null {
+    if (!this.isBrowser) {
+      // กรณีรันบน SSR/Node ให้ถือว่าไม่ logged in
+      return null;
+    }
     return (localStorage.getItem(this.roleKey) as Role) || null;
   }
 
   getToken(): string | null {
+    if (!this.isBrowser) {
+      return null;
+    }
     return localStorage.getItem(this.tokenKey);
   }
 }

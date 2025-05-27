@@ -1,17 +1,15 @@
-import { CommonModule, isPlatformBrowser } from '@angular/common';
-import { Component, OnInit, Inject, PLATFORM_ID } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule  } from '@angular/forms';
 import { OrganizerService } from '../../../core/services/organizer.service';
 import { RouterModule } from '@angular/router';
-// import { LocationAddComponent } from '../location-add/location-add.component';
 
 @Component({
   selector: 'app-my-profile',
   standalone: true,
   imports: [ RouterModule,
              CommonModule,
-             ReactiveFormsModule,
-             /*LocationAddComponent*/ ],
+             ReactiveFormsModule, ],
   templateUrl: './my-profile.component.html',
   styleUrl: './my-profile.component.css'
 })
@@ -23,7 +21,6 @@ export class MyProfileComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private organizerService: OrganizerService,
-    @Inject(PLATFORM_ID) private platformId: Object
   ) {}
 
   ngOnInit(): void {
@@ -37,8 +34,6 @@ export class MyProfileComponent implements OnInit {
     });
 
     // เรียก API ดึงโปรไฟล์
-    // เรียก API เฉพาะบน browser เท่านั้น
-    if (isPlatformBrowser(this.platformId)) {
     this.organizerService.getProfile().subscribe({
       next: org => {
         // patch ข้อมูลลง form
@@ -60,5 +55,4 @@ export class MyProfileComponent implements OnInit {
       error: err => console.error('ไม่สามารถดึงโปรไฟล์ได้', err)
     });
   }
-}
 }

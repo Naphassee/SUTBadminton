@@ -4,7 +4,7 @@
       <h2>โปรไฟล์ของฉัน</h2>
     </div>
     <div class="col d-flex justify-content-end">
-      <button type="button" class="btn btn-success"><i class="bi bi-pencil-square"></i> แก้ไขโปรไฟล์</button>
+      <button type="button" class="btn btn-success" [routerLink]="['/organize','edit-profile']"><i class="bi bi-pencil-square"></i> แก้ไขโปรไฟล์</button>
     </div>
   </div>
   <form [formGroup]="profileForm" class="bg-white rounded-4 m-3 p-0">
@@ -39,12 +39,6 @@
             <input formControlName="userName" class="form-control"/>
           </div>
         </div>
-        <!-- <div class="row m-3">
-          <div class="col">
-            <label for="password" class="form-label">รหัสผ่าน</label>
-            <input type="password" class="form-control" id="password" name="password" formControlName="password" />
-          </div>
-        </div> -->
       </fieldset>
       <fieldset class="col rounded-end-4 px-3 py-5 left-side">
         <div class="row m-3">

@@ -7,7 +7,7 @@ import { HttpClientModule }           from '@angular/common/http';
 import { routes }                     from './app.routes';
 
 export const AppConfig = {
-  apiUrl: 'http://localhost:5000/api' 
+  apiUrl: 'http://localhost:5001/api' 
 };
 
 export const appConfig: ApplicationConfig = {

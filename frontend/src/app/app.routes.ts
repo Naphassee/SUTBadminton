@@ -19,6 +19,7 @@ import { MembershipComponent } from './components/organize/membership/membership
 import { OrganizeComponent } from './components/organize/organize.component';
 import { LoginOrganizerComponent } from './components/organize/login-organizer/login-organizer.component';
 import { RegisterOrganizerComponent } from './components/organize/register-organizer/register-organizer.component';
+import { EditProfileComponent } from './components/organize/edit-profile/edit-profile.component';
 
 // Admin
 import { UserListComponent } from './components/admin/user-list/user-list.component';
@@ -76,7 +77,8 @@ export const routes: Routes = [
             { path: "", redirectTo: "my-tournament", pathMatch: "full" },
             { path: "my-tournament", component: MyTournamentComponent },
             { path: "create-tournament", component: CreateTournamentComponent },
-            { path: "my-profile", component: MyProfileComponent },
+            { path: "my-profile", component: MyProfileComponent},
+            { path: 'edit-profile', component: EditProfileComponent},
             { path: "tournament-review", component: TournamentReviewComponent },
             { path: "membership", component: MembershipComponent },
         ]

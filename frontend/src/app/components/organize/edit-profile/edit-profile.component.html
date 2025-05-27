@@ -1,0 +1,99 @@
+<div class="container-fluid md">
+  <div class="row mx-5 mb-3">
+    <div class="col d-flex gap-3">
+      <h3>โปรไฟล์ของฉัน <i class="bi bi-caret-right-fill"></i></h3><h2>แก้ไขโปรไฟล์</h2>
+    </div>
+    <div class="col d-flex justify-content-end">
+      <button type="button" class="btn btn-secondary" [routerLink]="['/organize','my-profile']"><i class="bi bi-box-arrow-in-left"></i> ย้อนกลับ</button>
+    </div>
+  </div>
+  <form [formGroup]="profileForm" (ngSubmit)="submit()" class="bg-white rounded-4 m-3 p-0">
+    <div class="row m-0">
+      <!-- ฝั่งซ้าย -->
+      <fieldset class="col rounded-start-4 px-3 py-5 right-side">
+        
+        <!-- รูปโปรไฟล์ -->
+        <div class="mb-4 mx-auto dropzone profile-dropzone ">
+          <img
+            *ngIf="imageSrc"
+            [src]="imageSrc"
+            class="preview-img rounded-circle"
+          />
+          <input 
+            type="file" 
+            (change)="onFileChange($event,'profileImage')"
+          />
+        </div>
+
+        <!-- ข้อมูลส่วนตัว -->
+        <div class="row m-3">
+          <div class="col">
+            <label>ชื่อ</label>
+            <input formControlName="firstName" class="form-control"/>
+          </div>
+          <div class="col">
+            <label>นามสกุล</label>
+            <input formControlName="lastName" class="form-control"/>
+          </div>
+        </div>
+        <div class="row m-3">
+          <div class="col">
+            <label>ชื่อบัญชีผู้ใช้งาน</label>
+            <input formControlName="userName" class="form-control"/>
+          </div>
+        </div>
+
+        <!-- เปลี่ยนรหัสผ่าน -->
+        <div class="row m-3">
+          <div class="col">
+            <label>รหัสผ่านปัจจุบัน (ถ้าต้องการเปลี่ยน)</label>
+            <input type="password" formControlName="currentPassword" class="form-control" placeholder="••••••••"/>
+          </div>
+        </div>
+        <div class="row m-3">
+          <div class="col">
+            <label>รหัสผ่านใหม่</label>
+            <input type="password" formControlName="newPassword" class="form-control" placeholder="รหัสผ่านใหม่"/>
+          </div>
+        </div>
+      </fieldset>
+      <!-- ฝั่งขวา -->
+      <fieldset class="col rounded-end-4 px-3 py-5 left-side">
+
+        <!-- ติดต่อ -->
+        <div class="row m-3">
+          <div class="col">
+            <label>เบอร์ติดต่อ</label>
+            <input formControlName="phoneNumber" class="form-control"/>
+          </div>
+          <div class="col">
+            <label>อีเมล</label>
+            <input formControlName="email" class="form-control"/>
+          </div>
+        </div>
+
+        <!-- qrCode รับเงิน -->
+        <div class="row m-3" style="padding: 12px;">
+          <label>QR Code รับเงิน</label><br>
+          <div class="dropzone qrcode-dropzone">
+            <img 
+              *ngIf="qrCodeSrc"
+              [src]="qrCodeSrc" 
+              class="preview-img" 
+            >
+            <input 
+              type="file" 
+              (change)="onFileChange($event,'qrCode')"
+            />
+          </div>
+        </div>
+        <div class="col text-end">
+          <button type="submit" class="btn btn-primary" [disabled]="profileForm.invalid">
+            บันทึกการแก้ไข
+          </button>
+        </div>
+      </fieldset>
+
+    </div>
+  </form>
+</div>

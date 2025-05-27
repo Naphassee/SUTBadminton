@@ -8,7 +8,7 @@ import { Manager } from '../../../models/manager.model';
   providedIn: 'root',
 })
 export class PlayerListService {
-  private apiUrl = 'http://localhost:5000/api/managermana';
+  private apiUrl = 'http://localhost:5001/api/managermana';
   constructor(private http: HttpClient) {}
   // GET: ดึงข้อมูล Manager ทั้งหมด
   getManagers(): Observable<Manager[]> {

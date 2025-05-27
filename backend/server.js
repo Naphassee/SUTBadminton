@@ -31,5 +31,5 @@ app.use('/api/organizer', require('./routes/organizer'));
 app.use('/api/tournaments', require('./routes/tournaments'));
 app.use("/api/managermana", require("./routes/ManagerMana"));
 
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 5001;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));

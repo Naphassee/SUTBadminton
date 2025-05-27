@@ -42,7 +42,7 @@ exports.updateProfile = async (req, res) => {
             organizerId,
             { $set: updateData },
             { new: true, runValidators: true }
-        );
+        ).select('-password');
 
         res.json(updated);
 

@@ -5,7 +5,7 @@ import { Observable } from 'rxjs';
 import { AppConfig } from '../../app.config';
 
 export interface Organizer {
-    _id?:           String;
+    _id:           string;
 
     // ข้อมูลผู้จัด
     firstName:      string;
@@ -19,12 +19,18 @@ export interface Organizer {
 }
 @Injectable({ providedIn: 'root' })
 export class OrganizerService {
-    private baseUrl = `${AppConfig.apiUrl}/auth/organizers`;
+    private authBase = `${AppConfig.apiUrl}/auth/organizers`;
+    private orgBase = `${AppConfig.apiUrl}/organizer`;
     constructor(
         private http: HttpClient
     ) {}
 
     getProfile(): Observable<Organizer> {
-    return this.http.get<Organizer>(`${this.baseUrl}/me`);
+    return this.http.get<Organizer>(`${this.authBase}/me`);
     }
+
+    updateProfile( id: string, formData: FormData ): Observable<Organizer> {
+        return this.http.put<Organizer>( `${this.orgBase}/${id}`, formData);
+    }
+
 }
