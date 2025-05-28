@@ -19,7 +19,6 @@ exports.read = async (req, res) => {
 // get employee list (get all)
 exports.list = async (req, res) => {
   try {
-    console.log(req.body);
     const employee = await Employee.find().exec();
     res.status(200).json({
       message: "employee list",
