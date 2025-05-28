@@ -5,27 +5,32 @@
         <a href="#" class="navbar-brand SUTMintontext-gradient">SUTMinton</a>
         <button class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarToggle">
             <span class="navbar-toggler-icon"></span>
-        </button>
+        </button> 
         <!-- Menu -->
         <div class="collapse navbar-collapse " id="navbarToggle">
             <ul class="navbar-nav ms-auto custom-nav">
                 <li class="nav-item">
-                    <a href="/home" class="nav-link">หน้าหลัก</a>
+                    <a routerLink="/manager/player-list" routerLinkActive="active" class="nav-link">หน้าหลัก</a>
                 </li>
                 <li class="nav-item">
-                    <a href="/player-list" class="nav-link">รายชื่อนักกีฬา</a>
+                    <a routerLink="/manager/player-list" routerLinkActive="active" class="nav-link">รายชื่อนักกีฬา</a>
                 </li>
                 <li class="nav-item">
-                    <a href="/payment" class="nav-link">การชำระเงิน</a>
+                    <a routerLink="/manager/payment" routerLinkActive="active" class="nav-link">การชำระเงิน</a>
                 </li>
                 <li class="nav-item">
-                    <a href="/sandbag" class="nav-link">แจ้งข้อมูลมือหมก</a>
+                    <a routerLink="/manager/sandbag" routerLinkActive="active" class="nav-link">แจ้งข้อมูลมือหมก</a>
                 </li>
             </ul>
             <ul class="nav nav-pills ms-auto">
-                <li class="nav-item ">
+                <li class="nav-item m-2">
                     <button type="button" class="btn btn-primary custom-rounded custom-bg" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
                         โปรไฟล์ของฉัน
+                    </button>
+                </li>
+                <li class="nav-item m-2">
+                    <button type="button" (click)="authSvc.logout()" class="btn btn-danger custom-rounded logout-bg">
+                        ออกจากระบบ
                     </button>
                 </li>
             </ul>

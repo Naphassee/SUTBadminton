@@ -41,7 +41,7 @@ export class AuthService {
 }
 
   // LOGIN: /api/{role}s/login
-  login(role: Role, creds: { userName: string; password: string; }): Observable<{ token: string }> {
+  login(role: Role, creds: { userName: string; password: string; } | { email: string; password: string; } ): Observable<{ token: string }> {
     const url = `${this.baseUrl}/auth/${role}s/login`;
 
     return this.http.post<{ token: string }>(url, creds).pipe(

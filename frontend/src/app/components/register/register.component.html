@@ -1,99 +1,55 @@
 <app-nav></app-nav>
-<body>
-    <div class="ext-box"> 
-      <div class="wrapper">
-        <div class="container">
-          <div class="row">
-            <div class="col-md-6 side-image">
-                <div>
-                    <img src="badminton-racket.jpg" alt="Image" width="100%" height="100%">
+<div class="ext-box">
+  <div class="wrapper">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-6 side-image">
+          <div>
+            <img src="badminton-racket.jpg" alt="Image" width="100%" height="100%">
+          </div>
+        </div>
+        <div class="col-md-6 right">
+          <div>
+            <div class="input-box">
+              <header class="header">สร้างบัญชี</header>
+              <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+
+                <div class="input-field">
+                  <input type="text" class="input" id="firstName" name="firstName" formControlName="firstName" />
+                  <label for="firstName">ชื่อจริง</label>
                 </div>
-            </div>
-            <div class="col-md-6 right">
-              <div>
-                <div class="input-box">
-                  <header class="header">สร้างบัญชี</header>
-                  <form>
-                    <div class="input-field">
-                      <input
-                        type="text"
-                        class="input"
-                        id="register-firstname"
-                        formControlName="firstName"
-                        required
-                      />
-                      <label for="register-firstname">ชื่อจริง</label>
-                    </div>
-                    <div class="input-field">
-                      <input
-                        type="text"
-                        class="input"
-                        id="register-lastname"
-                        formControlName="lastName"
-                        required
-                      />
-                      <label for="register-lastname">นามสกุล</label>
-                    </div>
-  
-                    <div class="input-field">
-                      <input
-                        formControlName="email"
-                        type="email"
-                        class="input"
-                        id="register-email"
-                        required
-                        autocomplete="off"
-                      />
-                      <label for="register-email">อีเมล</label>
-                        <span class="error">
-                          Only specific domains are allowed (gmail.com,
-                          hotmail.com, hotmail.co.th, outlook.com)
-                        </span>
-                      </div>
-                    <div class="input-field">
-                      <input
-                        formControlName="password"
-                        class="input"
-                        id="password"
-                        required
-                      />
-                      <label for="password">รหัสผ่าน</label>
-                      <i
-                        class="fa"
-                      ></i>
-                      <div
-                      >
-                        <span class="error"
-                          >Password must be at least 6 characters long.</span
-                        >
-                      </div>
-                    </div>
-                    <div class="input-field">
-                        <input
-                          type="text"
-                          class="input"
-                          id="register-phone"
-                          formControlName="phone"
-                          required
-                        />
-                        <label for="register-phone">เบอร์โทร</label>
-                      </div>
-  
-                    <div class="input-field">
-                      <button type="submit" class="submit">ลงทะเบียน</button>
-                    </div>
-                    <div class="signin">
-                      <span>
-                        หากมีบัญชีแล้ว
-                        <a href="/login">คลิกเพื่อเข้าสู่ระบบ</a>
-                      </span>
-                    </div>
-                  </form>
+                <div class="input-field">
+                  <input type="text" class="input" id="lastName" name="lastName" formControlName="lastName" />
+                  <label for="lastName">นามสกุล</label>
                 </div>
-              </div>
+
+                <div class="input-field">
+                  <input formControlName="email" type="email" class="input" id="email" name="email"/>
+                  <label for="email">อีเมล</label>
+                </div>
+                <div class="input-field">
+                  <input formControlName="password" type="password" class="input" id="password" name="password"/>
+                  <label for="password">รหัสผ่าน</label>
+                </div>
+                <div class="input-field">
+                  <input type="text" class="input" id="phoneNumber" name="phoneNumber" formControlName="phoneNumber" />
+                  <label for="phoneNumber">เบอร์โทร</label>
+                </div>
+
+                <div class="input-field">
+                  <button type="submit" class="submit">ลงทะเบียน</button>
+                </div>
+                <div class="signin">
+                  <span>
+                    หากมีบัญชีแล้ว
+                    <a routerLink="/login" routerLinkActive="active">คลิกเพื่อเข้าสู่ระบบ</a>
+                  </span>
+                </div>
+              </form>
             </div>
           </div>
         </div>
       </div>
     </div>
-  </body>
+  </div>
+</div>

@@ -24,7 +24,8 @@ router.post(
     register({ Model: Organizer, role: 'organizer' })
 );
 
-// Login Organizer
+/* -- ORGANIZER -- */
+// Login Organizer 
 router.post(
     '/organizers/login',
     loginOrgRules,
@@ -40,6 +41,7 @@ router.get(
     getMe(Organizer)
 );
 
+/* -- MANAGER -- */
 // Register Manager
 router.post(
     '/managers/register',

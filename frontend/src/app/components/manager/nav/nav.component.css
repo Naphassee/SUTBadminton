@@ -9,6 +9,13 @@
 .custom-bg:hover {
     background-color: #5756BB; /* สีพื้นหลังเมื่อ hover */
 }
+.logout-bg {
+    background-color: #f44336; /* เปลี่ยนสีพื้นหลัง */
+    color: white; /* เปลี่ยนสีตัวอักษร */
+}
+.logout-bg:hover {
+    background-color: #b82319; /* สีพื้นหลังเมื่อ hover */
+}
 .SUTMintontext-gradient {
     background: linear-gradient(40deg, #787FF6, #7BD5F5); /* ไล่ระดับสีจากส้มไปฟ้า */
     -webkit-background-clip: text; /* ใช้สีพื้นหลังกับตัวอักษร */

@@ -31,7 +31,6 @@ exports.list = async (req, res) => {
       message: "server error",
     });
   }
-  read.send("Hello from employee controller");
 };
 // create employee (post)
 exports.create = async (req, res) => {

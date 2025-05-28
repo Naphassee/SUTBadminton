@@ -2,6 +2,7 @@ import { Routes } from '@angular/router';
 import { HomeComponent } from './components/home/home.component';
 
 // Manager
+import { ManagerComponent } from './components/manager/manager.component';
 import { RegisterComponent } from './components/register/register.component';
 import { LoginComponent } from './components/login/login.component';
 import { MyprofileComponent } from './components/manager/myprofile/myprofile.component';
@@ -34,38 +35,28 @@ export const routes: Routes = [
     },
     {
         path : "register",
-        component:RegisterComponent,
+        component:RegisterComponent, 
     },
     {
         path : "login",
         component:LoginComponent,
     },
-    {
-        path : "myprofile",
-        component:MyprofileComponent,
-    },
-    {
-        path : "register",
-        component:RegisterComponent,
-    },
-    {
-        path : "payment",
-        component:PaymentComponent,
-    },
-    {
-        path : "player-add",
-        component:PlayerAddComponent,
-    },
-    {
-        path : "player-list",
-        component:PlayerListComponent,
-    },
-    {
-        path : "sandbag",
-        component:SandbagComponent,
-    },
 
     // Manager
+    {
+        path: 'manager',
+        component: ManagerComponent,
+        canActivate: [AuthGuard],
+        data: { roles: ['manager'] },
+        children: [
+            { path: '', redirectTo: 'player-list', pathMatch: 'full' },      // redirect เป๊ะ ๆ ต้องมี pathMatch
+            { path: 'player-list', component: PlayerListComponent },
+            { path: 'myprofile',    component: MyprofileComponent },
+            { path: 'payment',      component: PaymentComponent },
+            { path: 'player-add',   component: PlayerAddComponent },
+            { path: 'sandbag',      component: SandbagComponent },
+        ]
+    },
 
     // Organizer
     {
