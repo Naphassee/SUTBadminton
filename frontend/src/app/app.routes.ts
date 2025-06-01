@@ -10,6 +10,7 @@ import { PaymentComponent } from './components/manager/payment/payment.component
 import { PlayerAddComponent } from './components/manager/player-add/player-add.component';
 import { PlayerListComponent } from './components/manager/player-list/player-list.component';
 import { SandbagComponent } from './components/manager/sandbag/sandbag.component';
+import { TournamentListComponent } from './components/manager/tournament-list/tournament-list.component';
 
 // Organizer
 import { CreateTournamentComponent } from './components/organize/create-tournament/create-tournament.component';
@@ -42,6 +43,7 @@ export const routes: Routes = [
         component:LoginComponent,
     },
 
+
     // Manager
     {
         path: 'manager',
@@ -55,6 +57,7 @@ export const routes: Routes = [
             { path: 'payment',      component: PaymentComponent },
             { path: 'player-add',   component: PlayerAddComponent },
             { path: 'sandbag',      component: SandbagComponent },
+            { path : "tournament-list",component:TournamentListComponent },
         ]
     },
 

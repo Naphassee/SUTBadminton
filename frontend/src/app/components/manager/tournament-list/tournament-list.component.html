@@ -1,0 +1,183 @@
+
+<!DOCTYPE html>
+<html lang="th">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>รายการการแข่งขัน</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+
+    </style>
+</head>
+
+<body class="bg-light">
+    <div class="container-fluid">
+        <div class="bgh1">
+            <h1>รายการการแข่งขัน</h1>
+        </div>
+
+        <div class="container">
+            <!-- Tournament Cards -->
+            <div *ngIf="tournaments.length; else noData" class="scroll-wrapper">
+
+                <div *ngFor="let t of tournaments" class="competition-card">
+                    <img [src]="getBannerUrl(t.promoteImage)" alt="banner" class="card-image">
+                    <div class="card-content">
+                        <h3 class="competition-title">{{t.tourName}}</h3>
+                        <div class="competition-info">
+                            <div><strong>จังหวัด: </strong>{{t.province}}</div>
+                            <div><strong>วันที่แข่งขัน: </strong>{{t.startTour | date:'dd/MM/yyyy'}} - {{t.endTour | date:'dd/MM/yyyy'}}</div>
+                            <div><strong>สถานที่: </strong>{{t.locationName}}</div>
+                        </div>
+                        <span class="competition-type">มือสมัครเล่น • ชาย</span>
+                        <div class="card-footer">
+                            <button type="button" class="btn btn-primary details-btn" data-bs-toggle="modal"
+                                data-bs-target="#tournamentModal" (click)="showDetails(t)">
+                                ดูรายละเอียด
+                            </button>
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <ng-template #noData>
+                <p class="text-center text-muted">ยังไม่มีทัวร์นาเมนต์</p>
+            </ng-template>
+        </div>
+    </div>
+
+    <!-- Bootstrap Modal -->
+    <div class="modal fade" id="tournamentModal" tabindex="-1" aria-labelledby="tournamentModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <div>
+                        <h1 class="modal-title">{{ selectedTournament?.tourName }}</h1>
+                    </div>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="modal-image-placeholder" id="modalImage">
+                        <img [src]="getBannerUrl(selectedTournament?.promoteImage)" alt="banner"
+                            class="modal-banner-image">
+                    </div>
+                    <div class="detail-section">
+                        <h3>ข้อมูลทั่วไป</h3>
+                        <div class="detail-grid">
+                            <div class="detail-item">
+                                <div class="detail-label">จังหวัด</div>
+                                <div class="detail-value">{{ selectedTournament?.province }}</div>
+                            </div>
+                            <div class="detail-item">
+                                <div class="detail-label">สถานที่</div>
+                                <div class="detail-value" id="modalLocation">{{ selectedTournament?.locationName}}</div>
+                            </div>
+                            <div class="detail-item">
+                                <div class="detail-label">วันที่เริ่ม</div>
+                                <div class="detail-value" id="modalStartDate">{{ selectedTournament?.startTour |
+                                    date:'dd/MM/yyyy' }}</div>
+                            </div>
+                            <div class="detail-item">
+                                <div class="detail-label">วันที่สิ้นสุด</div>
+                                <div class="detail-value" id="modalEndDate">{{ selectedTournament?.endTour |
+                                    date:'dd/MM/yyyy' }}</div>
+                            </div>
+                            <div class="detail-item full-width">
+                                <div class="detail-label">รายละเอียด</div>
+                                <div class="detail-value" id="modalDescription">
+                                    การแข่งขันกีฬาระดับมืออาชีพ
+                                    เปิดรับสมัครนักกีฬาที่มีความสามารถและประสบการณ์ในการแข่งขัน
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="detail-section">
+                        <h3>เงื่อนไขการสมัคร</h3>
+                        <div class="detail-grid">
+                            <div class="detail-item">
+                                <div class="detail-label">ประเภท</div>
+                                <div class="detail-value">มือสมัครเล่น</div>
+                            </div>
+                            <div class="detail-item">
+                                <div class="detail-label">เพศ</div>
+                                <div class="detail-value">ชาย</div>
+                            </div>
+                            <div class="detail-item">
+                                <div class="detail-label">ค่าสมัคร</div>
+                                <div class="detail-value">500 บาท</div>
+                            </div>
+                            <div class="detail-item">
+                                <div class="detail-label">จำนวนผู้เข้าร่วม</div>
+                                <div class="detail-value">32 ทีม</div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class=register-btn  data-bs-toggle="modal" data-bs-target="#registerModal"
+                        (click)="prepareRegisterForm()">
+                        สมัครเข้าร่วมการแข่งขัน
+                    </button>
+
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">ปิด</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="registerModal" tabindex="-1" aria-labelledby="registerModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">สมัครเข้าร่วมการแข่งขัน</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div *ngFor="let player of selectedPlayers; let i = index"
+                        class="mb-3 d-flex align-items-center gap-2">
+                        <select class="form-select" [(ngModel)]="selectedPlayers[i]" name="player{{i}}" required>
+                            <option [ngValue]="null" disabled>-- เลือกนักกีฬา --</option>
+                            <option *ngFor="let p of availablePlayers" [ngValue]="p">
+                                {{ p.firstName }} {{ p.lastName }}
+                            </option>
+                        </select>
+                        <button type="button" class="btn btn-danger btn-sm" (click)="removePlayer(i)">ลบ</button>
+                    </div>
+                    <button type="button" class="btn btn-outline-primary " (click)="addPlayer()">+ เพิ่มนักกีฬา</button>
+                </div>
+                <div class="modal-footer">
+                    <button class=register-btn  (click)="submitRegistration()">ยืนยันการสมัคร</button>
+                    <button class="btn btn-secondary" data-bs-dismiss="modal">ปิด</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Bootstrap JS -->
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script> -->
+
+    <!-- <script>
+        function showTournamentDetails(title, province, location, startDate, endDate) {
+            document.getElementById('tournamentModalLabel').textContent = title;
+            document.getElementById('modalProvince').textContent = province;
+            document.getElementById('modalLocation').textContent = location;
+            document.getElementById('modalStartDate').textContent = startDate;
+            document.getElementById('modalEndDate').textContent = endDate;
+        }
+
+        function registerTournament() {
+            alert('การสมัครเข้าร่วมการแข่งขัน (ฟังก์ชันนี้จะเชื่อมต่อกับระบบสมัครจริง)');
+        }
+    </script> -->
+</body>
+
+</html>

@@ -1,4 +1,9 @@
-
+@import url("https://fonts.googleapis.com/css2?family=Prompt:wght@400;500;700&display=swap");
+* {
+  font-family: "Prompt", sans-serif;
+  margin: 0;
+  padding: 0;
+}
 .custom-rounded {
     border-radius: 20px; /* กำหนดค่าความโค้งที่ต้องการ */
 }
@@ -100,3 +105,15 @@
     text-align: left; /* จัดข้อความชิดซ้าย */
     padding-left: 10px; /* เพิ่มระยะห่างจากขอบซ้าย (ถ้าต้องการ) */
   }
+  .nav-link.active {
+    color: #787FF6 !important;
+    font-weight: bold;
+  }
+  .sticky-nav {
+    position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1030;
+  }
+  

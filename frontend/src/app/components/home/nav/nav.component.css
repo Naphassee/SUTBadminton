@@ -24,6 +24,9 @@
     color: #787FF6; /* สีเมื่อชี้เมาส์ */
     /*text-decoration: underline; /* ขีดเส้นใต้เมื่อ hover */
 }
+.nav-link.active {
+    color: #787FF6 !important;
+  }
 .navbar {
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* กำหนดเงา */
 }
@@ -40,3 +43,11 @@
     z-index: 1000; /* ให้แน่ใจว่า navbar อยู่เหนือเนื้อหา */
     background-color: #f8f9fa; /* สีพื้นหลัง */
 }
+.sticky-nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1030;
+  }
+  
