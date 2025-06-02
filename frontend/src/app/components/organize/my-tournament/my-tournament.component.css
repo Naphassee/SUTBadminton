@@ -1,13 +1,24 @@
 .tournament-card {
-    border-radius: 12px;
-    overflow: hidden;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-  }
-  
-  .banner-img {
-    min-width: 320px;
-    width: 420px;
-    height: 160px;
-    object-fit: cover;
-  }
-  
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.banner-img {
+  width: 420px;           /* ปรับขนาดตามความเหมาะสม */
+  height: 180px;
+  object-fit: cover;
+}
+
+.info-main .small-text {
+  font-size: 0.875rem;
+  color: #6c757d;
+}
+
+.info-meta {
+  font-size: 0.875rem;
+}
+
+.action-buttons button {
+  width: 100%;
+}

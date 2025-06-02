@@ -24,7 +24,7 @@ export class TournamentListComponent implements OnInit {
   // ข้อมูลนักกีฬา
   availablePlayers: Manager[] = [];
   selectedPlayers: (Manager | null)[] = [];
-  
+   
   // ข้อความแจ้งเตือน
   errorMessage: string | null = null;
   successMessage: string | null = null;
@@ -67,7 +67,7 @@ export class TournamentListComponent implements OnInit {
   }
 
   getBannerUrl(file: string) {
-    return `${AppConfig.apiUrl.replace('/api', '')}/uploads/${file}`;
+    return `${AppConfig.uploadUrl}${file}`;
   }
 
   showDetails(tournament: any): void {

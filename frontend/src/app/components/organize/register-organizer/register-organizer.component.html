@@ -1,7 +1,7 @@
 <div class="container d-flex justify-content-center align-items-center min-vh-100 min-vw-100">
   <div class="row border rounded-5 p-3 bg-white shadow box-area">
     <form [formGroup]="registerForm" (ngSubmit)="onSubmit()"
-    class="col-md-10 rounded-start-5 d-flex justify-content-top align-items-center flex-column pt-2 left-box">
+    class="col-md-9 rounded-start-5 d-flex justify-content-top align-items-center flex-column pt-2 left-box">
       <h3>ลงทะเบียน</h3>
       <div class="row rounded-5 p-1 m-2 bg-white">
         <div class="col-md-6 border-end">
@@ -20,38 +20,37 @@
             </label>
             </div> 
           <div class="row m-3">
-            <div class="col">
+            <div class="col m-2">
               <label for="userName" class="form-label">ชื่อบัญชีผู้ใช้</label>
-              <input type="text" class="form-control" id="userName" name="userName" formControlName="userName">
+              <input type="text" class="form-control p-2" id="userName" name="userName" formControlName="userName">
             </div>
           </div>
           <div class="row m-3">
-            <div class="col">
+            <div class="col m-2">
               <label for="password" class="form-label">รหัสผ่าน</label>
-              <input type="password" class="form-control" id="password" name="password" formControlName="password">
+              <input type="password" class="form-control p-2" id="password" name="password" formControlName="password">
             </div>
           </div>
           <div class="row m-3">
-            <div class="col">
+            <div class="col m-2">
               <label for="firstName" class="form-label">ชื่อ</label>
-              <input type="text" class="form-control" id="firstName " name="firstName" formControlName="firstName">
+              <input type="text" class="form-control p-2" id="firstName " name="firstName" formControlName="firstName">
             </div>
-            <div class="col">
+            <div class="col m-2">
               <label for="lastName" class="form-label">นามสกุล</label>
-              <input type="text" class="form-control" id="lastName" name="lastName" formControlName="lastName">
+              <input type="text" class="form-control p-2" id="lastName" name="lastName" formControlName="lastName">
             </div>
           </div>
         </div>
         <div class="col-md-6">
           <div class="row m-3">
-            <div class="col">
+            <div class="col m-2">
               <label for="email" class="form-label">อีเมล</label>
-              <input type="email" class="form-control" id="email" name="email" formControlName="email">
+              <input type="email" class="form-control p-2" id="email" name="email" formControlName="email">
             </div>
-            <div class="col">
+            <div class="col m-2">
               <label for="phoneNumber" class="form-label">เบอร์ติดต่อ</label>
-              <input type="text" class="form-control" id="phoneNumber " name="phoneNumber"
-                formControlName="phoneNumber">
+              <input type="text" class="form-control p-2" id="phoneNumber " name="phoneNumber" formControlName="phoneNumber">
             </div>
           </div>
           <div class="row m-3" style="padding: 12px;">
@@ -70,19 +69,19 @@
           </div>
           <div class="row m-3">
             <div class="col d-flex justify-content-end">
-              <button class="btn btn-success btn-lg">บันทึกข้อมูล</button>
+              <button class="btn btn-success btn-lg px-4 py-2">บันทึกข้อมูล</button>
             </div>
           </div>
         </div>
       </div>
     </form>
-    <div class="col-md-2 rounded-end-5 d-flex justify-content-top align-items-center flex-column pt-5 right-box">
+    <div class="col-md-3 rounded-end-5 d-flex justify-content-top align-items-center flex-column pt-5 right-box">
       <h2 class="text-white m-2" style="font-weight: 800;">ยินดีต้อนรับสู่ SUTMinton</h2>
       <p class="text-white text-center m-2">เว็บไซต์ที่จะช่วยคุณจัดงานสุดยอดการแข่งขันแบดมินตันที่ดีที่สุด</p>
       <a href="/">
         <img src="/icon1.png" alt="icon" style="height: 180px; width: 180px;">
       </a>
       <!-- [routerLink]="['/login-organizer']" -->
-      <button type="button" class="btn btn-outline-secondary btn-lg mt-3" [routerLink]="['/login-organizer']">เข้าสู่ระบบ</button>
+      <button type="button" class="btn btn-outline-secondary btn-lg mt-3 px-4 py-2" [routerLink]="['/login-organizer']">เข้าสู่ระบบ</button>
     </div>
   </div>

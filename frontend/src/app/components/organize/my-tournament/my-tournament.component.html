@@ -1,39 +1,49 @@
 <ng-container *ngIf="tournaments.length; else noData">
   <div *ngFor="let t of tournaments" class="card tournament-card mb-3">
     <div class="row g-0 align-items-center">
-      <!-- Banner รูป -->
+      
+      <!-- รูป Banner -->
       <div class="col-auto">
-        <img 
-          [src]="getBannerUrl(t.promoteImage)" 
-          alt="banner" 
-          class="img-fluid banner-img">
+        <img
+          [src]="getBannerUrl(t.promoteImage)"
+          alt="banner"
+          class="banner-img"
+        />
       </div>
 
-      <!-- ข้อมูลหลัก -->
-      <div class="col ms-4">
-        <h4 class="mb-4">{{ t.tourName }}</h4>
-        <small class="text-muted d-block my-2">
-          <i class="bi-clock me-1"></i>
-          {{ t.startTour | date:'dd/MM/yyyy HH:mm' }}
-          –
-          {{ t.endTour   | date:'dd/MM/yyyy HH:mm' }}
-        </small>
-        <small class="text-muted d-block my-2">
-          <i class="bi-geo-alt me-1"></i>
-          Location: 
-          {{ t.tourName }}
-        </small>
+      <!-- ชื่อแข่ง + เวลา + สถานที่ -->
+      <div class="col px-3">
+        <h4 class="mb-2">{{ t.tourName }}</h4>
+        <div class="d-flex">
+          
+          <!-- 2.1 เวลา – สถานที่ -->
+          <div class="info-main flex-grow-1">
+            <div class="small-text mt-2">
+              <i class="bi-clock me-1"></i><strong> ปิดรับสมัคร: </strong> {{ t.deadlineOfRegister | date:'dd/MM/yyyy HH:mm' }}
+            </div>
+            <div class="small-text mt-2">
+              <i class="bi-clock me-1"></i><strong> แข่งตั้งแต่: </strong> {{ t.startTour | date:'dd/MM/yyyy HH:mm' }} – {{ t.endTour | date:'dd/MM/yyyy HH:mm' }}
+            </div>
+            <div class="small-text mt-2">
+              <i class="bi-geo-alt me-1"></i><strong> สถานที่: </strong> {{ t.locationName }} จังหวัด: {{ t.province }}
+            </div>
+          </div>
+
+          <!-- 3. ระดับ / ประเภท -->
+          <div class="info-meta ms-4">
+            <div><strong>ระดับ:</strong> {{ t.level }}</div>
+            <div class="mt-1"><strong>ประเภท:</strong> {{ t.gender }}</div>
+          </div>
+        </div>
       </div>
 
-      <!-- ปุ่ม รายละเอียดเพิ่มเติม -->
-      <div class="col" align="center">
-        <button class="btn btn-primary mx-2">
-          ดูรายละเอียด
-        </button>
-        <button class="btn btn-success mx-2">
-          แก้ไขรายละเอียด
-        </button>
+      <!-- 4. ปุ่มลบ / แก้ไข / ดูรายละเอียด -->
+      <div class="col-auto action-buttons d-grid gap-2 p-2">
+        <button class="btn btn-danger btn-sm" (click)="onDelete(t._id!)">ลบ</button>
+        <button class="btn btn-success btn-sm">แก้ไขรายละเอียด</button>
+        <button class="btn btn-primary btn-sm">ดูรายละเอียด</button>
       </div>
+
     </div>
   </div>
 </ng-container>

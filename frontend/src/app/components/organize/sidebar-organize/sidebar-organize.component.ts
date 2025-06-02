@@ -31,16 +31,16 @@ export class SidebarOrganizeComponent {
       icon: 'bi-person-lines-fill fa-2x',
       label: 'โปรไฟล์',
     },
-    {
-      routeLink: 'tournament-review',
-      icon: 'bi-chat-left-dots-fill fa-2x',
-      label: 'ผลการรีวิวทัวร์นาเมนต์ของฉัน',
-    },
-    {
-      routeLink: 'membership',
-      icon: 'bi-star-fill fa-2x',
-      label: 'การเป็นสมาชิก',
-    },
+    // {
+    //   routeLink: 'tournament-review',
+    //   icon: 'bi-chat-left-dots-fill fa-2x',
+    //   label: 'ผลการรีวิวทัวร์นาเมนต์ของฉัน',
+    // },
+    // {
+    //   routeLink: 'membership',
+    //   icon: 'bi-star-fill fa-2x',
+    //   label: 'การเป็นสมาชิก',
+    // },
   ]
 
   toggleCollapse(): void {

@@ -1,6 +1,11 @@
 <content class="container-fluid md">
     <h2 class="ms-5 mb-3">สร้างทัวร์นาเมนต์ใหม่</h2>
     <form [formGroup]="tournamentForm" (ngSubmit)="onSubmit()" class="bg-white rounded-4 m-3 p-2">
+        <!-- แสดงข้อผิดพลาดจาก Server -->
+        <div *ngIf="serverErrors.length" class="alert alert-danger">
+            <div *ngFor="let e of serverErrors">{{ e.msg }}</div>
+        </div>
+
         <fieldset class="m-2">
             <h3 class="mx-5 m-3 pb-1 text-center border-bottom">พาดหัวการแข่งขันและภาพโปรโมต</h3>
             <div class="row m-3">
@@ -14,12 +19,18 @@
                 <div class="col">
                     <label for="tourName" class="form-label">ชื่อทัวร์นาเมนต์</label>
                     <input type="text" class="form-control" id="tourName" formControlName="tourName"/>
+                    <div class="text-danger mt-1" *ngIf="f['tourName'].invalid && (f['tourName'].dirty || f['tourName'].touched)">
+                        <div *ngIf="f['tourName'].errors?.['required']">กรุณาระบุชื่อทัวร์นาเมนต์</div>
+                    </div>
                 </div>
             </div>
             <div class="row m-3">
                 <div class="col">
                     <label for="tourTagline" class="form-label">พาดหัวการแข่งขัน</label>
                     <textarea class="form-control" aria-label="With textarea" id="tourTagline" formControlName="tourTagline"></textarea>
+                    <div class="text-danger mt-1" *ngIf="f['tourTagline'].invalid && (f['tourTagline'].dirty || f['tourTagline'].touched)">
+                        <div *ngIf="f['tourTagline'].errors?.['required']">กรุณาระบุกล่าวนำทัวร์นาเมนต์</div>
+                    </div>
                 </div>
             </div>
         </fieldset>
@@ -27,16 +38,30 @@
             <h3 class="mx-5 m-3 pb-1 text-center border-bottom">วันที่และสถานที่การจัดทัวร์นาเมนต์</h3>
             <div class="row m-3">
                 <div class="col">
-                    <label for="deadlineOfRegister" class="form-label">วันปิดรับสมัครผู้เข้าร่วมทัวร์นาเมนต์</label>
+                    <label for="deadlineOfRegister" class="form-label">วันปิดรับสมัครทัวร์นาเมนต์</label>
                     <input type="date" class="form-control" id="deadlineOfRegister" formControlName="deadlineOfRegister">
+                    <div class="text-danger mt-1" *ngIf="f['deadlineOfRegister'].invalid && (f['deadlineOfRegister'].dirty || f['deadlineOfRegister'].touched)">
+                        <div *ngIf="f['deadlineOfRegister'].errors?.['required']">กรุณาเลือกวันปิดรับสมัคร</div>
+                        <div *ngIf="f['deadlineOfRegister'].errors?.['pastDate']">ห้ามเลือกวันที่ในอดีต</div>
+                    </div>
                 </div>
+            </div>
+            <div class="row m-3">
                 <div class="col">
-                    <label for="startTour" class="form-label">วันเริ่มการแข่งขันทัวร์นาเมนต์</label>
-                    <input type="date" class="form-control" id="startTour" formControlName="startTour">
+                    <label for="startTour" class="form-label">วันเริ่มแข่งขันตั้งแต่</label>
+                    <input type="datetime-local" class="form-control" id="startTour" formControlName="startTour">
+                    <div class="text-danger mt-1" *ngIf="f['startTour'].invalid && (f['startTour'].dirty || f['startTour'].touched)">
+                        <div *ngIf="f['startTour'].errors?.['required']">กรุณาเลือกวันเริ่มแข่งขัน</div>
+                        <div *ngIf="f['startTour'].errors?.['afterDeadline']">วันเริ่มต้องหลังวันปิดรับสมัครอย่างน้อย 1 วัน</div>
+                    </div>
                 </div>
                 <div class="col">
                     <label for="endTour" class="form-label">ถึง</label>
-                    <input type="date" class="form-control" id="endTour" formControlName="endTour">
+                    <input type="datetime-local" class="form-control" id="endTour" formControlName="endTour">
+                    <div class="text-danger mt-1" *ngIf="f['endTour'].invalid && (f['endTour'].dirty || f['endTour'].touched)">
+                        <div *ngIf="f['endTour'].errors?.['required']">กรุณาเลือกวันสิ้นสุดการแข่งขัน</div>
+                        <div *ngIf="f['endTour'].errors?.['minHours']">วันสิ้นสุดต้องห่างจากวันเริ่มอย่างน้อย {{ f['endTour'].errors?.['minHours']?.['required'] }} ชั่วโมง</div>
+                    </div>
                 </div>
             </div>
         </fieldset>
@@ -46,30 +71,45 @@
                 <div class="col">
                     <label for="locationName" class="form-label">ชื่อสถานที่การจัดทัวร์นาเมนต์</label>
                     <input type="text" class="form-control" id="locationName" formControlName="locationName">
+                    <div class="text-danger mt-1" *ngIf="f['locationName'].invalid && (f['locationName'].dirty || f['locationName'].touched)">
+                        <div *ngIf="f['locationName'].errors?.['required']">กรุณาระบุชื่อสถานที่จัดแข่ง</div>
+                    </div>
                 </div>
             </div>
             <div class="row m-3">
                 <div class="col">
                     <label for="province" class="form-label">จังหวัด</label>
                     <input type="text" class="form-control" id="province" formControlName="province">
+                    <div class="text-danger mt-1" *ngIf="f['province'].invalid && (f['province'].dirty || f['province'].touched)">
+                        <div *ngIf="f['province'].errors?.['required']">กรุณาระบุจังหวัด</div>
+                    </div>
                 </div>
                 <div class="col">
                     <label for="district" class="form-label">อำเภอ</label>
                     <input type="text" class="form-control" id="district" formControlName="district">
+                    <div class="text-danger mt-1" *ngIf="f['district'].invalid && (f['district'].dirty || f['district'].touched)">
+                        <div *ngIf="f['district'].errors?.['required']">กรุณาระบุอำเภอ</div>
+                    </div>
                 </div>
                 <div class="col">
                     <label for="subDistrict" class="form-label">ตำบล</label>
                     <input type="text" class="form-control" id="subDistrict" formControlName="subDistrict">
+                    <div class="text-danger mt-1" *ngIf="f['subDistrict'].invalid && (f['subDistrict'].dirty || f['subDistrict'].touched)">
+                        <div *ngIf="f['subDistrict'].errors?.['required']">กรุณาระบุตำบล</div>
+                    </div>
                 </div>
             </div>
             <div class="row m-3">
                 <div class="col">
                     <label for="detailLocation" class="form-label">รายละเอียดที่อยู่ (เพิ่มเติม)</label>
                     <textarea class="form-control" aria-label="With textarea" id="detailLocation" formControlName="detailLocation" placeholder="หากไม่มีให้ใส่เครื่องหมาย ' - '"></textarea>
+                    <div class="text-danger mt-1" *ngIf="f['detailLocation'].invalid && (f['detailLocation'].dirty || f['detailLocation'].touched)">
+                        <div *ngIf="f['detailLocation'].errors?.['required']">กรุณาระบุรายละเอียดที่อยู่</div>
+                    </div>
                 </div>
             </div>
         </fieldset>
-        <fieldset formArrayName="types" class="m-2">
+        <!-- <fieldset formArrayName="types" class="m-2">
             <h3 class="mx-5 m-3 pb-1 text-center border-bottom">กฎและประเภทการแข่งขัน</h3>
             <div class="row m-3">
                 <div class="col d-flex justify-content-end">
@@ -103,6 +143,58 @@
                         <button type="button" (click)="removeType(i)" class="btn btn-danger h-100"><i class="bi bi-trash3-fill"></i> ลบ</button>
                     </div>
                 </div>
+        </fieldset> -->
+        <fieldset class="m-2">
+            <h3 class="mx-5 m-3 pb-1 text-center border-bottom">กฎและประเภทการแข่งขัน</h3>
+            <div class="row m-3">
+                <div class="col">
+                    <label for="level" class="form-label">ระดับผู้เล่นที่เปิดรับสมัคร</label>
+                    <select class="form-select form-select-lg mb-3" id="level" formControlName="level" aria-label=".form-select-lg example" >
+                        <option value="มือสมัครเล่น" selected>มือสมัครเล่น</option>
+                        <option value="มืออาชีพ">มืออาชีพ</option>
+                    </select>
+                    <div class="text-danger mt-1" *ngIf="f['level'].invalid && (f['level'].dirty || f['level'].touched)">
+                        <div *ngIf="f['level'].errors?.['required']">กรุณาเลือกระดับผู้เล่น</div>
+                    </div>
+                </div>
+                <div class="col">
+                    <label for="gender" class="form-label">ประเภทที่เปิดรับสมัคร</label>
+                    <select class="form-select form-select-lg mb-3" id="gender" formControlName="gender" aria-label=".form-select-lg example" >
+                        <option value="ชาย" selected>ชาย</option>
+                        <option value="หญิง">หญิง</option>
+                    </select>
+                    <div class="text-danger mt-1" *ngIf="f['gender'].invalid && (f['gender'].dirty || f['gender'].touched)">
+                        <div *ngIf="f['gender'].errors?.['required']">กรุณาเลือกประเภทการแข่งขัน</div>
+                    </div>
+                </div>
+            </div>
+            <div class="row m-3">
+                <div class="col">
+                    <label for="participants" class="form-label">จำนวนที่เปิดรับ</label>
+                    <input type="number" class="form-control" id="participants" formControlName="participants">
+                    <div class="text-danger mt-1" *ngIf="f['participants'].invalid && (f['participants'].dirty || f['participants'].touched)">
+                        <div *ngIf="f['participants'].errors?.['required']">กรุณาระบุจำนวนที่เปิดรับสมัคร</div>
+                        <div *ngIf="f['participants'].errors?.['min']">กรุณาระบุจำนวนที่เปิดรับสมัครตั้งแต่ 16 คนขึ้นไป</div>
+                    </div>
+                </div>
+                <div class="col">
+                    <label for="registFee" class="form-label">ค่าสมัคร</label>
+                    <input type="number" class="form-control" id="registFee" formControlName="registFee">
+                    <div class="text-danger mt-1" *ngIf="f['registFee'].invalid && (f['registFee'].dirty || f['registFee'].touched)">
+                        <div *ngIf="f['registFee'].errors?.['required']">กรุณาระบุค่าสมัคร หากฟรีให้ใส่ 0</div>
+                        <div *ngIf="f['registFee'].errors?.['min']">ไม่สามารถใส่ค่าติดลบได้</div>
+                    </div>
+                </div>
+            </div>
+            <div class="row m-3">
+                <div class="col">
+                    <label for="rule" class="form-label">กฎกติกาการแข่งขัน</label>
+                    <textarea class="form-control" aria-label="With textarea" id="rule" formControlName="rule"></textarea>
+                    <div class="text-danger mt-1" *ngIf="f['rule'].invalid && (f['rule'].dirty || f['rule'].touched)">
+                        <div *ngIf="f['rule'].errors?.['required']">กรุณาเลือกประเภทการแข่งขัน</div>
+                    </div>
+                </div>
+            </div>
         </fieldset>
         <fieldset class="m-2 mt-5 py-5">
             <div class="row m-3">

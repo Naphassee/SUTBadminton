@@ -51,7 +51,7 @@ export const routes: Routes = [
         canActivate: [AuthGuard],
         data: { roles: ['manager'] },
         children: [
-            { path: '', redirectTo: 'player-list', pathMatch: 'full' },      // redirect เป๊ะ ๆ ต้องมี pathMatch
+            { path: '', redirectTo: 'tournament-list', pathMatch: 'full' },      // redirect เป๊ะ ๆ ต้องมี pathMatch
             { path: 'player-list', component: PlayerListComponent },
             { path: 'myprofile',    component: MyprofileComponent },
             { path: 'payment',      component: PaymentComponent },

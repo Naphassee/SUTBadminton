@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule  } from '@angular/forms';
 import { OrganizerService } from '../../../core/services/organizer.service';
 import { RouterModule, Router } from '@angular/router';
+import { AppConfig } from '../../../app.config';
 
 @Component({
   selector: 'app-edit-profile',
@@ -56,8 +57,8 @@ export class EditProfileComponent implements OnInit{
         });
 
         // เตรียม URL รูปภาพ (ขึ้นกับที่คุณเซิร์ฟต์ static ไว้)
-        this.imageSrc  = `http://localhost:5000/uploads/${org.profileImage}`;
-        this.qrCodeSrc = `http://localhost:5000/uploads/${org.qrCode}`;
+        this.imageSrc  = `${AppConfig.uploadUrl}${org.profileImage}`;
+        this.qrCodeSrc = `${AppConfig.uploadUrl}${org.qrCode}`;
       },
       error: err => console.error('ไม่สามารถดึงโปรไฟล์ได้', err)
     });

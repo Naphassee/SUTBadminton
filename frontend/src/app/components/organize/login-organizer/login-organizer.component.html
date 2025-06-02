@@ -1,15 +1,15 @@
 <div class="container d-flex justify-content-center align-items-center min-vh-100 min-vw-100">
   <div class="row border rounded-5 p-3 bg-white shadow box-area">
-    <div class="col-md-5 rounded-start-5 d-flex justify-content-top align-items-center flex-column pt-5 left-box">
+    <div class="col-md-6 rounded-start-5 d-flex justify-content-top align-items-center flex-column pt-5 left-box">
       <h2 class="text-white m-2" style="font-weight: 800;">ยินดีต้อนรับสู่ SUTMinton</h2>
       <p class="text-white text-center m-2">เว็บไซต์ที่จะช่วยคุณจัดงานสุดยอดการแข่งขันแบดมินตันที่ดีที่สุด</p>
       <a href="/">
         <img src="/icon1.png" alt="icon" style="height: 180px; width: 180px;">
       </a>
       <!-- [routerLink]="['/register-organizer']" -->
-      <button type="button" class="btn btn-outline-secondary btn-lg mt-3" [routerLink]="['/register-organizer']">ลงทะเบียน</button>
+      <button type="button" class="btn btn-outline-secondary btn-lg mt-3 px-4 py-2" [routerLink]="['/register-organizer']">ลงทะเบียน</button>
     </div>
-    <div class="col-md-7 rounded-end-5 d-flex justify-content-top align-items-center flex-column pt-5 right-box">
+    <div class="col-md-6 rounded-end-5 d-flex justify-content-top align-items-center flex-column pt-5 right-box">
       <div class="row align-items-center">
         <div class="header-text mb-4">
           <h2 class="mt-3">ลงชื่อเข้าใช้</h2>
@@ -20,7 +20,7 @@
               <label for="userName" class="form-label">บัญชีผู้ใช้</label>
               <input
                  type="text"
-                  class="form-control"
+                  class="form-control p-2"
                   id="userName"
                   name="userName"
                   [(ngModel)]="userName"
@@ -33,7 +33,7 @@
               <label for="password" class="form-label">รหัสผ่าน</label>
               <input
                 type="password"
-                class="form-control"
+                class="form-control p-2"
                 id="password"
                 name="password"
                 [(ngModel)]="password"
@@ -43,7 +43,7 @@
           </div>
           <div class="row m-4">
             <div class="col d-flex justify-content-center">
-              <button class="btn btn-success btn-lg" type="submit" [disabled]="loginForm.invalid">เข้าสู่ระบบ</button>
+              <button class="btn btn-success btn-lg px-4 py-2" type="submit" [disabled]="loginForm.invalid">เข้าสู่ระบบ</button>
             </div>
           </div>
         </form>

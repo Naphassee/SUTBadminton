@@ -2,19 +2,24 @@ import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormControl, FormArray, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TournamentService } from '../../../core/services/tournament.service';
-import { AppConfig }         from '../../../app.config';
+import { noPastDateValidator, afterDeadlineValidator, minHoursAfterStartValidator } from '../../../validators/tournament-validators';
 import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-create-tournament',
   standalone: true,
-  imports: [ CommonModule, FormsModule, ReactiveFormsModule ],
+  imports: [ 
+    CommonModule, 
+    FormsModule, 
+    ReactiveFormsModule, 
+  ],
   templateUrl: './create-tournament.component.html',
   styleUrls: ['./create-tournament.component.css']
 })
 export class CreateTournamentComponent implements OnInit {
   tournamentForm!: FormGroup;
   imageSrc: string | ArrayBuffer | null = null;
+  serverErrors: { param: string, msg: string }[] = [];
 
   constructor(
     private fb: FormBuilder,
@@ -27,9 +32,10 @@ export class CreateTournamentComponent implements OnInit {
       promoteImage:       [null],
       tourName:           ['', Validators.required],
       tourTagline:        ['', Validators.required],
-      deadlineOfRegister: ['', Validators.required],
-      startTour:          ['', Validators.required],
-      endTour:            ['', Validators.required],
+
+      deadlineOfRegister: ['', [Validators.required, noPastDateValidator()]],
+      startTour:          ['', [Validators.required, afterDeadlineValidator()]],
+      endTour:            ['', [Validators.required, minHoursAfterStartValidator(2)]],
 
       locationName:       ['', Validators.required],
       province:           ['', Validators.required],
@@ -37,29 +43,40 @@ export class CreateTournamentComponent implements OnInit {
       subDistrict:        ['', Validators.required],
       detailLocation:     ['', Validators.required],
 
-      types:              this.fb.array([])  // จะเก็บกลุ่ม FormGroup ย่อย ๆ
+      level:              ['', Validators.required],
+      gender:             ['', Validators.required],
+      participants:       ['', [Validators.required, Validators.min(16)]],
+      registFee:          ['', [Validators.required, Validators.min(0)]],
+      rule:               ['', Validators.required],
+
+      // types:              this.fb.array([])  // จะเก็บกลุ่ม FormGroup ย่อย ๆ (แบบเก่า)
     });
   }
 
-  // ช่วยให้เข้าถึง FormArray ได้ง่าย
-  get types(): FormArray {
-    return this.tournamentForm.get('types') as FormArray;
+  // Getter สะดวกใช้ใน template
+  get f() {
+    return this.tournamentForm.controls;
   }
 
-  // เพิ่มประเภทการแข่งขัน
-  addType(): void {
-    this.types.push(this.fb.group({
-      typename:     ['', Validators.required],
-      participants: [null, [Validators.required, Validators.min(1)]],
-      registFee:    [null, [Validators.required, Validators.min(0)]],
-      rule:         ['', Validators.required]
-    }));
-  }
+  // // ช่วยให้เข้าถึง FormArray ได้ง่าย (แบบเก่า)
+  // get types(): FormArray {
+  //   return this.tournamentForm.get('types') as FormArray;
+  // }
 
-  // ลบประเภทตาม index
-  removeType(i: number): void {
-    this.types.removeAt(i);
-  }
+  // // เพิ่มประเภทการแข่งขัน (แบบเก่า)
+  // addType(): void {
+  //   this.types.push(this.fb.group({
+  //     typename:     ['', Validators.required],
+  //     participants: [null, [Validators.required, Validators.min(1)]],
+  //     registFee:    [null, [Validators.required, Validators.min(0)]],
+  //     rule:         ['', Validators.required]
+  //   }));
+  // }
+
+  // // ลบประเภทตาม index (แบบเก่า)
+  // removeType(i: number): void {
+  //   this.types.removeAt(i);
+  // }
 
   // อ่านไฟล์รูปแล้วโชว์ preview
   onFileSelected(e: Event): void {
@@ -82,18 +99,37 @@ export class CreateTournamentComponent implements OnInit {
     // ถ้าจะอัปโหลดไฟล์ ให้ใช้ FormData
     const data = new FormData();
     const val = this.tournamentForm.value;
-    data.append('promoteImage', val.promoteImage);
-    
-    // append ฟิลด์อื่น ๆ
-    [
-     'tourName','tourTagline','deadlineOfRegister',
-     'startTour','endTour',
-     'locationName', 'province', 'district', 'subDistrict', 'detailLocation',
-    ]
-      .forEach(key => data.append(key, val[key]));
 
-    // types เก็บเป็น JSON string
-    data.append('types', JSON.stringify(val.types));
+    // deadlineOfRegister → 23:59:59.000
+    const dl = new Date(val.deadlineOfRegister);
+    dl.setHours(23, 59, 59, 0);
+    // startTour → ตัดวินาที+มิลลิวินาทีออก
+    const st = new Date(val.startTour);
+    st.setSeconds(0, 0);
+    // endTour → ตัดวินาที+มิลลิวินาทีออก
+    const ed = new Date(val.endTour);
+    ed.setSeconds(0, 0);
+
+    // append ฟิลด์อื่น ๆ
+    data.append('promoteImage',       val.promoteImage);
+    data.append('tourName',           val.tourName);
+    data.append('tourTagline',        val.tourTagline);
+    data.append('deadlineOfRegister', dl.toISOString());
+    data.append('startTour',          st.toISOString());
+    data.append('endTour',            ed.toISOString());
+    data.append('locationName',       val.locationName);
+    data.append('province',           val.province);
+    data.append('district',           val.district);
+    data.append('subDistrict',        val.subDistrict);
+    data.append('detailLocation',     val.detailLocation);
+    data.append('level',              val.level);
+    data.append('gender',             val.gender);
+    data.append('participants',       val.participants);
+    data.append('registFee',          val.registFee);
+    data.append('rule',               val.rule);
+
+    // // types เก็บเป็น JSON string (แบบเก่า)
+    // data.append('types', JSON.stringify(val.types));
 
     this.tourSvc.create(data).subscribe({
       next: res => {

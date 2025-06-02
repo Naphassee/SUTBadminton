@@ -4,12 +4,12 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { AppConfig } from '../../app.config';
 
-export interface TournamentType {
-  typename:           string;
-  participants:       number;
-  registFee:          number;
-  rule:               string;
-}
+// export interface TournamentType {
+//   typename:           string;
+//   participants:       number;
+//   registFee:          number;
+//   rule:               string;
+// }
 
 // ชนิดของทัวร์นาเมนต์
 export interface Tournament {
@@ -31,8 +31,14 @@ export interface Tournament {
   subDistrict:        string;
   detailLocation:     string;
 
-  // ประเภทการแข่งขัน
-  types:              TournamentType[];
+  level:              string;
+  gender:             string;
+  participants:       number;
+  registFee:          number;
+  rule:               string;
+
+  // // ประเภทการแข่งขัน
+  // types:              TournamentType[];
 
   createdAt?:         string;
 }
@@ -40,9 +46,17 @@ export interface Tournament {
 @Injectable({ providedIn: 'root' })
 export class TournamentService {
   private baseUrl = `${AppConfig.apiUrl}/tournaments`;
-  constructor(private http: HttpClient) {}
+
+  constructor(
+    private http: HttpClient
+  ) {}
+
   getAll(): Observable<Tournament[]> {
     return this.http.get<Tournament[]>(this.baseUrl);
+  }
+
+  getMy(): Observable<Tournament[]> {
+    return this.http.get<Tournament[]>(`${this.baseUrl}/my`);
   }
   
   create(data: FormData): Observable<Tournament> {
