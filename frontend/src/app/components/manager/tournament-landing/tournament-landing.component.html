@@ -1,19 +1,19 @@
+<app-nav></app-nav>
 <!DOCTYPE html>
 <html lang="th">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>รายการการแข่งขัน</title>
+    <div class="bgh1 mt-5 pt-4 sticky-heading">
+        <h1>รายการการแข่งขัน</h1>
+    </div>
     <!-- Bootstrap CSS -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
-    <style>
-
-    </style>
 </head>
 
 <body class="bg-light">
-    <div class="container-fluid">
+    <div class="container-fluid mt-5">
         <div class="bgh1">
             <h1>รายการการแข่งขัน</h1>
         </div>
@@ -74,13 +74,22 @@
                             <div class="detail-value">{{ selectedTournament?.tourTagline }}</div>
                         </div>
                         <div class="detail-grid">
+
+                            <div class="detail-item">
+                                <div class="detail-label">สถานที่</div>
+                                <div class="detail-value" id="modalLocation">{{ selectedTournament?.locationName}}</div>
+                            </div>
                             <div class="detail-item">
                                 <div class="detail-label">จังหวัด</div>
                                 <div class="detail-value">{{ selectedTournament?.province }}</div>
                             </div>
                             <div class="detail-item">
-                                <div class="detail-label">สถานที่</div>
-                                <div class="detail-value" id="modalLocation">{{ selectedTournament?.locationName}}</div>
+                                <div class="detail-label">อำเภอ</div>
+                                <div class="detail-value">{{ selectedTournament?.district }}</div>
+                            </div>
+                            <div class="detail-item">
+                                <div class="detail-label">ตำบล</div>
+                                <div class="detail-value">{{ selectedTournament?.subDistrict }}</div>
                             </div>
                             <div class="detail-item full-width">
                                 <div class="detail-label">รายละเอียดสถานที่</div>
@@ -101,14 +110,6 @@
                                 <div class="detail-label">ปิดรับสมัคร</div>
                                 <div class="detail-value">วันที่ {{ selectedTournament?.deadlineOfRegister |
                                     date:'dd/MM/yyyy HH:mm' }} น.</div>
-                            </div>
-
-                            <div class="detail-item full-width">
-                                <div class="detail-label">รายละเอียด</div>
-                                <div class="detail-value" id="modalDescription">
-                                    การแข่งขันกีฬาระดับมืออาชีพ
-                                    เปิดรับสมัครนักกีฬาที่มีความสามารถและประสบการณ์ในการแข่งขัน
-                                </div>
                             </div>
                         </div>
                     </div>
@@ -152,7 +153,8 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class=register-btn data-bs-toggle="modal" data-bs-target="#registerModal"
-                        (click)="prepareRegisterForm()">
+                        (click)="onRegisterClick()" data-bs-toggle="modal"
+                        [attr.data-bs-target]="isLoggedIn ? '#registerModal' : '#loginRequiredModal'">
                         สมัครเข้าร่วมการแข่งขัน
                     </button>
 
@@ -160,53 +162,32 @@
                 </div>
             </div>
         </div>
+        
     </div>
-
-    <div class="modal fade" id="registerModal" tabindex="-1" aria-labelledby="registerModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg">
+    <!-- Login Required Modal -->
+    <div class="modal fade" id="loginRequiredModal" tabindex="-1" aria-labelledby="loginRequiredModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">สมัครเข้าร่วมการแข่งขัน</h5>
+                    <h5 class="modal-title">แจ้งเตือน</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <div class="modal-body">
-                    <div *ngFor="let player of selectedPlayers; let i = index"
-                        class="mb-3 d-flex align-items-center gap-2">
-                        <select class="form-select" [(ngModel)]="selectedPlayers[i]" name="player{{i}}" required>
-                            <option [ngValue]="null" disabled>-- เลือกนักกีฬา --</option>
-                            <option *ngFor="let p of availablePlayers" [ngValue]="p">
-                                {{ p.firstName }} {{ p.lastName }}
-                            </option>
-                        </select>
-                        <button type="button" class="btn btn-danger btn-sm" (click)="removePlayer(i)">ลบ</button>
-                    </div>
-                    <button type="button" class="btn btn-outline-primary " (click)="addPlayer()">+ เพิ่มนักกีฬา</button>
+                <div class="modal-body ">
+                    <h1>คุณต้องเข้าสู่ระบบก่อนจึงจะสมัครเข้าร่วมการแข่งขันได้</h1>
+                    <img src="goToLogin.jpg" alt="Image" width="95%" height="95%" class="img-fluid mx-auto d-block">
                 </div>
                 <div class="modal-footer">
-                    <button class=register-btn (click)="submitRegistration()">ยืนยันการสมัคร</button>
-                    <button class="btn btn-secondary" data-bs-dismiss="modal">ปิด</button>
+                    <a href="/login" class="register-btn">
+                        ทำการเข้าสู่ระบบ
+                    </a>
+
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                        ยกเลิก
+                    </button>
                 </div>
             </div>
         </div>
     </div>
-
-
-    <!-- Bootstrap JS -->
-    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script> -->
-
-    <!-- <script>
-        function showTournamentDetails(title, province, location, startDate, endDate) {
-            document.getElementById('tournamentModalLabel').textContent = title;
-            document.getElementById('modalProvince').textContent = province;
-            document.getElementById('modalLocation').textContent = location;
-            document.getElementById('modalStartDate').textContent = startDate;
-            document.getElementById('modalEndDate').textContent = endDate;
-        }
-
-        function registerTournament() {
-            alert('การสมัครเข้าร่วมการแข่งขัน (ฟังก์ชันนี้จะเชื่อมต่อกับระบบสมัครจริง)');
-        }
-    </script> -->
 </body>
 
-</html>
