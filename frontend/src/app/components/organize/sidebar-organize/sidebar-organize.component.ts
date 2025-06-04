@@ -17,6 +17,11 @@ export class SidebarOrganizeComponent {
   changeIsLeftSidebarCollapsed = output<boolean>();
   items = [
     {
+      routeLink: 'all-tournament',
+      icon: 'bi-chat-left-dots-fill fa-2x',
+      label: 'ทัวร์นาเมนต์ทั้งหมด',
+    },
+    {
       routeLink: 'my-tournament',
       icon: 'bi-house-fill fs-5',
       label: 'ทัวร์นาเมนต์ของฉัน',
@@ -31,16 +36,6 @@ export class SidebarOrganizeComponent {
       icon: 'bi-person-lines-fill fa-2x',
       label: 'โปรไฟล์',
     },
-    // {
-    //   routeLink: 'tournament-review',
-    //   icon: 'bi-chat-left-dots-fill fa-2x',
-    //   label: 'ผลการรีวิวทัวร์นาเมนต์ของฉัน',
-    // },
-    // {
-    //   routeLink: 'membership',
-    //   icon: 'bi-star-fill fa-2x',
-    //   label: 'การเป็นสมาชิก',
-    // },
   ]
 
   toggleCollapse(): void {

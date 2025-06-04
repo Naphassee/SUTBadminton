@@ -4,26 +4,19 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { AppConfig } from '../../app.config';
 
-// export interface TournamentType {
-//   typename:           string;
-//   participants:       number;
-//   registFee:          number;
-//   rule:               string;
-// }
-
 // ชนิดของทัวร์นาเมนต์
 export interface Tournament {
   _id?:               string;
-
+ 
   // ชื่อไฟล์รูปโปรโมต
   promoteImage:       string;
 
   // ข้อมูลทัวร์นาเมนต์
   tourName:           string;
   tourTagline:        string;
-  deadlineOfRegister: string;   // หรือ Date ถ้าคุณแปลงเป็นวันที่
-  startTour:          string;   // หรือ Date
-  endTour:            string;   // หรือ Date
+  deadlineOfRegister: string;
+  startTour:          string;
+  endTour:            string;
 
   locationName:       string;
   province:           string;
@@ -37,8 +30,7 @@ export interface Tournament {
   registFee:          number;
   rule:               string;
 
-  // // ประเภทการแข่งขัน
-  // types:              TournamentType[];
+  status:             string;
 
   createdAt?:         string;
 }
@@ -55,6 +47,10 @@ export class TournamentService {
     return this.http.get<Tournament[]>(this.baseUrl);
   }
 
+  getById(id: string): Observable<Tournament> {
+    return this.http.get<Tournament>(`${this.baseUrl}/${id}`)
+  }
+
   getMy(): Observable<Tournament[]> {
     return this.http.get<Tournament[]>(`${this.baseUrl}/my`);
   }
@@ -63,8 +59,8 @@ export class TournamentService {
     return this.http.post<Tournament>(this.baseUrl, data);
   }
 
-  update(id: string, t: Partial<Tournament>): Observable<Tournament> {
-    return this.http.put<Tournament>(`${this.baseUrl}/${id}`, t);
+  update(id: string, formData: FormData): Observable<Tournament> {
+    return this.http.put<Tournament>(`${this.baseUrl}/${id}`, formData);
   }
   
   delete(id: string): Observable<void> {

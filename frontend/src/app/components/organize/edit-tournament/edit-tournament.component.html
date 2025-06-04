@@ -1,6 +1,6 @@
 <content class="container-fluid md">
     <h2 class="ms-5 mb-3">สร้างทัวร์นาเมนต์ใหม่</h2>
-    <form [formGroup]="tournamentForm" (ngSubmit)="onSubmit()" class="bg-white rounded-4 m-3 p-2">
+    <form [formGroup]="editForm" (ngSubmit)="onSubmit()" class="bg-white rounded-4 m-3 p-2">
         <!-- แสดงข้อผิดพลาดจาก Server -->
         <div *ngIf="serverErrors.length" class="alert alert-danger">
             <div *ngFor="let e of serverErrors">{{ e.msg }}</div>
@@ -12,7 +12,7 @@
                 <div class="col form-label">ภาพโปรโมตทัวร์นาเมนต์</div>
                 <label for="promoteImage" class="form-label dropzone">
                     <input type="file" accept="image/*" id="promoteImage" (change)="onFileSelected($event)">
-                    <img [src]="imageSrc" *ngIf="imageSrc" class="preview-img">
+                    <img [src]="promoteSrc" *ngIf="promoteSrc" class="preview-img">
                 </label>
             </div>                               
             <div class="row m-3">

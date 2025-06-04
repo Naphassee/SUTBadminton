@@ -48,4 +48,9 @@ router.delete(
   tourCtrl.remove
 );
 
+router.get(
+  '/:id',
+  tourCtrl.getById
+);
+
 module.exports = router;

@@ -1,0 +1,40 @@
+.dropzone {
+    position: relative;
+    width: 100%;
+    height: 300px;
+    border: 2px dashed #ccc;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    background-size: cover;
+    background-position: center;
+  }
+  
+  .preview-img {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  
+  input[type="file"] {
+    opacity: 0;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
+  }
+
+h2{
+    font-size: 35px;
+}
+
+h3 {
+    font-size: 28px;
+    background: linear-gradient(to right, #787FF6 0%, #7BD5F5 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    border-image: linear-gradient(to right, #787FF6 0%, #7BD5F5 100%);
+    border-image-slice: 1;
+  }

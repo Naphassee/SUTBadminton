@@ -2,14 +2,16 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { TournamentService, Tournament } from '../../../core/services/tournament.service';
+import { DetailModalComponent } from '../detail-modal/detail-modal.component';
 import { AppConfig } from '../../../app.config';
 
 @Component({
   selector: 'app-my-tournament',
   standalone: true,
   imports: [
-    CommonModule,       // สำหรับ *ngIf, *ngFor
-    RouterModule       // ถ้าใช้ <a routerLink="...">
+    CommonModule,
+    RouterModule,
+    DetailModalComponent
   ],
   templateUrl: './my-tournament.component.html',
   styleUrl: './my-tournament.component.css'
@@ -37,5 +39,15 @@ export class MyTournamentComponent implements OnInit {
   getBannerUrl(file: string) {
     // สมมติ backend เซิร์ฟรูปไว้ที่ http://localhost:5000/uploads/… 
     return `${AppConfig.uploadUrl}${file}`;
+  }
+
+  selectedTournament?: Tournament;
+
+  onViewDetail(t: Tournament) {
+    this.selectedTournament = t;
+  }
+
+  onCloseModal() {
+    this.selectedTournament = undefined;
   }
 }

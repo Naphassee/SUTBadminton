@@ -48,7 +48,9 @@ exports.tourValid = [
     check('gender').isIn(["ชาย", "หญิง"]).withMessage('เพศต้องเป็น "ชาย" หรือ "หญิง"'),
     check('participants').isInt({ min: 16 }).withMessage('จำนวนผู้เข้าสมัครต้องมีอย่างน้อย 16 คน'),
     check('registFee').isInt({ min: 0 }).withMessage('กรุณาระบุค่าลงสมัคร'),
-    check('rule').notEmpty().withMessage('กรุณาระบุกฏการแข่งขัน')
+    check('rule').notEmpty().withMessage('กรุณาระบุกฏการแข่งขัน'),
+
+    check('status').optional({ checkFalsy: true }).isIn(['ฉบับร่าง','เปิดรับ','ปิดรับ','เต็ม']).withMessage('สถานะไม่ถูกต้อง')
 
     // check('types').custom(v => {
     //     try {

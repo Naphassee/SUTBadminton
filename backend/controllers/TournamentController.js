@@ -11,6 +11,20 @@ exports.getAll = async (req, res) => {
     }
 }
 
+exports.getById = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const tour = await Tournament.findById(id);
+    if (!tour) {
+      return res.status(404).json({ msg: 'ไม่พบทัวร์นาเมนต์ที่ต้องการแก้ไข' });
+    }
+    return res.json(tour);
+  } catch (err) {
+    console.error('Error fetching tournament: ', error);
+    res.status(500).json({ msg: 'เกิดข้อผิดพลาดในการดึงข้อมูลทัวร์นาเมนต์' });
+  }
+}
+
 // ด้านบนมี exports.getAll แล้ว
 exports.getMy = async (req, res) => {
   try {
@@ -34,7 +48,8 @@ exports.create = async (req, res) => {
       tourName, tourTagline, 
       deadlineOfRegister, startTour, endTour,
       locationName, province, district, subDistrict, detailLocation,
-      level, gender, participants, registFee, rule
+      level, gender, participants, registFee, rule,
+      status
     //   types
     } = req.body;
     const promoteImage = req.file ? req.file.filename : null;
@@ -42,15 +57,23 @@ exports.create = async (req, res) => {
     // const typesArray = JSON.parse(types);
 
     try {
-        const newTour = new Tournament({
+        const dataToSave = {
             organizer: req.user.id,
             promoteImage,
             tourName, tourTagline, 
             deadlineOfRegister, startTour, endTour,
             locationName, province, district, subDistrict, detailLocation,
-            level, gender, participants, registFee, rule
+            level, gender, participants, registFee, rule,
             // types: typesArray
-        });
+        }
+
+        // ถ้ามี req.body.status จริง ๆ เท่านั้น จึงเพิ่มเข้าไป
+        if (typeof status !== 'undefined') {
+          dataToSave.status = status;
+        }
+        // ถ้า status ไม่ได้ถูกส่งมาเลย (undefined) Mongoose จะเติม default ให้เป็น 'ฉบับร่าง'
+
+        const newTour = new Tournament(dataToSave);
 
         await newTour.save();
         res.status(201).json(newTour);

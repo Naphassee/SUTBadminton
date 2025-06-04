@@ -1,15 +1,10 @@
 // models/Tournament.js
 const mongoose = require('mongoose');
 
-// // ประเภทการแข่งขัน (แบบเก่า เก็บเป็น array)
-// const TypeSchema = new mongoose.Schema({
-//   typename:           { type: String, required: true },
-//   participants:       { type: Number, required: true },
-//   registFee:          { type: Number, required: true },
-//   rule:               { type: String, required: true }
-// });
-
 const TournamentSchema = new mongoose.Schema({
+  // Foriegn Key
+  organizer: { type: mongoose.Schema.Types.ObjectId, ref: 'Organizer', required: true },
+
   // รูปโปรโมต
   promoteImage:       { type: String },
 
@@ -28,24 +23,14 @@ const TournamentSchema = new mongoose.Schema({
   detailLocation:     { type: String },
 
   // ประเภทการแข่งขัน (ใหม่)
-  level: {
-    type: String,
-    enum: ["มือสมัครเล่น", "มืออาชีพ"],
-    required: true,
-  },
-  gender: {
-    type: String,
-    enum: ["ชาย", "หญิง"],
-    required: true,
-  },
+  level:              { type: String, enum: ["มือสมัครเล่น", "มืออาชีพ"], required: true },
+  gender:             { type: String, enum: ["ชาย", "หญิง"], required: true },
   participants:       { type: Number, required: true },
   registFee:          { type: Number, required: true },
   rule:               { type: String, required: true },
 
-  organizer: { type: mongoose.Schema.Types.ObjectId, ref: 'Organizer', required: true },
-
-  // // ประเภทการแข่งขัน (array of sub-documents)
-  // types:              [TypeSchema],
+  // สถานะทัวร์นาเมนต์
+  status:             { type: String, enum: ['ฉบับร่าง','เปิดรับ','ปิดรับ','เต็ม'], default: 'ฉบับร่าง' },
 
   createdAt:          { type: Date, default: Date.now }
 });

@@ -1,0 +1,62 @@
+<div class="modal-overlay" (click)="close.emit()">
+  <div class="modal-content" (click)="$event.stopPropagation()">
+    <button class="close-btn" (click)="close.emit()">×</button>
+    <img [src]="getBannerUrl(tournament?.promoteImage!)" alt="banner" class="modal-banner rounded-4" />
+    <hr>
+    <h3>{{ tournament?.tourName }}</h3>
+    <hr>
+    <div class="row m-1">
+      <div class="mb-2"><strong>พาดหัวการแข่งขัน</strong></div>
+      <p>{{ tournament?.tourTagline }}</p>
+    </div>
+    <h3 class="mx-5 m-3 pb-1 text-center border-bottom">วันที่และสถานที่การจัดทัวร์นาเมนต์</h3>
+    <div class="row m-1">
+      <div class="col-5">
+        <p><strong>ปิดรับสมัคร:</strong> {{ tournament?.deadlineOfRegister | date:'dd/MM/yyyy HH:mm' }}</p>
+      </div>
+      <div class="col-7">
+        <p><strong>ช่วงเวลาแข่งขัน:</strong> {{ tournament?.startTour | date:'dd/MM/yyyy HH:mm' }} - {{ tournament?.endTour | date:'dd/MM/yyyy HH:mm' }}</p>  
+      </div>
+    </div>
+    <h3 class="mx-5 m-3 pb-1 text-center border-bottom">สถานที่จัดทัวร์นาเมนต์</h3>
+    <div class="row m-1">
+        <p><strong>สถานที่:</strong> {{ tournament?.locationName }}</p>
+    </div>
+    <div class="row m-1">
+      <div class="col">
+        <p><strong>จังหวัด:</strong> {{ tournament?.province }}</p>
+      </div>
+      <div class="col">
+        <p><strong>อำเภอ:</strong> {{ tournament?.district }}</p>
+      </div>
+      <div class="col">
+        <p><strong>ตำบล:</strong> {{ tournament?.subDistrict }}</p>
+      </div>
+    </div>
+    <div class="row m-1">
+      <div><strong>รายละเอียดเพิ่มเติม:</strong></div>
+      <p>{{ tournament?.detailLocation }}</p>
+    </div>
+    <h3 class="mx-5 m-3 pb-1 text-center border-bottom">กฎและประเภทการแข่งขัน</h3>
+    <div class="row m-1">
+        <div class="col">
+        <p><strong>ระดับผู้เล่นที่เปิดรับสมัคร:</strong> {{ tournament?.level }}</p>
+      </div>
+      <div class="col">
+        <p><strong>ประเภทที่เปิดรับสมัคร:</strong> {{ tournament?.gender }}</p>
+      </div>
+    </div>
+    <div class="row m-1">
+        <div class="col">
+        <p><strong>จำนวนที่เปิดรับ:</strong> {{ tournament?.participants }}</p>
+      </div>
+      <div class="col">
+        <p><strong>ค่าสมัคร:</strong> {{ tournament?.registFee }}</p>
+      </div>
+    </div>
+    <div class="row m-1">
+      <div class="mb-2"><strong>กฎกติกาการแข่งขัน</strong></div>
+      <p style="white-space: pre-line;">{{ tournament?.rule }}</p>
+    </div>
+  </div>
+</div>

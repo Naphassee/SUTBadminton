@@ -49,6 +49,8 @@ export class CreateTournamentComponent implements OnInit {
       registFee:          ['', [Validators.required, Validators.min(0)]],
       rule:               ['', Validators.required],
 
+      status:             ['ฉบับร่าง', Validators.required]
+
       // types:              this.fb.array([])  // จะเก็บกลุ่ม FormGroup ย่อย ๆ (แบบเก่า)
     });
   }
@@ -127,6 +129,7 @@ export class CreateTournamentComponent implements OnInit {
     data.append('participants',       val.participants);
     data.append('registFee',          val.registFee);
     data.append('rule',               val.rule);
+    data.append('status',             val.status);
 
     // // types เก็บเป็น JSON string (แบบเก่า)
     // data.append('types', JSON.stringify(val.types));
