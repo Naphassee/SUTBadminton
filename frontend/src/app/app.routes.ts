@@ -11,6 +11,7 @@ import { PlayerAddComponent } from './components/manager/player-add/player-add.c
 import { PlayerListComponent } from './components/manager/player-list/player-list.component';
 import { SandbagComponent } from './components/manager/sandbag/sandbag.component';
 import { TournamentListComponent } from './components/manager/tournament-list/tournament-list.component';
+import { TournamentLandingComponent } from './components/manager/tournament-landing/tournament-landing.component';  
 
 // Organizer
 import { RegisterOrganizerComponent } from './components/organize/register-organizer/register-organizer.component';
@@ -92,4 +93,9 @@ export const routes: Routes = [
         path: "user-list",
         component: UserListComponent,
     },
+    // Tournament Landing
+    {  
+        path: 'tournament-landing',
+        component: TournamentLandingComponent,
+    }
 ];
