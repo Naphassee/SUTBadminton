@@ -50,11 +50,8 @@ exports.create = async (req, res) => {
       locationName, province, district, subDistrict, detailLocation,
       level, gender, participants, registFee, rule,
       status
-    //   types
     } = req.body;
     const promoteImage = req.file ? req.file.filename : null;
-
-    // const typesArray = JSON.parse(types);
 
     try {
         const dataToSave = {
@@ -64,7 +61,6 @@ exports.create = async (req, res) => {
             deadlineOfRegister, startTour, endTour,
             locationName, province, district, subDistrict, detailLocation,
             level, gender, participants, registFee, rule,
-            // types: typesArray
         }
 
         // ถ้ามี req.body.status จริง ๆ เท่านั้น จึงเพิ่มเข้าไป

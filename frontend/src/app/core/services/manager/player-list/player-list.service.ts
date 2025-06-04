@@ -34,11 +34,7 @@ export class PlayerListService {
 
   // POST: สร้าง Manager ใหม่
   createManager(manager: ManageMana): Observable<ManageMana> {
-    return this.http
-      .post<{ message: string; employee: ManageMana }>(
-        `${this.apiUrl}/pushTeam`,
-        manager
-      )
+    return this.http.post<{ message: string; employee: ManageMana }>( `${this.apiUrl}/pushTeam`, manager )
       .pipe(
         map((response) => response.employee),
         catchError(this.handleError)
@@ -67,6 +63,11 @@ export class PlayerListService {
         `${this.apiUrl}/removeTeam/${id}`
       )
       .pipe(catchError(this.handleError));
+  }
+
+  //เอาเฉพาะ players ที่ manager คนนั้นสร้าง
+  getMyPlayer(): Observable<ManageMana[]> {
+    return this.http.get<ManageMana[]>(`${this.apiUrl}/getMyPlayer`);
   }
 
   private handleError(error: any) {

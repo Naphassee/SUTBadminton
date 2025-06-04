@@ -28,7 +28,7 @@ export class PlayerListComponent implements OnInit {
     lastName: '',
     gender: '',
     age: '',
-    role: 'Amateur',
+    role: 'มือสมัครเล่น',
   };
 
   editingPlayerData: ManageMana | null = null;
@@ -44,10 +44,10 @@ export class PlayerListComponent implements OnInit {
   }
 
   loadManagers(): void {
-    this.managerService.getManagers().subscribe({
+    this.managerService.getMyPlayer().subscribe({
       next: (managers) => {
-        this.amateurManagers = managers.filter((m) => m.role === 'Amateur');
-        this.professionalManagers = managers.filter((m) => m.role === 'Professional');
+        this.amateurManagers = managers.filter((m) => m.role === 'มือสมัครเล่น');
+        this.professionalManagers = managers.filter((m) => m.role === 'มืออาชีพ');
       },
       error: (err) => {
         this.handleError(err, 'Failed to load managers.');
@@ -69,7 +69,7 @@ export class PlayerListComponent implements OnInit {
     console.error(err);
   }
 
-  prepareNewPlayerData(role: 'Amateur' | 'Professional'): void {
+  prepareNewPlayerData(role: 'มือสมัครเล่น' | 'มืออาชีพ'): void {
     this.clearMessages();
     if (this.playerForm) {
       this.playerForm.resetForm({ role });

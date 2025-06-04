@@ -53,7 +53,7 @@ export class TournamentListComponent implements OnInit {
 
   loadAllPlayers() {
     this.isLoading = true;
-    this.playerService.getManagers().subscribe({
+    this.playerService.getMyPlayer().subscribe({
       next: (players) => {
         this.availablePlayers = players;
         this.isLoading = false;
@@ -180,7 +180,7 @@ export class TournamentListComponent implements OnInit {
 
   // ฟังก์ชันช่วยในการแสดงชื่อเต็มของนักกีฬา
   getPlayerFullName(player: ManageMana): string {
-    return `${player.firstName} ${player.lastName} (${player.role === 'Amateur' ? 'มือสมัครเล่น' : 'มืออาชีพ'})`;
+    return `${player.firstName} ${player.lastName} (${player.role === 'มือสมัครเล่น' ? 'มือสมัครเล่น' : 'มืออาชีพ'})`;
   }
 
   // ฟังก์ชันสำหรับรีเซ็ตฟอร์มสมัคร

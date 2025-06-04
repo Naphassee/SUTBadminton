@@ -56,7 +56,7 @@ export class TournamentService {
   }
   
   create(data: FormData): Observable<Tournament> {
-    return this.http.post<Tournament>(this.baseUrl, data);
+    return this.http.post<Tournament>(this.baseUrl, data); 
   }
 
   update(id: string, formData: FormData): Observable<Tournament> {

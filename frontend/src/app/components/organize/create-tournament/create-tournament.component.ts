@@ -60,26 +60,6 @@ export class CreateTournamentComponent implements OnInit {
     return this.tournamentForm.controls;
   }
 
-  // // ช่วยให้เข้าถึง FormArray ได้ง่าย (แบบเก่า)
-  // get types(): FormArray {
-  //   return this.tournamentForm.get('types') as FormArray;
-  // }
-
-  // // เพิ่มประเภทการแข่งขัน (แบบเก่า)
-  // addType(): void {
-  //   this.types.push(this.fb.group({
-  //     typename:     ['', Validators.required],
-  //     participants: [null, [Validators.required, Validators.min(1)]],
-  //     registFee:    [null, [Validators.required, Validators.min(0)]],
-  //     rule:         ['', Validators.required]
-  //   }));
-  // }
-
-  // // ลบประเภทตาม index (แบบเก่า)
-  // removeType(i: number): void {
-  //   this.types.removeAt(i);
-  // }
-
   // อ่านไฟล์รูปแล้วโชว์ preview
   onFileSelected(e: Event): void {
     const file = (e.target as HTMLInputElement).files?.[0];

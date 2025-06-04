@@ -16,7 +16,7 @@
         <div class="card-header custom-header d-flex justify-content-between align-items-center">
           <span>มือสมัครเล่น</span>
           <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#addPlayerModal"
-            (click)="prepareNewPlayerData('Amateur')">
+            (click)="prepareNewPlayerData('มือสมัครเล่น')">
             <i class="bi bi-plus-circle"></i> เพิ่มนักกีฬา
           </button>
         </div>
@@ -70,7 +70,7 @@
         <div class="card-header custom-header d-flex justify-content-between align-items-center">
           <span>มืออาชีพ</span>
           <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#addPlayerModal"
-            (click)="prepareNewPlayerData('Professional')">
+            (click)="prepareNewPlayerData('มืออาชีพ')">
             <i class="bi bi-plus-circle"></i> เพิ่มนักกีฬา
           </button>
         </div>
@@ -127,7 +127,7 @@
       <div class="modal-header">
         <h5 class="modal-title" id="addPlayerModalLabel">
           เพิ่มนักกีฬาใหม่ -
-          {{ newPlayerData.role === "Amateur" ? "มือสมัครเล่น" : "มืออาชีพ" }}
+          {{ newPlayerData.role === "มือสมัครเล่น" ? "มือสมัครเล่น" : "มืออาชีพ" }}
         </h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
           (click)="playerForm.resetForm({ role: newPlayerData.role })"></button>
@@ -182,8 +182,8 @@
             <label for="addRole" class="form-label">ประเภทนักกีฬา (Role)</label>
             <select class="form-select" id="addRole" name="role" [(ngModel)]="newPlayerData.role" required
               #role="ngModel" [ngClass]="{ 'is-invalid': role.invalid && role.touched }">
-              <option value="Amateur">มือสมัครเล่น</option>
-              <option value="Professional">มืออาชีพ</option>
+              <option value="มือสมัครเล่น">มือสมัครเล่น</option>
+              <option value="มืออาชีพ">มืออาชีพ</option>
             </select>
             <div *ngIf="role.invalid && role.touched" class="invalid-feedback">
               กรุณาเลือกประเภทนักกีฬา
@@ -223,7 +223,7 @@
         <p>
           <strong>ประเภท:</strong>
           {{
-          viewingPlayerData.role === "Amateur" ? "มือสมัครเล่น" : "มืออาชีพ"
+          viewingPlayerData.role === "มือสมัครเล่น" ? "มือสมัครเล่น" : "มืออาชีพ"
           }}
         </p>
       </div>
@@ -306,8 +306,8 @@
             <label for="editRole" class="form-label">ประเภทนักกีฬา (Role)</label>
             <select class="form-select" id="editRole" name="role" [(ngModel)]="editingPlayerData.role" required
               #editRole="ngModel" [ngClass]="{ 'is-invalid': editRole.invalid && editRole.touched }">
-              <option value="Amateur">มือสมัครเล่น</option>
-              <option value="Professional">มืออาชีพ</option>
+              <option value="มือสมัครเล่น">มือสมัครเล่น</option>
+              <option value="มืออาชีพ">มืออาชีพ</option>
             </select>
             <div *ngIf="editRole.invalid && editRole.touched" class="invalid-feedback">
               กรุณาเลือกประเภทนักกีฬา
