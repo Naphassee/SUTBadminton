@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
-import { Manager } from '../../../models/manager.model';
+import { ManageMana } from '../../../models/ManageMana.model';
 
 @Injectable({
   providedIn: 'root',
@@ -11,9 +11,9 @@ export class PlayerListService {
   private apiUrl = 'http://localhost:5001/api/managermana';
   constructor(private http: HttpClient) {}
   // GET: ดึงข้อมูล Manager ทั้งหมด
-  getManagers(): Observable<Manager[]> {
+  getManagers(): Observable<ManageMana[]> {
     return this.http
-      .get<{ message: string; employee: Manager[] }>(`${this.apiUrl}/allTeam`) // Express API ของคุณส่งกลับมาในรูปแบบ { message: ..., employee: ... }
+      .get<{ message: string; employee: ManageMana[] }>(`${this.apiUrl}/allTeam`) // Express API ของคุณส่งกลับมาในรูปแบบ { message: ..., employee: ... }
       .pipe(
         map((response) => response.employee), // ดึงเฉพาะ array ของ managers ออกมา
         catchError(this.handleError)
@@ -21,9 +21,9 @@ export class PlayerListService {
   }
 
   // GET: ดึงข้อมูล Manager ตาม ID
-  getManagerById(id: string): Observable<Manager> {
+  getManagerById(id: string): Observable<ManageMana> {
     return this.http
-      .get<{ message: string; employee: Manager }>(
+      .get<{ message: string; employee: ManageMana }>(
         `${this.apiUrl}/teamBy/${id}`
       )
       .pipe(
@@ -33,9 +33,9 @@ export class PlayerListService {
   }
 
   // POST: สร้าง Manager ใหม่
-  createManager(manager: Manager): Observable<Manager> {
+  createManager(manager: ManageMana): Observable<ManageMana> {
     return this.http
-      .post<{ message: string; employee: Manager }>(
+      .post<{ message: string; employee: ManageMana }>(
         `${this.apiUrl}/pushTeam`,
         manager
       )
@@ -46,9 +46,9 @@ export class PlayerListService {
   }
 
   // PUT: อัปเดตข้อมูล Manager
-  updateManager(id: string, manager: Partial<Manager>): Observable<Manager> {
+  updateManager(id: string, manager: Partial<ManageMana>): Observable<ManageMana> {
     return this.http
-      .put<{ message: string; employee?: Manager; updated?: Manager }>(
+      .put<{ message: string; employee?: ManageMana; updated?: ManageMana }>(
         `${this.apiUrl}/newTeam/${id}`,
         manager
       ) // Backend ของคุณอาจจะ return property 'employee' หรือ 'updated'
@@ -61,9 +61,9 @@ export class PlayerListService {
   // DELETE: ลบ Manager
   deleteManager(
     id: string
-  ): Observable<{ message: string; deleted?: Manager }> {
+  ): Observable<{ message: string; deleted?: ManageMana }> {
     return this.http
-      .delete<{ message: string; deleted?: Manager }>(
+      .delete<{ message: string; deleted?: ManageMana }>(
         `${this.apiUrl}/removeTeam/${id}`
       )
       .pipe(catchError(this.handleError));

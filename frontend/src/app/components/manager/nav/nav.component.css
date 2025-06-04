@@ -116,4 +116,11 @@
   width: 100%;
   z-index: 1030;
   }
-  
+
+  .modal-footer .btn-danger {
+  background-color: #f44336 !important;
+}
+
+.modal-footer .btn-danger:hover {
+  background-color: #b82319 !important;
+}

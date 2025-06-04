@@ -84,4 +84,19 @@ export class AuthService {
     }
     return localStorage.getItem(this.tokenKey);
   }
+
+
+  getUserId(): string {
+    if (!this.isBrowser) return '';
+    const token = localStorage.getItem(this.tokenKey);
+    if (!token) return '';
+
+    try {
+      const payload = JSON.parse(atob(token.split('.')[1]));
+      return payload.id || payload._id || '';
+    } catch (err) {
+      console.error('Token decode error:', err);
+      return '';
+    }
+  }
 }

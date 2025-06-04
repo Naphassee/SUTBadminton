@@ -1,4 +1,5 @@
-export interface Manager {
+export interface ManageMana {
+// Model สำหรับข้อมูลผู้จัดการ (Manager) ที่ใช้ในระบบ
   _id?: string; // ID จาก MongoDB (optional ตอนสร้าง)
   firstName: string;
   lastName: string;

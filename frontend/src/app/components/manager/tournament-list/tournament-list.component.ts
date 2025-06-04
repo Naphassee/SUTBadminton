@@ -5,7 +5,7 @@ import { TournamentService, Tournament } from '../../../core/services/tournament
 import { AppConfig } from '../../../app.config';
 import { FormsModule } from '@angular/forms';
 import { PlayerListService } from '../../../core/services/manager/player-list/player-list.service';
-import { Manager } from '../../../core/models/manager.model';
+import { ManageMana } from '../../../core/models/ManageMana.model';
 
 declare var bootstrap: any;
 
@@ -22,8 +22,8 @@ export class TournamentListComponent implements OnInit {
   
 
   // ข้อมูลนักกีฬา
-  availablePlayers: Manager[] = [];
-  selectedPlayers: (Manager | null)[] = [];
+  availablePlayers: ManageMana[] = [];
+  selectedPlayers: (ManageMana | null)[] = [];
    
   // ข้อความแจ้งเตือน
   errorMessage: string | null = null;
@@ -104,14 +104,14 @@ export class TournamentListComponent implements OnInit {
   }
 
   // ตรวจสอบว่านักกีฬาถูกเลือกซ้ำหรือไม่
-  isPlayerSelected(player: Manager, currentIndex: number): boolean {
+  isPlayerSelected(player: ManageMana, currentIndex: number): boolean {
     return this.selectedPlayers.some((selected, index) => 
       index !== currentIndex && selected?._id === player._id
     );
   }
 
   // กรองนักกีฬาที่ยังไม่ถูกเลือก
-  getAvailablePlayersForDropdown(currentIndex: number): Manager[] {
+  getAvailablePlayersForDropdown(currentIndex: number): ManageMana[] {
     return this.availablePlayers.filter(player => 
       !this.isPlayerSelected(player, currentIndex)
     );
@@ -121,7 +121,7 @@ export class TournamentListComponent implements OnInit {
     this.clearMessages();
     
     // กรองเอาเฉพาะนักกีฬาที่ถูกเลือกแล้ว
-    const validSelectedPlayers = this.selectedPlayers.filter(player => player !== null) as Manager[];
+    const validSelectedPlayers = this.selectedPlayers.filter(player => player !== null) as ManageMana[];
     
     if (validSelectedPlayers.length === 0) {
       this.errorMessage = 'กรุณาเลือกนักกีฬาอย่างน้อย 1 คน';
@@ -179,7 +179,7 @@ export class TournamentListComponent implements OnInit {
   }
 
   // ฟังก์ชันช่วยในการแสดงชื่อเต็มของนักกีฬา
-  getPlayerFullName(player: Manager): string {
+  getPlayerFullName(player: ManageMana): string {
     return `${player.firstName} ${player.lastName} (${player.role === 'Amateur' ? 'มือสมัครเล่น' : 'มืออาชีพ'})`;
   }
 

@@ -1,69 +1,40 @@
-
 <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
 
 <div class="container-fluid mt-3">
-  <div
-    *ngIf="successMessage"
-    class="alert alert-success alert-dismissible fade show"
-    role="alert"
-  >
+  <div *ngIf="successMessage" class="alert alert-success alert-dismissible fade show" role="alert">
     {{ successMessage }}
-    <button
-      type="button"
-      class="btn-close"
-      (click)="successMessage = null"
-      aria-label="Close"
-    ></button>
+    <button type="button" class="btn-close" (click)="successMessage = null" aria-label="Close"></button>
   </div>
-  <div
-    *ngIf="errorMessage"
-    class="alert alert-danger alert-dismissible fade show"
-    role="alert"
-  >
+  <div *ngIf="errorMessage" class="alert alert-danger alert-dismissible fade show" role="alert">
     {{ errorMessage }}
-    <button
-      type="button"
-      class="btn-close"
-      (click)="errorMessage = null"
-      aria-label="Close"
-    ></button>
+    <button type="button" class="btn-close" (click)="errorMessage = null" aria-label="Close"></button>
   </div>
 
   <div class="row row-cols-1 row-cols-md-2 g-4">
     <div class="col">
       <div class="card custom-card">
-        <div
-          class="card-header custom-header d-flex justify-content-between align-items-center"
-        >
+        <div class="card-header custom-header d-flex justify-content-between align-items-center">
           <span>มือสมัครเล่น</span>
-          <button
-            class="btn btn-success"
-            data-bs-toggle="modal"
-            data-bs-target="#addPlayerModal"
-            (click)="prepareNewPlayerData('Amateur')"
-          >
+          <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#addPlayerModal"
+            (click)="prepareNewPlayerData('Amateur')">
             <i class="bi bi-plus-circle"></i> เพิ่มนักกีฬา
           </button>
         </div>
         <div class="card-body custom-card-body">
           <div class="container">
-            <div
-              *ngIf="amateurManagers.length === 0 && !errorMessage"
-              class="alert alert-info"
-            >
+            <div *ngIf="amateurManagers.length === 0 && !errorMessage" class="alert alert-info">
               ไม่มีข้อมูลนักกีฬามือสมัครเล่น
             </div>
-            <table
-              *ngIf="amateurManagers.length > 0"
-              class="table table-bordered table-striped text-center"
-            >
+            <table *ngIf="amateurManagers.length > 0" class="table table-bordered table-striped text-center"
+              style="table-layout: fixed; width: 100%;">
               <thead class="table-light">
                 <tr>
-                  <th>ลำดับ</th>
-                  <th>ชื่อจริง</th>
-                  <th>นามสกุล</th>
-                  <th>เพศ</th>
-                  <th>การจัดการ</th>
+                  <th style="width: 10%;">ลำดับ</th>
+                  <th style="width: 20%;">ชื่อจริง</th>
+                  <th style="width: 20%;">นามสกุล</th>
+                  <th style="width: 10%;">อายุ</th>
+                  <th style="width: 10%;">เพศ</th>
+                  <th style="width: 30%;">การจัดการ</th>
                 </tr>
               </thead>
               <tbody>
@@ -71,33 +42,24 @@
                   <td>{{ i + 1 }}</td>
                   <td>{{ manager.firstName }}</td>
                   <td>{{ manager.lastName }}</td>
+                  <td>{{ manager.age }}</td>
                   <td>{{ manager.gender }}</td>
                   <td class="action-buttons">
-                    <button
-                      class="btn btn-info btn-sm"
-                      (click)="openInfoModal(manager._id!)"
-                      title="ดูข้อมูล"
-                    >
+                    <button class="btn btn-info btn-sm" (click)="openInfoModal(manager._id!)" title="ดูข้อมูล">
                       <i class="bi bi-eye"></i>
                     </button>
-                    <button
-                      class="btn btn-warning btn-sm"
-                      (click)="openEditModal(manager._id!)"
-                      title="แก้ไข"
-                    >
+                    <button class="btn btn-warning btn-sm" (click)="openEditModal(manager._id!)" title="แก้ไข">
                       <i class="bi bi-pencil-square"></i>
                     </button>
-                    <button
-                      class="btn btn-danger btn-sm"
-                      (click)="confirmDelete(manager._id)"
-                      title="ลบ"
-                    >
+                    <button class="btn btn-danger btn-sm"
+                      (click)="confirmDelete(manager._id, manager.firstName + ' ' + manager.lastName)" title="ลบ">
                       <i class="bi bi-trash"></i>
                     </button>
                   </td>
                 </tr>
               </tbody>
             </table>
+
           </div>
         </div>
       </div>
@@ -105,38 +67,28 @@
 
     <div class="col">
       <div class="card custom-card">
-        <div
-          class="card-header custom-header d-flex justify-content-between align-items-center"
-        >
+        <div class="card-header custom-header d-flex justify-content-between align-items-center">
           <span>มืออาชีพ</span>
-          <button
-            class="btn btn-success"
-            data-bs-toggle="modal"
-            data-bs-target="#addPlayerModal"
-            (click)="prepareNewPlayerData('Professional')"
-          >
+          <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#addPlayerModal"
+            (click)="prepareNewPlayerData('Professional')">
             <i class="bi bi-plus-circle"></i> เพิ่มนักกีฬา
           </button>
         </div>
         <div class="card-body custom-card-body">
           <div class="container">
-            <div
-              *ngIf="professionalManagers.length === 0 && !errorMessage"
-              class="alert alert-info"
-            >
+            <div *ngIf="professionalManagers.length === 0 && !errorMessage" class="alert alert-info">
               ไม่มีข้อมูลนักกีฬามืออาชีพ
             </div>
-            <table
-              *ngIf="professionalManagers.length > 0"
-              class="table table-bordered table-striped text-center"
-            >
+            <table *ngIf="professionalManagers.length > 0" class="table table-bordered table-striped text-center"
+              style="table-layout: fixed; width: 100%;">
               <thead class="table-light">
                 <tr>
-                  <th>ลำดับ</th>
-                  <th>ชื่อจริง</th>
-                  <th>นามสกุล</th>
-                  <th>เพศ</th>
-                  <th>การจัดการ</th>
+                  <th style="width: 10%;">ลำดับ</th>
+                  <th style="width: 20%;">ชื่อจริง</th>
+                  <th style="width: 20%;">นามสกุล</th>
+                  <th style="width: 10%;">อายุ</th>
+                  <th style="width: 10%;">เพศ</th>
+                  <th style="width: 30%;">การจัดการ</th>
                 </tr>
               </thead>
               <tbody>
@@ -144,33 +96,24 @@
                   <td>{{ i + 1 }}</td>
                   <td>{{ manager.firstName }}</td>
                   <td>{{ manager.lastName }}</td>
+                  <td>{{ manager.age }}</td>
                   <td>{{ manager.gender }}</td>
                   <td class="action-buttons">
-                    <button
-                      class="btn btn-info btn-sm"
-                      (click)="openInfoModal(manager._id!)"
-                      title="ดูข้อมูล"
-                    >
+                    <button class="btn btn-info btn-sm" (click)="openInfoModal(manager._id!)" title="ดูข้อมูล">
                       <i class="bi bi-eye"></i>
                     </button>
-                    <button
-                      class="btn btn-warning btn-sm"
-                      (click)="openEditModal(manager._id!)"
-                      title="แก้ไข"
-                    >
+                    <button class="btn btn-warning btn-sm" (click)="openEditModal(manager._id!)" title="แก้ไข">
                       <i class="bi bi-pencil-square"></i>
                     </button>
-                    <button
-                      class="btn btn-danger btn-sm"
-                      (click)="confirmDelete(manager._id)"
-                      title="ลบ"
-                    >
+                    <button class="btn btn-danger btn-sm"
+                      (click)="confirmDelete(manager._id, manager.firstName + ' ' + manager.lastName)" title="ลบ">
                       <i class="bi bi-trash"></i>
                     </button>
                   </td>
                 </tr>
               </tbody>
             </table>
+
           </div>
         </div>
       </div>
@@ -178,13 +121,7 @@
   </div>
 </div>
 
-<div
-  class="modal fade"
-  id="addPlayerModal"
-  tabindex="-1"
-  aria-labelledby="addPlayerModalLabel"
-  aria-hidden="true"
->
+<div class="modal fade" id="addPlayerModal" tabindex="-1" aria-labelledby="addPlayerModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
@@ -192,102 +129,59 @@
           เพิ่มนักกีฬาใหม่ -
           {{ newPlayerData.role === "Amateur" ? "มือสมัครเล่น" : "มืออาชีพ" }}
         </h5>
-        <button
-          type="button"
-          class="btn-close"
-          data-bs-dismiss="modal"
-          aria-label="Close"
-          (click)="playerForm.resetForm({ role: newPlayerData.role })"
-        ></button>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+          (click)="playerForm.resetForm({ role: newPlayerData.role })"></button>
       </div>
       <div class="modal-body">
         <form #playerForm="ngForm" (ngSubmit)="onSaveNewPlayer(playerForm)">
           <div class="mb-3">
             <label for="addFirstName" class="form-label">ชื่อจริง</label>
-            <input
-              type="text"
-              class="form-control"
-              id="addFirstName"
-              name="firstName"
-              [(ngModel)]="newPlayerData.firstName"
-              required
-              #firstName="ngModel"
-              [ngClass]="{
+            <input type="text" class="form-control" id="addFirstName" name="firstName"
+              [(ngModel)]="newPlayerData.firstName" required #firstName="ngModel" [ngClass]="{
                 'is-invalid': firstName.invalid && firstName.touched
-              }"
-            />
-            <div
-              *ngIf="firstName.invalid && firstName.touched"
-              class="invalid-feedback"
-            >
+              }" />
+            <div *ngIf="firstName.invalid && firstName.touched" class="invalid-feedback">
               กรุณากรอกชื่อจริง
             </div>
           </div>
           <div class="mb-3">
             <label for="addLastName" class="form-label">นามสกุล</label>
-            <input
-              type="text"
-              class="form-control"
-              id="addLastName"
-              name="lastName"
-              [(ngModel)]="newPlayerData.lastName"
-              required
-              #lastName="ngModel"
-              [ngClass]="{ 'is-invalid': lastName.invalid && lastName.touched }"
-            />
-            <div
-              *ngIf="lastName.invalid && lastName.touched"
-              class="invalid-feedback"
-            >
+            <input type="text" class="form-control" id="addLastName" name="lastName"
+              [(ngModel)]="newPlayerData.lastName" required #lastName="ngModel"
+              [ngClass]="{ 'is-invalid': lastName.invalid && lastName.touched }" />
+            <div *ngIf="lastName.invalid && lastName.touched" class="invalid-feedback">
               กรุณากรอกนามสกุล
             </div>
           </div>
           <div class="mb-3">
             <label for="addGender" class="form-label">เพศ</label>
-            <input
-              type="text"
-              class="form-control"
-              id="addGender"
-              name="gender"
-              [(ngModel)]="newPlayerData.gender"
-              required
-              #gender="ngModel"
-              [ngClass]="{ 'is-invalid': gender.invalid && gender.touched }"
-            />
-            <div
-              *ngIf="gender.invalid && gender.touched"
-              class="invalid-feedback"
-            >
-              กรุณากรอกเพศ
+            <select class="form-select" id="addGender" name="gender" [(ngModel)]="newPlayerData.gender" required
+              #gender="ngModel" [ngClass]="{ 'is-invalid': gender.invalid && gender.touched }">
+              <option value="" disabled selected>-- เลือกเพศ --</option>
+              <option value="ชาย">ชาย</option>
+              <option value="หญิง">หญิง</option>
+            </select>
+            <div *ngIf="gender.invalid && gender.touched" class="invalid-feedback">
+              กรุณาเลือกเพศ
             </div>
           </div>
+
           <div class="mb-3">
             <label for="addAge" class="form-label">อายุ</label>
-            <input
-              type="text"
-              class="form-control"
-              id="addAge"
-              name="age"
-              [(ngModel)]="newPlayerData.age"
-              required
-              #age="ngModel"
-              [ngClass]="{ 'is-invalid': age.invalid && age.touched }"
-            />
-            <div *ngIf="age.invalid && age.touched" class="invalid-feedback">
-              กรุณากรอกอายุ
+            <input type="text" class="form-control" id="addAge" name="age" [(ngModel)]="newPlayerData.age" required
+              pattern="^[1-9]\d*$" #addAge="ngModel" [ngClass]="{ 'is-invalid': addAge.invalid && addAge.touched }" />
+            <div *ngIf="addAge.errors && addAge.touched" class="invalid-feedback">
+              <div *ngIf="addAge.errors['required']">กรุณากรอกอายุ</div>
+              <div *ngIf="addAge.errors['pattern']">
+                กรุณากรอกตัวเลขบวกเท่านั้น และต้องมากกว่า 0
+              </div>
             </div>
           </div>
+
           <div class="mb-3">
             <label for="addRole" class="form-label">ประเภทนักกีฬา (Role)</label>
-            <select
-              class="form-select"
-              id="addRole"
-              name="role"
-              [(ngModel)]="newPlayerData.role"
-              required
-              #role="ngModel"
-              [ngClass]="{ 'is-invalid': role.invalid && role.touched }"
-            >
+            <select class="form-select" id="addRole" name="role" [(ngModel)]="newPlayerData.role" required
+              #role="ngModel" [ngClass]="{ 'is-invalid': role.invalid && role.touched }">
               <option value="Amateur">มือสมัครเล่น</option>
               <option value="Professional">มืออาชีพ</option>
             </select>
@@ -298,20 +192,12 @@
         </form>
       </div>
       <div class="modal-footer">
-        <button
-          type="button"
-          class="btn btn-secondary"
-          data-bs-dismiss="modal"
-          (click)="playerForm.resetForm({ role: newPlayerData.role })"
-        >
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"
+          (click)="playerForm.resetForm({ role: newPlayerData.role })">
           ยกเลิก
         </button>
-        <button
-          type="submit"
-          class="btn btn-primary"
-          [disabled]="playerForm.invalid"
-          (click)="onSaveNewPlayer(playerForm)"
-        >
+        <button type="submit" class="btn btn-primary" [disabled]="playerForm.invalid"
+          (click)="onSaveNewPlayer(playerForm)">
           บันทึก
         </button>
       </div>
@@ -319,13 +205,7 @@
   </div>
 </div>
 
-<div
-  class="modal fade"
-  id="infoPlayerModal"
-  tabindex="-1"
-  aria-labelledby="infoPlayerModalLabel"
-  aria-hidden="true"
->
+<div class="modal fade" id="infoPlayerModal" tabindex="-1" aria-labelledby="infoPlayerModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-scrollable">
     <div class="modal-content" *ngIf="viewingPlayerData">
       <div class="modal-header">
@@ -333,12 +213,7 @@
           ข้อมูลนักกีฬา: {{ viewingPlayerData.firstName }}
           {{ viewingPlayerData.lastName }}
         </h5>
-        <button
-          type="button"
-          class="btn-close"
-          data-bs-dismiss="modal"
-          aria-label="Close"
-        ></button>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
         <p><strong>ID:</strong> {{ viewingPlayerData._id }}</p>
@@ -349,7 +224,7 @@
         <p>
           <strong>ประเภท:</strong>
           {{
-            viewingPlayerData.role === "Amateur" ? "มือสมัครเล่น" : "มืออาชีพ"
+          viewingPlayerData.role === "Amateur" ? "มือสมัครเล่น" : "มืออาชีพ"
           }}
         </p>
       </div>
@@ -360,19 +235,17 @@
       </div>
     </div>
     <div class="modal-content" *ngIf="!viewingPlayerData">
-      <div class="modal-header"><h5 class="modal-title">กำลังโหลด...</h5></div>
-      <div class="modal-body"><p>กำลังโหลดข้อมูลนักกีฬา...</p></div>
+      <div class="modal-header">
+        <h5 class="modal-title">กำลังโหลด...</h5>
+      </div>
+      <div class="modal-body">
+        <p>กำลังโหลดข้อมูลนักกีฬา...</p>
+      </div>
     </div>
   </div>
 </div>
 
-<div
-  class="modal fade"
-  id="editPlayerModal"
-  tabindex="-1"
-  aria-labelledby="editPlayerModalLabel"
-  aria-hidden="true"
->
+<div class="modal fade" id="editPlayerModal" tabindex="-1" aria-labelledby="editPlayerModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content" *ngIf="editingPlayerData">
       <div class="modal-header">
@@ -380,121 +253,64 @@
           แก้ไขข้อมูลนักกีฬา: {{ editingPlayerData.firstName }}
           {{ editingPlayerData.lastName }}
         </h5>
-        <button
-          type="button"
-          class="btn-close"
-          data-bs-dismiss="modal"
-          aria-label="Close"
-        ></button>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <form
-          #editPlayerForm="ngForm"
-          (ngSubmit)="onUpdatePlayer(editPlayerForm)"
-        >
+        <form #editPlayerForm="ngForm" (ngSubmit)="onUpdatePlayer(editPlayerForm)">
           <input type="hidden" name="_id" [(ngModel)]="editingPlayerData._id" />
           <div class="mb-3">
             <label for="editFirstName" class="form-label">ชื่อจริง</label>
-            <input
-              type="text"
-              class="form-control"
-              id="editFirstName"
-              name="firstName"
-              [(ngModel)]="editingPlayerData.firstName"
-              required
-              #editFirstName="ngModel"
-              [ngClass]="{
+            <input type="text" class="form-control" id="editFirstName" name="firstName"
+              [(ngModel)]="editingPlayerData.firstName" required #editFirstName="ngModel" [ngClass]="{
                 'is-invalid': editFirstName.invalid && editFirstName.touched
-              }"
-            />
-            <div
-              *ngIf="editFirstName.invalid && editFirstName.touched"
-              class="invalid-feedback"
-            >
+              }" />
+            <div *ngIf="editFirstName.invalid && editFirstName.touched" class="invalid-feedback">
               กรุณากรอกชื่อจริง
             </div>
           </div>
           <div class="mb-3">
             <label for="editLastName" class="form-label">นามสกุล</label>
-            <input
-              type="text"
-              class="form-control"
-              id="editLastName"
-              name="lastName"
-              [(ngModel)]="editingPlayerData.lastName"
-              required
-              #editLastName="ngModel"
-              [ngClass]="{
+            <input type="text" class="form-control" id="editLastName" name="lastName"
+              [(ngModel)]="editingPlayerData.lastName" required #editLastName="ngModel" [ngClass]="{
                 'is-invalid': editLastName.invalid && editLastName.touched
-              }"
-            />
-            <div
-              *ngIf="editLastName.invalid && editLastName.touched"
-              class="invalid-feedback"
-            >
+              }" />
+            <div *ngIf="editLastName.invalid && editLastName.touched" class="invalid-feedback">
               กรุณากรอกนามสกุล
             </div>
           </div>
           <div class="mb-3">
             <label for="editGender" class="form-label">เพศ</label>
-            <input
-              type="text"
-              class="form-control"
-              id="editGender"
-              name="gender"
-              [(ngModel)]="editingPlayerData.gender"
-              required
-              #editGender="ngModel"
-              [ngClass]="{
-                'is-invalid': editGender.invalid && editGender.touched
-              }"
-            />
-            <div
-              *ngIf="editGender.invalid && editGender.touched"
-              class="invalid-feedback"
-            >
-              กรุณากรอกเพศ
+            <select class="form-select" id="editGender" name="gender" [(ngModel)]="editingPlayerData.gender" required
+              #editGender="ngModel" [ngClass]="{ 'is-invalid': editGender.invalid && editGender.touched }">
+              <option value="" disabled selected>-- เลือกเพศ --</option>
+              <option value="ชาย">ชาย</option>
+              <option value="หญิง">หญิง</option>
+            </select>
+            <div *ngIf="editGender.invalid && editGender.touched" class="invalid-feedback">
+              กรุณาเลือกเพศ
             </div>
           </div>
+
           <div class="mb-3">
             <label for="editAge" class="form-label">อายุ</label>
-            <input
-              type="text"
-              class="form-control"
-              id="editAge"
-              name="age"
-              [(ngModel)]="editingPlayerData.age"
-              required
-              #editAge="ngModel"
-              [ngClass]="{ 'is-invalid': editAge.invalid && editAge.touched }"
-            />
-            <div
-              *ngIf="editAge.invalid && editAge.touched"
-              class="invalid-feedback"
-            >
-              กรุณากรอกอายุ
+            <input type="text" class="form-control" id="editAge" name="age" [(ngModel)]="editingPlayerData.age" required
+              pattern="^[1-9]\d*$" #editAge="ngModel"
+              [ngClass]="{ 'is-invalid': editAge.invalid && editAge.touched }" />
+            <div *ngIf="editAge.errors && editAge.touched" class="invalid-feedback">
+              <div *ngIf="editAge.errors['required']">กรุณากรอกอายุ</div>
+              <div *ngIf="editAge.errors['pattern']">กรุณากรอกตัวเลขบวกเท่านั้น และต้องมากกว่า 0</div>
             </div>
+
           </div>
+
           <div class="mb-3">
-            <label for="editRole" class="form-label"
-              >ประเภทนักกีฬา (Role)</label
-            >
-            <select
-              class="form-select"
-              id="editRole"
-              name="role"
-              [(ngModel)]="editingPlayerData.role"
-              required
-              #editRole="ngModel"
-              [ngClass]="{ 'is-invalid': editRole.invalid && editRole.touched }"
-            >
+            <label for="editRole" class="form-label">ประเภทนักกีฬา (Role)</label>
+            <select class="form-select" id="editRole" name="role" [(ngModel)]="editingPlayerData.role" required
+              #editRole="ngModel" [ngClass]="{ 'is-invalid': editRole.invalid && editRole.touched }">
               <option value="Amateur">มือสมัครเล่น</option>
               <option value="Professional">มืออาชีพ</option>
             </select>
-            <div
-              *ngIf="editRole.invalid && editRole.touched"
-              class="invalid-feedback"
-            >
+            <div *ngIf="editRole.invalid && editRole.touched" class="invalid-feedback">
               กรุณาเลือกประเภทนักกีฬา
             </div>
           </div>
@@ -504,19 +320,38 @@
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
           ยกเลิก
         </button>
-        <button
-          type="submit"
-          class="btn btn-primary"
-          [disabled]="editPlayerForm.invalid"
-          (click)="onUpdatePlayer(editPlayerForm)"
-        >
+        <button type="submit" class="btn btn-primary" [disabled]="editPlayerForm.invalid"
+          (click)="onUpdatePlayer(editPlayerForm)">
           บันทึกการเปลี่ยนแปลง
         </button>
       </div>
     </div>
     <div class="modal-content" *ngIf="!editingPlayerData">
-      <div class="modal-header"><h5 class="modal-title">กำลังโหลด...</h5></div>
-      <div class="modal-body"><p>กำลังโหลดข้อมูลสำหรับแก้ไข...</p></div>
+      <div class="modal-header">
+        <h5 class="modal-title">กำลังโหลด...</h5>
+      </div>
+      <div class="modal-body">
+        <p>กำลังโหลดข้อมูลสำหรับแก้ไข...</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="deletePlayerModal" tabindex="-1" aria-labelledby="deletePlayerModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header bg-danger text-white">
+        <h5 class="modal-title" id="deletePlayerModalLabel">ยืนยันการลบ</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        คุณแน่ใจหรือไม่ว่าต้องการลบนักกีฬา <strong>{{ deletingPlayerName }}</strong>?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">ยกเลิก</button>
+        <button type="button" class="btn btn-danger" (click)="deletePlayer()">ลบ</button>
+      </div>
     </div>
   </div>
 </div>

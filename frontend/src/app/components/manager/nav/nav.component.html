@@ -6,12 +6,13 @@
         <a href="#" class="navbar-brand SUTMintontext-gradient">SUTMinton</a>
         <button class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarToggle">
             <span class="navbar-toggler-icon"></span>
-        </button> 
+        </button>
         <!-- Menu -->
         <div class="collapse navbar-collapse " id="navbarToggle">
             <ul class="navbar-nav ms-auto custom-nav">
                 <li class="nav-item">
-                    <a routerLink="/manager/tournament-list" routerLinkActive="active" class="nav-link">รายการการแข่งขัน</a>
+                    <a routerLink="/manager/tournament-list" routerLinkActive="active"
+                        class="nav-link">รายการการแข่งขัน</a>
                 </li>
                 <li class="nav-item">
                     <a routerLink="/manager/player-list" routerLinkActive="active" class="nav-link">รายชื่อนักกีฬา</a>
@@ -25,7 +26,8 @@
             </ul>
             <ul class="nav nav-pills ms-auto">
                 <li class="nav-item m-2">
-                    <button type="button" class="btn btn-primary custom-rounded custom-bg" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                    <button type="button" class="btn btn-primary custom-rounded custom-bg" data-bs-toggle="modal"
+                        data-bs-target="#staticBackdrop">
                         โปรไฟล์ของฉัน
                     </button>
                 </li>
@@ -40,86 +42,125 @@
 </nav>
 
 <!-- Modal profile -->
-<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-            <h1 class="modal-title fs-5" id="staticBackdropLabel">โปรไฟล์ของฉัน</h1>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-            <div class="myprofilephototwo ">
-                <img src="myprofile.png" alt="Image" width="110" height="100">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="staticBackdropLabel">โปรไฟล์ของฉัน</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <div class="text-left">
-                <h5>ชื่อบัญชี</h5>
-                <h5>ชื่อ-นามสกุล</h5>
-                <h5>อีเมล</h5>
-                <h5>เบอร์โทร</h5>
+            <div class="modal-body">
+                <div class="text-left">
+                    <div class="card p-3">
+                        <p class="mb-1"><strong>ชื่อ:</strong> {{ profileForm.value.firstName }} {{
+                            profileForm.value.lastName }}</p>
+                        <p class="mb-1"><strong>อีเมล:</strong> {{ profileForm.value.email }}</p>
+                        <p class="mb-0"><strong>เบอร์โทร:</strong> {{ profileForm.value.phoneNumber }}</p>
+                    </div>
+
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary custom-rounded custom-bg " data-bs-toggle="modal"
+                    data-bs-target="#editprofile">
+                    แก้ไขโปรไฟล์ของฉัน
+                </button>
             </div>
         </div>
-        <div class="modal-footer">
-            <button type="button" class="btn btn-primary custom-rounded custom-bg " data-bs-toggle="modal" data-bs-target="#editprofile">
-            แก้ไขโปรไฟล์ของฉัน
-            </button>
-        </div>
+    </div>
+</div>
+
+<!-- Modal แก้ไขโปรไฟล์ -->
+<div class="modal fade" id="editprofile" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="staticBackdropLabel">แก้ไขโปรไฟล์</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="profileForm" novalidate>
+          <div class="col mb-2">
+            <label>ชื่อ</label>
+            <input formControlName="firstName" class="form-control" />
+            <div *ngIf="profileForm.get('firstName')?.invalid && profileForm.get('firstName')?.touched" class="text-danger">
+              กรุณากรอกชื่อ
+            </div>
+          </div>
+
+          <div class="col mb-2">
+            <label>นามสกุล</label>
+            <input formControlName="lastName" class="form-control" />
+            <div *ngIf="profileForm.get('lastName')?.invalid && profileForm.get('lastName')?.touched" class="text-danger">
+              กรุณากรอกนามสกุล
+            </div>
+          </div>
+
+          <div class="col mb-2">
+            <label>อีเมล</label>
+            <input formControlName="email" class="form-control" />
+            <div *ngIf="profileForm.get('email')?.invalid && profileForm.get('email')?.touched" class="text-danger">
+              <div *ngIf="profileForm.get('email')?.errors?.['required']">กรุณากรอกอีเมล</div>
+              <div *ngIf="profileForm.get('email')?.errors?.['email']">รูปแบบอีเมลไม่ถูกต้อง</div>
+            </div>
+          </div>
+
+          <div class="col mb-2">
+            <label>เบอร์โทร</label>
+            <input formControlName="phoneNumber" class="form-control" />
+            <div *ngIf="profileForm.get('phoneNumber')?.invalid && profileForm.get('phoneNumber')?.touched" class="text-danger">
+              <div *ngIf="profileForm.get('phoneNumber')?.errors?.['required']">กรุณากรอกเบอร์โทร</div>
+              <div *ngIf="profileForm.get('phoneNumber')?.errors?.['pattern']">กรุณากรอกเบอร์โทรให้ถูกต้อง (9-10 หลัก)</div>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">ยกเลิก</button>
+        <button type="button" class="btn btn-primary" [disabled]="profileForm.invalid" data-bs-toggle="modal"
+          data-bs-target="#confirmUpdateModal">
+          อัปเดตโปรไฟล์
+        </button>
       </div>
     </div>
   </div>
+</div>
 
-<!-- Modal edit -->
-<div class="modal fade" id="editprofile" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-scrollable">
-      <div class="modal-content">
-        <div class="modal-header">
-            <h1 class="modal-title fs-5" id="staticBackdropLabel">แก้ไขโปรไฟล์</h1>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-            <form>
-            <div class="myprofilephoto">
-                <img src="myprofile.png" alt="Image" width="110" height="100">
+
+<!-- Modal ยืนยันการอัปเดต -->
+<div class="modal fade" id="confirmUpdateModal" tabindex="-1" aria-labelledby="confirmUpdateLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="confirmUpdateLabel">ยืนยันการอัปเดต</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-                <div class="mb-3">
-                    <label for="ีusername" class="form-label">ชื่อบัญชี</label>
-                    <input type="text" placeholder="กรุณาป้อนชื่อบัญชี" class="form-control">
-                </div>
-                <div class="mb-3">
-                    <label for="password" class="form-label">รหัสผ่านเดิม</label>
-                    <input type="password" placeholder="กรุณาป้อนรหัสผ่านเดิม" class="form-control">
-                </div>
-                <div class="mb-3">
-                    <label for="password" class="form-label">รหัสผ่านใหม่</label>
-                    <input type="password" placeholder="กรุณาป้อนรหัสผ่านใหม่" class="form-control">
-                </div>
-                <div class="mb-3">
-                    <label for="password" class="form-label">ยืนยันรหัสผ่าน</label>
-                    <input type="password" placeholder="กรุณายืนยันรหัสผ่าน" class="form-control">
-                </div>
-                <div class="mb-3">
-                    <label for="firstname" class="form-label">ชื่อจริง</label>
-                    <input type="text" placeholder="กรุณาป้อนชื่อจริง" class="form-control">
-                </div>
-                <div class="mb-3">
-                    <label for="lastname" class="form-label">นามสกุล</label>
-                    <input type="text" placeholder="กรุณาป้อนนามสกุล" class="form-control">
-                </div>
-                <div class="mb-3">
-                    <label for="email" class="form-label">อีเมล</label>
-                    <input type="email" placeholder="กรุณาป้อนอีเมล" class="form-control">
-                </div>
-                <div class="mb-3">
-                    <label for="phone" class="form-label">เบอร์โทร</label>
-                    <input type="phone" placeholder="กรุณาป้อนเบอร์โทร" class="form-control">
-                </div>
-            </form>
+            <div class="modal-body">
+                คุณต้องการอัปเดตโปรไฟล์หรือไม่?
+                <img src="confirm.jpg" alt="Image Description" class="img-fluid" style="max-width: 300px; height: auto;">
+            </div>
+            
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">ยกเลิก</button>
+                <button type="button" class="btn btn-primary" (click)="confirmUpdate()">ยืนยัน</button>
+            </div>
         </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-primary" data-bs-dismiss="modal" aria-label="Close">ยกเลิก</button>
-          <button type="button" class="btn btn-primary modal-footer ms-auto ">อัพเดตโปรไฟล์</button>
-        </div>
+    </div>
+</div>
+
+<!-- Toast แจ้งเตือน -->
+<div class="position-fixed bottom-0 end-0 p-3" style="z-index: 1055">
+  <div id="successToast" class="toast align-items-center text-white bg-success border-0" role="alert"
+    aria-live="assertive" aria-atomic="true">
+    <div class="d-flex">
+      <div class="toast-body">
+        โปรไฟล์ของคุณได้รับการอัปเดตเรียบร้อยแล้ว
       </div>
+      <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"
+        aria-label="Close"></button>
     </div>
   </div>
-
+</div>
 

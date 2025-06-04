@@ -25,3 +25,61 @@
       </div>
     </div>
   </div>
+
+<!-- Modal edit -->
+<div class="modal fade" id="editprofile" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable">
+      <div class="modal-content">
+        <div class="modal-header">
+            <h1 class="modal-title fs-5" id="staticBackdropLabel">แก้ไขโปรไฟล์</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <form>
+            <div class="myprofilephoto">
+                <img src="myprofile.png" alt="Image" width="110" height="100">
+            </div>
+                <div class="mb-3">
+                    <label for="ีusername" class="form-label">ชื่อบัญชี</label>
+                    <input type="text" placeholder="กรุณาป้อนชื่อบัญชี" class="form-control">
+                </div>
+                <div class="mb-3">
+                    <label for="password" class="form-label">รหัสผ่านเดิม</label>
+                    <input type="password" placeholder="กรุณาป้อนรหัสผ่านเดิม" class="form-control">
+                </div>
+                <div class="mb-3">
+                    <label for="password" class="form-label">รหัสผ่านใหม่</label>
+                    <input type="password" placeholder="กรุณาป้อนรหัสผ่านใหม่" class="form-control">
+                </div>
+                <div class="mb-3">
+                    <label for="password" class="form-label">ยืนยันรหัสผ่าน</label>
+                    <input type="password" placeholder="กรุณายืนยันรหัสผ่าน" class="form-control">
+                </div>
+                <div class="mb-3">
+                    <label for="firstname" class="form-label">ชื่อจริง</label>
+                    <input type="text" placeholder="กรุณาป้อนชื่อจริง" class="form-control">
+                </div>
+                <div class="mb-3">
+                    <label for="lastname" class="form-label">นามสกุล</label>
+                    <input type="text" placeholder="กรุณาป้อนนามสกุล" class="form-control">
+                </div>
+                <div class="mb-3">
+                    <label for="email" class="form-label">อีเมล</label>
+                    <input type="email" placeholder="กรุณาป้อนอีเมล" class="form-control">
+                </div>
+                <div class="mb-3">
+                    <label for="phone" class="form-label">เบอร์โทร</label>
+                    <input type="phone" placeholder="กรุณาป้อนเบอร์โทร" class="form-control">
+                </div>
+            </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" data-bs-dismiss="modal" aria-label="Close">ยกเลิก</button>
+          <button type="button" class="btn btn-primary modal-footer ms-auto ">อัพเดตโปรไฟล์</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
