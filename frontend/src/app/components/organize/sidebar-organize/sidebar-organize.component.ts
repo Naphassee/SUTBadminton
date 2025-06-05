@@ -18,12 +18,12 @@ export class SidebarOrganizeComponent {
   items = [
     {
       routeLink: 'all-tournament',
-      icon: 'bi-chat-left-dots-fill fa-2x',
+      icon: 'bi-house-fill fs-5',
       label: 'ทัวร์นาเมนต์ทั้งหมด',
     },
     {
       routeLink: 'my-tournament',
-      icon: 'bi-house-fill fs-5',
+      icon: 'bi bi-card-list',
       label: 'ทัวร์นาเมนต์ของฉัน',
     },
     {

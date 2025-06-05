@@ -15,7 +15,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let reg of registrations">
+          <tr *ngFor="let reg of registrations.slice().reverse()">
             <td>{{ reg.managerId.firstName }} {{ reg.managerId.lastName }}</td>
             <td>
                 <img

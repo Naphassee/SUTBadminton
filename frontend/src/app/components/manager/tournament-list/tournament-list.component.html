@@ -167,7 +167,7 @@
                         <select class="form-select" [(ngModel)]="selectedPlayers[i]" name="player{{i}}" required>
                             <option [ngValue]="null" disabled>-- เลือกนักกีฬา --</option>
                             <option *ngFor="let p of availablePlayers" [ngValue]="p">
-                                {{ p.firstName }} {{ p.lastName }}
+                                {{ p.firstName }} {{ p.lastName }} • {{ p.role }} • {{ p.gender }}
                             </option>
                         </select>
                         <button type="button" class="btn btn-danger btn-sm" (click)="removePlayer(i)">ลบ</button>
@@ -208,7 +208,7 @@
 </div>
 
 <!-- Toast แจ้งเตือน -->
-<div class="position-fixed bottom-0 end-0 p-3" style="z-index: 1055">
+<!-- <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 1055">
   <div id="registerSuccessToast" class="toast align-items-center text-white bg-success border-0" role="alert"
     aria-live="assertive" aria-atomic="true">
     <div class="d-flex">
@@ -219,7 +219,7 @@
         aria-label="Close"></button>
     </div>
   </div>
-</div>
+</div> -->
 
 </body>
 
