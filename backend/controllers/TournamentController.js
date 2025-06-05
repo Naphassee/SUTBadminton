@@ -11,6 +11,20 @@ exports.getAll = async (req, res) => {
     }
 }
 
+exports.getAvailable = async (req, res) => {
+  try {
+    const now = new Date();
+    const availableTours = await Tournament.find({
+      status: 'เปิดรับ',
+      deadlineOfRegister: { $gt: now },
+    });
+    res.json(availableTours);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ msg: 'Server error' });
+  }
+};
+
 exports.getById = async (req, res) => {
   try {
     const { id } = req.params;
@@ -28,8 +42,8 @@ exports.getById = async (req, res) => {
 // ด้านบนมี exports.getAll แล้ว
 exports.getMy = async (req, res) => {
   try {
-    // หาเฉพาะทัวร์นาเมนต์ที่ organizer ตรงกับผู้ล็อกอิน
-    const tours = await Tournament.find({ organizer: req.user.id });
+    // หาเฉพาะทัวร์นาเมนต์ที่ organizerId ตรงกับผู้ล็อกอิน
+    const tours = await Tournament.find({ organizerId: req.user.id });
     return res.json(tours);
   } catch (err) {
     console.error(err);
@@ -55,7 +69,7 @@ exports.create = async (req, res) => {
 
     try {
         const dataToSave = {
-            organizer: req.user.id,
+            organizerId: req.user.id,
             promoteImage,
             tourName, tourTagline, 
             deadlineOfRegister, startTour, endTour,
@@ -89,7 +103,7 @@ exports.update = async (req, res) => {
     if (!tour) return res.status(404).json({ msg: 'ไม่พบทัวร์นาเมนต์นี้' });
 
     // เช็คว่าเจ้าของทัวร์นาเมนต์ตรงกับผู้ล็อกอินไหม
-    if (tour.organizer.toString() !== req.user.id) {
+    if (tour.organizerId.toString() !== req.user.id) {
       return res.status(403).json({ msg: 'ไม่อนุญาตให้แก้ไขทัวร์นาเมนต์นี้' });
     }
 
@@ -111,7 +125,7 @@ exports.remove = async (req, res) => {
     const tour = await Tournament.findById(req.params.id);
     if (!tour) return res.status(404).json({ msg: 'ไม่พบทัวร์นาเมนต์นี้' });
 
-    if (tour.organizer.toString() !== req.user.id) {
+    if (tour.organizerId.toString() !== req.user.id) {
       return res.status(403).json({ msg: 'ไม่อนุญาตให้ลบทัวร์นาเมนต์นี้' });
     }
 
@@ -120,5 +134,37 @@ exports.remove = async (req, res) => {
   } catch (err) {
     console.error(err);
     res.status(500).json({ msg: 'Server error' });
+  }
+}
+
+// เปลี่ยนสถานะของทัวร์นาเมนต์
+exports.changeStatus = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { status } = req.body;
+
+    // ตรวจสอบสถานะที่กำหนดมาว่าถูกต้องหรือไม่
+    const validStatuses = ['ฉบับร่าง', 'เปิดรับ', 'ปิดรับ', 'เต็ม'];
+    if (!validStatuses.includes(status)) {
+      return res.status(400).json({ msg: 'สถานะไม่ถูกต้อง' });
+    }
+
+    const tour = await Tournament.findById(id);
+    if (!tour) {
+      return res.status(404).json({ msg: 'ไม่พบทัวร์นาเมนต์นี้' });
+    }
+
+    // ตรวจสอบสิทธิ์ว่า organizer เป็นเจ้าของทัวร์หรือไม่
+    if (tour.organizerId.toString() !== req.user.id) {
+      return res.status(403).json({ msg: 'คุณไม่มีสิทธิ์เปลี่ยนสถานะทัวร์นาเมนต์นี้' });
+    }
+
+    tour.status = status;
+    await tour.save();
+    res.json({ msg: 'อัปเดตสถานะสำเร็จ', tour });
+
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ msg: 'เกิดข้อผิดพลาดในการเปลี่ยนสถานะ' });
   }
 }

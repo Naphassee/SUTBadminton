@@ -20,6 +20,11 @@ router.get(
   tourCtrl.getMy
 );
 
+router.get(
+  '/available',
+  tourCtrl.getAvailable
+);
+
 // POST /api/tournaments
 router.post(
   '/',
@@ -51,6 +56,13 @@ router.delete(
 router.get(
   '/:id',
   tourCtrl.getById
+);
+
+router.patch(
+  '/:id/status',
+  authMiddleware,
+  authorizeRole('organizer'),
+  tourCtrl.changeStatus
 );
 
 module.exports = router;

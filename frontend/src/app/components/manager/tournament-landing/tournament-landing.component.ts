@@ -41,7 +41,7 @@ export class TournamentLandingComponent implements OnInit {
   }
 
   loadTournaments() {
-    this.tournamentService.getAll().subscribe({
+    this.tournamentService.getAvailable().subscribe({
       next: (tournaments) => {
         this.tournaments = tournaments;
       },

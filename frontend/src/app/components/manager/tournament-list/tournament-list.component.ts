@@ -6,6 +6,8 @@ import { AppConfig } from '../../../app.config';
 import { FormsModule } from '@angular/forms';
 import { PlayerListService } from '../../../core/services/manager/player-list/player-list.service';
 import { ManageMana } from '../../../core/models/ManageMana.model';
+import { RegistrationService } from '../../../core/services/registration.service';
+import { AuthService } from '../../../core/services/auth.service';
 
 declare var bootstrap: any;
 
@@ -30,18 +32,24 @@ export class TournamentListComponent implements OnInit {
   successMessage: string | null = null;
   isLoading: boolean = false;
 
+  managerId: string = '';
+
   constructor(
     private tournamentService: TournamentService,
-    private playerService: PlayerListService
+    private playerService: PlayerListService,
+    private regisService: RegistrationService,
+    public authSvc: AuthService
   ) { }
 
   ngOnInit() {
     this.loadTournaments();
     this.loadAllPlayers(); // โหลดข้อมูลนักกีฬาเมื่อเริ่มต้น
+    const user = this.authSvc.getUser(); // ใช้ของ IQ ที่มีอยู่
+    this.managerId = this.authSvc.getUserId() || ''; //รับ token มาอ่านเพื่อเอาไอดี
   }
 
   loadTournaments() {
-    this.tournamentService.getAll().subscribe({
+    this.tournamentService.getAvailable().subscribe({
       next: (tournaments) => {
         this.tournaments = tournaments;
       },
@@ -118,52 +126,28 @@ export class TournamentListComponent implements OnInit {
   }
 
   submitRegistration() {
-    this.clearMessages();
-    
-    // กรองเอาเฉพาะนักกีฬาที่ถูกเลือกแล้ว
-    const validSelectedPlayers = this.selectedPlayers.filter(player => player !== null) as ManageMana[];
-    
-    if (validSelectedPlayers.length === 0) {
-      this.errorMessage = 'กรุณาเลือกนักกีฬาอย่างน้อย 1 คน';
-      return;
+  const manageManaId = this.selectedPlayers
+    .filter(p => p?._id)
+    .map(p => p!._id as string);
+
+  const data = {
+    tournamentId: this.selectedTournament._id,
+    managerId: this.managerId,
+    manageManaId
+  };
+
+  this.regisService.registerTeam(data).subscribe({
+    next: (res) => {
+      alert('สมัครสำเร็จ');
+      // ปิด modal, รีเซ็ต selectedPlayers
+    },
+    error: (err) => {
+      console.error(err);
+      alert(err.error?.message || 'เกิดข้อผิดพลาด');
     }
+  });
+}
 
-    // ตรวจสอบการเลือกซ้ำ
-    const playerIds = validSelectedPlayers.map(p => p._id);
-    const uniqueIds = [...new Set(playerIds)];
-    
-    if (playerIds.length !== uniqueIds.length) {
-      this.errorMessage = 'พบการเลือกนักกีฬาซ้ำ กรุณาตรวจสอบอีกครั้ง';
-      return;
-    }
-
-    // แสดงข้อมูลการสมัคร (ในอนาคตจะส่งไป backend)
-    console.log('Tournament:', this.selectedTournament);
-    console.log('Selected Players:', validSelectedPlayers);
-    
-    this.successMessage = `สมัครการแข่งขัน "${this.selectedTournament.tourName}" สำเร็จ! นักกีฬา ${validSelectedPlayers.length} คน`;
-    
-    // ปิด modal หลังจากสมัครสำเร็จ
-    setTimeout(() => {
-      const modalElement = document.getElementById('registerModal');
-      if (modalElement) {
-        const bsModal = bootstrap.Modal.getInstance(modalElement);
-        bsModal?.hide();
-      }
-      this.selectedPlayers = [];
-    }, 1500);
-
-    // TODO: ส่งข้อมูลไป backend service
-    // this.tournamentService.registerPlayers(this.selectedTournament._id, validSelectedPlayers)
-    //   .subscribe({
-    //     next: (response) => {
-    //       this.successMessage = 'สมัครการแข่งขันสำเร็จ!';
-    //     },
-    //     error: (err) => {
-    //       this.handleError(err, 'ไม่สามารถสมัครการแข่งขันได้');
-    //     }
-    //   });
-  }
 
   private clearMessages(): void {
     this.errorMessage = null;

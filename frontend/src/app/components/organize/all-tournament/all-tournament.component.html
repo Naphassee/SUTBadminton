@@ -40,7 +40,7 @@
 
       <!-- 4. ปุ่มลบ / แก้ไข / ดูรายละเอียด -->
       <div class="col-auto action-buttons d-grid gap-2 p-2">
-        <button class="btn btn-primary btn-sm">ดูรายละเอียด</button>
+        <button class="btn btn-primary btn-sm" (click)="onViewDetail(t)">ดูรายละเอียด</button>
       </div>
 
     </div>
@@ -50,3 +50,9 @@
 <ng-template #noData>
   <p class="text-center text-muted">ยังไม่มีทัวร์นาเมนต์</p>
 </ng-template>
+
+<app-detail-modal
+  *ngIf="selectedTournament"
+  [tournament]="selectedTournament"
+  (close)="onCloseModal()">
+</app-detail-modal>

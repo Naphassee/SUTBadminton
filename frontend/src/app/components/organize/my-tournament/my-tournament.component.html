@@ -1,5 +1,9 @@
+<div class="btn-group mb-3 w-100">
+  <button class="btn" [class.btn-primary]="selectedTab === 'ฉบับร่าง'" [class.btn-outline-primary]="selectedTab !== 'ฉบับร่าง'" (click)="onTabChange('ฉบับร่าง')">ฉบับร่าง</button>
+  <button class="btn" [class.btn-primary]="selectedTab === 'เปิดรับ'" [class.btn-outline-primary]="selectedTab !== 'เปิดรับ'" (click)="onTabChange('เปิดรับ')">เปิดรับสมัคร</button>
+</div>
 <ng-container *ngIf="tournaments.length; else noData">
-  <div *ngFor="let t of tournaments" class="card tournament-card mb-3">
+  <div *ngFor="let t of filteredTournaments" class="card tournament-card mb-3">
     <div class="row g-0 align-items-center">
       
       <!-- รูป Banner -->
@@ -40,9 +44,10 @@
 
       <!-- 4. ปุ่มลบ / แก้ไข / ดูรายละเอียด -->
       <div class="col-auto action-buttons d-grid gap-2 p-2">
-        <button class="btn btn-danger btn-sm" (click)="onDelete(t._id!)">ลบ</button>
-        <button class="btn btn-success btn-sm"  [routerLink]="['/organize','edit-tournament', t._id]">แก้ไขรายละเอียด</button>
+        <button class="btn btn-danger btn-sm" *ngIf="t.status === 'ฉบับร่าง'" (click)="onDelete(t._id!)">ลบ</button>
         <button class="btn btn-primary btn-sm" (click)="onViewDetail(t)">ดูรายละเอียด</button>
+        <button class="btn btn-warning btn-sm"  *ngIf="t.status === 'ฉบับร่าง'" [routerLink]="['/organize','edit-tournament', t._id]">แก้ไขรายละเอียด</button>
+        <button class="btn btn-success btn-sm" *ngIf="t.status === 'ฉบับร่าง'" (click)="updateStatus(t._id!, 'เปิดรับ')">เปิดรับสมัคร</button>
       </div>
 
     </div>

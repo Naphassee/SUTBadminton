@@ -31,9 +31,9 @@
                             <div><strong>วันที่แข่งขัน: </strong>{{t.startTour | date:'dd/MM/yyyy'}} - {{t.endTour |
                                 date:'dd/MM/yyyy'}}</div>
                             <div><strong>สถานที่: </strong>{{t.locationName}}</div>
+                            <div><strong>สถานะ: </strong>{{t.status}}</div>
                         </div>
-                        <span class="competition-type">{{ t.level }} • {{ t.gender }} • รับสมัครจำนวน {{ t.participants
-                            }} คน</span>
+                        <span class="competition-type">{{ t.level }} • {{ t.gender }} • รับสมัครจำนวน {{ t?.currentParticipants }} / {{ t?.participants }} คน</span>
                         <div class="card-footer">
                             <button type="button" class="btn btn-primary details-btn" data-bs-toggle="modal"
                                 data-bs-target="#tournamentModal" (click)="showDetails(t)">
@@ -122,7 +122,7 @@
                             </div>
                             <div class="detail-item">
                                 <div class="detail-label">จำนวนผู้เข้าร่วม</div>
-                                <div class="detail-value">{{ selectedTournament?.participants }} คน</div>
+                                <div class="detail-value">{{ selectedTournament?.currentParticipants }} / {{ selectedTournament?.participants }} คน</div>
                             </div>
                         </div>
                     </div>

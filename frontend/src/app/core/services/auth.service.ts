@@ -99,4 +99,18 @@ export class AuthService {
       return '';
     }
   }
+
+  getUser(): any {
+  if (!this.isBrowser) return null;
+  const token = localStorage.getItem(this.tokenKey);
+  if (!token) return null;
+
+  try {
+    const payload = JSON.parse(atob(token.split('.')[1]));
+    return payload; // จะได้ทั้ง _id, role, email, etc.
+  } catch (err) {
+    console.error('Token decode error:', err);
+    return null;
+  }
+}
 }

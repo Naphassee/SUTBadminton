@@ -6,33 +6,34 @@ import { AppConfig } from '../../app.config';
 
 // ชนิดของทัวร์นาเมนต์
 export interface Tournament {
-  _id?:               string;
+  _id?:                 string;
  
   // ชื่อไฟล์รูปโปรโมต
-  promoteImage:       string;
+  promoteImage:         string;
 
   // ข้อมูลทัวร์นาเมนต์
-  tourName:           string;
-  tourTagline:        string;
-  deadlineOfRegister: string;
-  startTour:          string;
-  endTour:            string;
+  tourName:             string;
+  tourTagline:          string;
+  deadlineOfRegister:   string;
+  startTour:            string;
+  endTour:              string;
 
-  locationName:       string;
-  province:           string;
-  district:           string;
-  subDistrict:        string;
-  detailLocation:     string;
+  locationName:         string;
+  province:             string;
+  district:             string;
+  subDistrict:          string;
+  detailLocation:       string;
 
-  level:              string;
-  gender:             string;
-  participants:       number;
-  registFee:          number;
-  rule:               string;
+  level:                string;
+  gender:               string;
+  participants:         number;
+  currentParticipants:  number;
+  registFee:            number;
+  rule:                 string;
 
-  status:             string;
+  status:               string;
 
-  createdAt?:         string;
+  createdAt?:           string;
 }
 
 @Injectable({ providedIn: 'root' })
@@ -54,6 +55,10 @@ export class TournamentService {
   getMy(): Observable<Tournament[]> {
     return this.http.get<Tournament[]>(`${this.baseUrl}/my`);
   }
+
+  getAvailable(): Observable<Tournament[]> {
+    return this.http.get<Tournament[]>(`${this.baseUrl}/available`);
+  }
   
   create(data: FormData): Observable<Tournament> {
     return this.http.post<Tournament>(this.baseUrl, data); 
@@ -65,5 +70,9 @@ export class TournamentService {
   
   delete(id: string): Observable<void> {
     return this.http.delete<void>(`${this.baseUrl}/${id}`);
+  }
+
+  updateStatus(id: string, newStatus: string): Observable<any> {
+    return this.http.patch(`${this.baseUrl}/${id}/status`, { status: newStatus });
   }
 }

@@ -13,7 +13,7 @@ connectDB();
 app.use(
   cors({
     origin: "http://localhost:4200",
-    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH"],
     allowedHeaders: ["Content-Type", "Authorization"],
   })
 );
@@ -32,6 +32,7 @@ app.use('/api/auth', require('./routes/authRoutes'));
 app.use('/api/organizer', require('./routes/organizer'));
 app.use('/api/tournaments', require('./routes/tournaments'));
 app.use("/api/managermana", require("./routes/ManagerMana"));
+app.use("/api/registration", require('./routes/registration'));
 
 // app.use('/api/manager', require('./routes/managerRoutes')); 
 // ใช้เส้นทาง manager ที่มีการจัดการโปรไฟล์

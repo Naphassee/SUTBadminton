@@ -3,7 +3,7 @@ const mongoose = require("mongoose");
 
 const ManagerManaSchema = new mongoose.Schema({
   // Foriegn Key
-  manager: { type: mongoose.Schema.Types.ObjectId, ref: 'Manager', required: true },
+  managerId: { type: mongoose.Schema.Types.ObjectId, ref: 'Manager', required: true },
 
   // ข้อมูลส่วนตัว
   firstName:  { type: String, required: true },

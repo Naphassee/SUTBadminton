@@ -35,7 +35,7 @@ exports.list = async (req, res) => {
 exports.create = async (req, res) => {
   try {
     console.log(req.body);
-    const employee = await Employee({...req.body, manager: req.user.id}).save();
+    const employee = await Employee({...req.body, managerId: req.user.id}).save();
     res.status(201).json({
       message: "employee created",
       employee,
@@ -88,7 +88,7 @@ exports.delete = async (req, res) => {
 exports.getMyPlayer = async (req, res) => {
   try {
     // หาเฉพาะทัวร์นาเมนต์ที่ organizer ตรงกับผู้ล็อกอิน
-    const players = await Employee.find({ manager: req.user.id });
+    const players = await Employee.find({ managerId: req.user.id });
     return res.json(players);
   } catch (err) {
     console.error(err);
