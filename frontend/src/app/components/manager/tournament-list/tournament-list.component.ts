@@ -44,7 +44,7 @@ export class TournamentListComponent implements OnInit {
   ngOnInit() {
     this.loadTournaments();
     this.loadAllPlayers(); // โหลดข้อมูลนักกีฬาเมื่อเริ่มต้น
-    const user = this.authSvc.getUser(); // ใช้ของ IQ ที่มีอยู่
+    const userId = this.authSvc.getUser();
     this.managerId = this.authSvc.getUserId() || ''; //รับ token มาอ่านเพื่อเอาไอดี
   }
 

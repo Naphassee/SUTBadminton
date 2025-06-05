@@ -1,7 +1,7 @@
 // model/Organize.js
 const mongoose = require("mongoose");
 
-const ManagerManaSchema = new mongoose.Schema({
+const ManageManaSchema = new mongoose.Schema({
   // Foriegn Key
   managerId: { type: mongoose.Schema.Types.ObjectId, ref: 'Manager', required: true },
 
@@ -13,4 +13,4 @@ const ManagerManaSchema = new mongoose.Schema({
   role:       { type: String, enum: ["มือสมัครเล่น", "มืออาชีพ"], required: true },
 });
 
-module.exports = mongoose.model("ManagerMana", ManagerManaSchema);
+module.exports = mongoose.model("ManageMana", ManageManaSchema);

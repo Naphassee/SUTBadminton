@@ -1,99 +1,68 @@
 <div class="container-fluid text-center">
-    
-    <div class="card custom-card">
-        <div class="card-header custom-header">
-            ชำระเงิน
-        </div>
-        <div class="card-body custom-card-body">
-            <div class="container">
-                <table class="table table-bordered table-striped text-center">
-                    <thead class="table">
-                        <tr>
-                            <th>ชื่องาน</th>
-                            <th>จังหวัด</th>
-                            <th>ประเภท</th>
-                            <th>ชื่อนักกีฬา</th>
-                            <th>ค่าธรรมเนียม(บาท)</th>
-                            <th>การจัดการ</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>มทส. เกมส์</td>
-                            <td>นครราชสีมา</td>
-                            <td>ชายเดี่ยว</td>
-                            <td>สมชาย ใจดี</td>
-                            <td>500</td>
-                            <td class="action-buttons">
-                                <button class="btn btn-danger btn-sm">ยกเลิกการสมัคร</button>
-                            </td>
-                        </tr>
-                        <!-- สามารถเพิ่มแถวข้อมูลเพิ่มเติมได้ -->
-                    </tbody>
-                </table>
-            </div>
-        </div>
-        <div class="card-header custom-footer">
-            รวมค่าธรรมเนียมการสมัคร
-            <span>500 </span>
-            บาท
-            <div class="payment-buttons">
-                <button class="btn btn-payment btn-sm" data-bs-toggle="modal" data-bs-target="#payment">ชำระเงินที่นี่</button>
-            </div>
-        </div>
+  <div class="card custom-card">
+    <div class="card-header custom-header">
+      ชำระเงิน
+    </div>
+    <div class="card-body custom-card-body">
+      <table class="table table-bordered table-striped text-center">
+        <thead>
+          <tr>
+            <th>ชื่องาน</th>
+            <th>จังหวัด</th>
+            <th>ประเภท</th>
+            <th>ชื่อนักกีฬา</th>
+            <th>ค่าธรรมเนียม(บาท)</th>
+            <th>สถานะ</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let reg of registrations">
+            <td>{{ reg.tournamentId.tourName }}</td>
+            <td>{{ reg.tournamentId.province }}</td>
+            <td>{{ reg.tournamentId.level }}-{{ reg.tournamentId.gender }}</td>
+            <td>
+                <ol style="margin:0; padding-left: 20px; text-align: left;">
+                    <li *ngFor="let p of reg.players">
+                        {{ p.firstName }} {{ p.lastName }}
+                    </li>
+                </ol>
+            </td>
+            <td>{{ reg.totalFee }}</td>
+            <td>
+                {{ reg.status }} <br>
+                <button *ngIf="reg.status === 'รอชำระเงิน'" class="btn btn-sm btn-success mt-2"
+                    (click)="onSelectSlip(reg._id)" (click)="onSelectQr(reg.tournamentId.organizerId.qrCode)" data-bs-toggle="modal" data-bs-target="#slipModal">
+                    ชำระเงิน
+                </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
 </div>
 
-<!-- Modal payment -->
-<div class="modal fade" id="payment" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-scrollable">
-      <div class="modal-content">
-        <div class="modal-header">
-            <h1 class="modal-title fs-5" id="staticBackdropLabel">แก้ไขโปรไฟล์</h1>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+  <!-- Modal แนบสลิป -->
+<div class="modal fade" id="slipModal" tabindex="-1" aria-labelledby="slipModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content text-start">
+      <div class="modal-header">
+        <label>กรุณาสแกน QR Code เพื่อชำระเงิน</label><br>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body">
+        <div class="row m-3" style="padding: 12px;">
+          <img *ngIf="qrCode"
+               [src]="showQr()"
+               style="width: 240px; height: 240px; object-fit: cover; margin-top: 8px;"
+               alt="QR Code ของ Organizer" />
         </div>
-        <div class="modal-body">
-            <form>
-            <div class="myprofilephoto">
-                <img src="myprofile.png" alt="Image" width="110" height="100">
-            </div>
-                <div class="mb-3">
-                    <label for="ีusername" class="form-label">ชื่อบัญชี</label>
-                    <input type="text" placeholder="กรุณาป้อนชื่อบัญชี" class="form-control">
-                </div>
-                <div class="mb-3">
-                    <label for="password" class="form-label">รหัสผ่านเดิม</label>
-                    <input type="password" placeholder="กรุณาป้อนรหัสผ่านเดิม" class="form-control">
-                </div>
-                <div class="mb-3">
-                    <label for="password" class="form-label">รหัสผ่านใหม่</label>
-                    <input type="password" placeholder="กรุณาป้อนรหัสผ่านใหม่" class="form-control">
-                </div>
-                <div class="mb-3">
-                    <label for="password" class="form-label">ยืนยันรหัสผ่าน</label>
-                    <input type="password" placeholder="กรุณายืนยันรหัสผ่าน" class="form-control">
-                </div>
-                <div class="mb-3">
-                    <label for="firstname" class="form-label">ชื่อจริง</label>
-                    <input type="text" placeholder="กรุณาป้อนชื่อจริง" class="form-control">
-                </div>
-                <div class="mb-3">
-                    <label for="lastname" class="form-label">นามสกุล</label>
-                    <input type="text" placeholder="กรุณาป้อนนามสกุล" class="form-control">
-                </div>
-                <div class="mb-3">
-                    <label for="email" class="form-label">อีเมล</label>
-                    <input type="email" placeholder="กรุณาป้อนอีเมล" class="form-control">
-                </div>
-                <div class="mb-3">
-                    <label for="phone" class="form-label">เบอร์โทร</label>
-                    <input type="phone" placeholder="กรุณาป้อนเบอร์โทร" class="form-control">
-                </div>
-            </form>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-primary" data-bs-dismiss="modal" aria-label="Close">ยกเลิก</button>
-          <button type="button" class="btn btn-primary modal-footer ms-auto ">อัพเดตโปรไฟล์</button>
-        </div>
+        <input type="file" (change)="onFileChange($event)" accept="image/*" class="form-control" />
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-success" (click)="onSubmitSlip()" data-bs-dismiss="modal">ยืนยัน</button>
+        <button class="btn btn-secondary" data-bs-dismiss="modal">ยกเลิก</button>
       </div>
     </div>
   </div>
+</div>

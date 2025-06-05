@@ -1,7 +1,9 @@
 const Registration = require('../models/Registration');
 const RegPlayer = require('../models/RegPlayer');
 const Tournament = require('../models/Tournament');
+const ManageMana = require('../models/ManageMana');
 
+//ลงสมัครทัวร์นาเมนต์
 exports.registerTeam = async (req, res) => {
     try {
         console.log('ข้อมูลที่ client ส่งมา:', req.body);
@@ -57,4 +59,59 @@ exports.registerTeam = async (req, res) => {
         console.error(error);
         res.status(500).json({ message: 'เกิดข้อผิดพลาด', error: error.message });
     }
-}
+};
+
+// แสดงรายการที่ manager สมัคร 
+exports.getRegByManager = async (req, res) => {
+  try {
+    const { managerId } = req.params;
+
+    // 1) ดึง Registration ทั้งหมดที่ managerId ตรงกัน 
+    const registrations = await Registration.find({ managerId })
+      .populate({
+        path: 'tournamentId',
+        populate: { path: 'organizerId', model: 'Organizer' }  // <-- แทรก nested populate
+      })
+      .lean();
+
+    // 2) สำหรับแต่ละ registration ให้ดึง RegPlayer และ populate manageManaId 
+    for (let reg of registrations) {
+      const playersPopulated = await RegPlayer.find({ registrationId: reg._id })
+        .populate({ path: 'manageManaId', model: 'ManageMana' });
+      reg.players = playersPopulated
+        .map(p => p.manageManaId)
+        .filter(p => p !== null);
+    }
+
+    res.json({ registrations });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: 'เกิดข้อผิดพลาด', error: err.message });
+  }
+};
+
+// อัปโหลดสลิปพร้อมเปลี่ยนสถานะเป็นชำระงเินแล้ว
+exports.uploadSlip = async (req, res) => {
+  try {
+    const { registrationId } = req.body;
+    const slipFile = req.file;
+
+    if (!slipFile) {
+      return res.status(400).json({ message: 'กรุณาแนบไฟล์สลิป' });
+    }
+
+    const updated = await Registration.findByIdAndUpdate(
+      registrationId,
+      {
+        slipImage: `/uploads/slips/${slipFile.filename}`,
+        status: 'ชำระแล้ว',
+      },
+      { new: true }
+    );
+
+    res.json({ message: 'แนบสลิปสำเร็จ', updated });
+  } catch (err) {
+    console.error('uploadSlip error:', err);
+    res.status(500).json({ message: 'เกิดข้อผิดพลาด', error: err.message });
+  }
+};
