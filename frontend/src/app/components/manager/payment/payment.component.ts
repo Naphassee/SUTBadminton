@@ -5,6 +5,7 @@ import { AuthService } from '../../../core/services/auth.service';
 import { CommonModule } from '@angular/common';
 import { AppConfig } from '../../../app.config';
 
+declare var bootstrap: any;
 
 @Component({
   selector: 'app-payment',
@@ -29,6 +30,8 @@ export class PaymentComponent implements OnInit {
   selectedRegistration: any;
 
   qrCode!: string;
+
+  showSuccessAlert = false;
 
   constructor(
     private regService: RegistrationService,
@@ -100,4 +103,21 @@ export class PaymentComponent implements OnInit {
       }
     });
   }
+  confirmAction() {
+    // ทำงานเมื่อกดยืนยันใน modal
+    this.onSubmitSlip(); // เรียกฟังก์ชันที่คุณมีอยู่แล้ว
+    this.showSuccessAlert = true;
+
+    // ซ่อน alert หลัง 3 วินาที
+    setTimeout(() => {
+      this.showSuccessAlert = false;
+    }, 3000);
+    const toastEl = document.getElementById('paysuccessToast');
+  if (toastEl) {
+    const toast = new bootstrap.Toast(toastEl);
+    toast.show();
+  }
+  }
+
+
 }

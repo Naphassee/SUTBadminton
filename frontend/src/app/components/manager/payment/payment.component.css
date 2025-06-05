@@ -4,6 +4,36 @@
     margin: 0;
     padding: 0;
 }
+
+ .details-btn {
+            background: #667eea !important;
+            color: white !important;
+            border: none !important;
+            padding: 10px 20px;
+            border-radius: 25px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .details-btn:hover {
+            background: #5a67d8 !important;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+  .cancle-btn {
+    background-color: #dc3545; /* สีแดงสำหรับปุ่มยกเลิก */
+    color: white; /* สีตัวอักษร */
+    border: none; /* ไม่มีเส้นขอบ */
+    padding: 10px 20px; /* ระยะ padding */
+    border-radius: 25px; /* ความโค้งของขอบ */
+    font-size: 0.9rem; /* ขนาดตัวอักษร */
+    font-weight: 500; /* น้ำหนักตัวอักษร */
+    cursor: pointer; /* แสดงเป็นมือเมื่อ hover */
+    transition: all 0.3s ease; /* การเปลี่ยนแปลงแบบ smooth */
+  }
+
 .custom-card {
     background-color: #f8f9fa; /* สีพื้นหลังการ์ด */
     margin: 20px; /* ระยะ margin */

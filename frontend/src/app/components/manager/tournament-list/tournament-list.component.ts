@@ -187,6 +187,15 @@ export class TournamentListComponent implements OnInit {
     return this.selectedPlayers.filter(p => p !== null).length;
   }
   
-  
+  confirmRegistration(): void {
+  this.submitRegistration(); // เรียกฟังก์ชันสมัครจริง
+
+  // แสดง Toast
+  const toastEl = document.getElementById('registerSuccessToast');
+  if (toastEl) {
+    const toast = new bootstrap.Toast(toastEl);
+    toast.show();
+  }
+}
   
 }

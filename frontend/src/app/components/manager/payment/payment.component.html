@@ -50,7 +50,7 @@
         <label>กรุณาสแกน QR Code เพื่อชำระเงิน</label><br>
         <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
       </div>
-      <div class="modal-body">
+      <div class="modal-body text-center d-flex flex-column align-items-center">
         <div class="row m-3" style="padding: 12px;">
           <img *ngIf="qrCode"
                [src]="showQr()"
@@ -60,9 +60,48 @@
         <input type="file" (change)="onFileChange($event)" accept="image/*" class="form-control" />
       </div>
       <div class="modal-footer">
-        <button class="btn btn-success" (click)="onSubmitSlip()" data-bs-dismiss="modal">ยืนยัน</button>
-        <button class="btn btn-secondary" data-bs-dismiss="modal">ยกเลิก</button>
+        
+        <button class="btn btn-danger" style="border-radius: 18px;" data-bs-dismiss="modal">ยกเลิก</button>
+        <button class="btn btn-success details-btn" data-bs-toggle="modal" data-bs-target="#confirmModal">
+  ยืนยัน
+</button>
       </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal Confirmation -->
+<div class="modal fade" id="confirmModal" tabindex="-1" aria-labelledby="confirmModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="confirmModalLabel">ยืนยันการทำรายการ</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="ปิด"></button>
+      </div>
+      <div class="modal-body text-center d-flex flex-column align-items-center">
+  <p>คุณต้องการยืนยันการทำชำระเงินนี้หรือไม่?</p>
+  <img src="confirm.jpg" alt="Image Description" class="img-fluid mt-3" style="max-width: 300px; height: auto;">
+</div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" style="border-radius: 18px;" data-bs-dismiss="modal">ยกเลิก</button>
+        <button type="button" class="btn btn-success details-btn" (click)="confirmAction()" data-bs-dismiss="modal">
+          ยืนยัน
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Toast แจ้งเตือน -->
+<div class="position-fixed bottom-0 end-0 p-3" style="z-index: 1055">
+  <div id="paysuccessToast" class="toast align-items-center text-white bg-success border-0" role="alert"
+    aria-live="assertive" aria-atomic="true">
+    <div class="d-flex">
+      <div class="toast-body">
+        ชำระเงินเรียบร้อยแล้ว
+      </div>
+      <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"
+        aria-label="Close"></button>
     </div>
   </div>
 </div>

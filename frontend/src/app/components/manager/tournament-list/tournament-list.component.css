@@ -239,7 +239,17 @@
             overflow-y: auto;
             max-height: calc(90vh - 150px);
         }
-
+        .cancle-btn {
+    background-color: #dc3545; /* สีแดงสำหรับปุ่มยกเลิก */
+    color: white; /* สีตัวอักษร */
+    border: none; /* ไม่มีเส้นขอบ */
+    padding: 10px 20px; /* ระยะ padding */
+    border-radius: 25px; /* ความโค้งของขอบ */
+    font-size: 0.9rem; /* ขนาดตัวอักษร */
+    font-weight: 500; /* น้ำหนักตัวอักษร */
+    cursor: pointer; /* แสดงเป็นมือเมื่อ hover */
+    transition: all 0.3s ease; /* การเปลี่ยนแปลงแบบ smooth */
+  }
         /* ปุ่มสมัครและปิด - สไตล์เดียวที่ใช้ */
         .register-btn {
             background-color: #787ff6 !important;
