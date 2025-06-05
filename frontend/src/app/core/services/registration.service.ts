@@ -51,4 +51,22 @@ export class RegistrationService {
     return this.http.post(`${this.baseUrl}/uploadSlip`, formData);
   }
 
+  // ดึงการสมัครใน Tournament ที่ Organizer สร้าง
+  getByOrganizer(organizerId: string): Observable<any> {
+    return this.http.get<any>(`${this.baseUrl}/byOrganizer/${organizerId}`);
+  }
+
+  getByTournament(tournamentId: string, organizerId: string): Observable<any> {
+    return this.http.get<any>(`${this.baseUrl}/byTournament/${tournamentId}/${organizerId}`
+    );
+  }
+
+  // อัปเดตสถานะ (ของ Organizer) 
+  updateStatusByOrganizer(registrationId: string, organizerId: string, status: string): Observable<any> {
+    return this.http.patch<any>(
+      `${this.baseUrl}/${registrationId}/statusByOrganizer`,
+      { organizerId, status }
+    );
+  }
+
 }

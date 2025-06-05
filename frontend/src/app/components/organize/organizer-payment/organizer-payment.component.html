@@ -1,0 +1,60 @@
+<div class="container-fluid text-center" *ngIf="registrations.length; else noData">
+  <div class="card custom-card">
+    <div class="card-header custom-header">
+      รายการสมัคร
+    </div>
+    <div class="card-body custom-card-body">
+      <table class="table table-bordered table-striped text-center">
+        <thead>
+          <tr>
+            <th style="width: 10%;">ผู้จัดการทีม</th>
+            <th style="width: 30%;">สลิปหลักฐาน</th>
+            <th style="width: 20%;">ชื่อนักกีฬา</th>
+            <th style="width: 10%;">ค่าธรรมเนียม(บาท)</th>
+            <th style="width: 40%;">สถานะ</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let reg of registrations">
+            <td>{{ reg.managerId.firstName }} {{ reg.managerId.lastName }}</td>
+            <td>
+                <img
+                    [src]="getImageUrl(reg.slipImage)"
+                    alt="Slip Image"
+                    class="img-thumbnail"
+                    style="width: 100%; height: 320px;"
+                />
+            </td>
+            <td>
+                <ol style="margin:0; padding-left: 20px; text-align: left;">
+                    <li *ngFor="let p of reg.players">
+                        {{ p.firstName }} {{ p.lastName }}
+                    </li>
+                </ol>
+            </td>
+            <td>{{ reg.totalFee }}</td>
+            <td>
+                {{ reg.status }} <br>
+                <button
+                  class="btn btn-success btn-sm mt-2 py-2 px-3"
+                  (click)="confirmRegistration(reg)"
+                  [disabled]="reg.status === 'ไม่ผ่านการตรวจสอบ' || reg.status == 'เสร็จสิ้น'">
+                ยืนยัน
+                </button>
+                <button
+                  class="btn btn-danger btn-sm mt-2 py-2 px-3"
+                  (click)="rejectRegistration(reg)"
+                  [disabled]="reg.status === 'ไม่ผ่านการตรวจสอบ' || reg.status == 'เสร็จสิ้น'">
+                ปฏิเสธ
+                </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<ng-template #noData>
+  <p class="text-center text-muted">ยังไม่มีการสมัคร</p>
+</ng-template>

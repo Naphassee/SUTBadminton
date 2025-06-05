@@ -23,6 +23,7 @@ import { CreateTournamentComponent } from './components/organize/create-tourname
 import { EditTournamentComponent } from './components/organize/edit-tournament/edit-tournament.component';
 import { MyProfileComponent } from './components/organize/my-profile/my-profile.component';
 import { EditProfileComponent } from './components/organize/edit-profile/edit-profile.component';
+import { OrganizerPaymentComponent } from './components/organize/organizer-payment/organizer-payment.component';
 
 
 // Admin
@@ -77,6 +78,10 @@ export const routes: Routes = [
             { path: "edit-tournament/:id", component: EditTournamentComponent },
             { path: "my-profile", component: MyProfileComponent},
             { path: 'edit-profile', component: EditProfileComponent},
+            { path : "organizer-payment/:id"
+                ,loadComponent: () => import('./components/organize/organizer-payment/organizer-payment.component')
+                .then(m => m.OrganizerPaymentComponent)
+            },
         ]
     },
     { 

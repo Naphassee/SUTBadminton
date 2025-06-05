@@ -1,0 +1,152 @@
+@import url('https://fonts.googleapis.com/css2?family=Prompt:wght@400;500;700&display=swap');
+*{
+    font-family: 'Prompt', sans-serif;
+    margin: 0;
+    padding: 0;
+}
+.custom-card {
+    background-color: #f8f9fa; /* สีพื้นหลังการ์ด */
+    margin: 20px; /* ระยะ margin */
+    border-radius: 20px; /* มุมโค้ง */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* เพิ่มเงา */
+    border: 1px solid #dee2e6; /* เส้นขอบ */
+    height: 85vh; /* ความสูงคงที่ */
+    display: flex;
+    flex-direction: column;
+    overflow: hidden; /* ซ่อนเนื้อหาที่เกิน */
+    margin: 45px;
+  }
+
+  .custom-card-header {
+    border-bottom: 1px solid #dee2e6; /* เส้นขอบล่าง */
+    text-align: center;
+    font-weight: bold;
+  }
+
+  .custom-card-body {
+    flex: 1; /* ทำให้ส่วนนี้ยืดหยุ่น */
+    overflow-y: auto; /* เปิดการเลื่อนในแนวตั้ง */
+    padding: 10px;
+  }
+
+  table {
+    width: 100%; /* ให้ตารางเต็มพื้นที่ */
+    text-align: center; /* จัดข้อความให้อยู่กึ่งกลาง */
+  }
+  
+.custom-header {
+    background: linear-gradient(40deg, #787FF6, #7BD5F5);
+    /* สีพื้นหลังของหัวข้อ */
+    color: #fff;
+    /* สีตัวอักษรหัวข้อ */
+    font-size: 1.15rem;
+    /* ขนาดตัวอักษรหัวข้อ */
+    /*font-weight: bold; /* ตัวหนา */
+    text-align: center;
+    /* จัดกลาง */
+    padding: 10px;
+    /* ระยะ padding */
+    border-top-left-radius: 20px;
+    /* โค้งมุมซ้ายบน */
+    border-top-right-radius: 20px;
+    /* โค้งมุมขวาบน */
+    border-bottom-left-radius: 0;
+    /* ไม่มีโค้งด้านล่าง */
+    border-bottom-right-radius: 0;
+    /* ไม่มีโค้งด้านล่าง */
+  }
+  .custom-footer {
+    background: linear-gradient(40deg, #787FF6, #7BD5F5);
+    /* สีพื้นหลังของหัวข้อ */
+    color: #fff;
+    /* สีตัวอักษรหัวข้อ */
+    font-size: 1.15rem;
+    /* ขนาดตัวอักษรหัวข้อ */
+    /*font-weight: bold; /* ตัวหนา */
+    text-align: center;
+    /* จัดกลาง */
+    padding: 10px;
+    /* ระยะ padding */
+    border-top-left-radius: 0px;
+    /* โค้งมุมซ้ายบน */
+    border-top-right-radius: 0px;
+    /* โค้งมุมขวาบน */
+    border-bottom-left-radius: 0;
+    /* ไม่มีโค้งด้านล่าง */
+    border-bottom-right-radius: 0;
+    /* ไม่มีโค้งด้านล่าง */
+  }
+ /* ปรับสีพื้นหลังและสีตัวอักษรของหัวตาราง */
+ thead th {
+    background-color: #fff; 
+    color: #5756BB; /* สีอักษร */
+    text-align: center; /* จัดให้อักษรอยู่กึ่งกลางแนวนอน */
+    position: sticky; /* หัวตารางอยู่คงที่ */
+    top: 0;
+    z-index: 2; /* ทำให้หัวตารางอยู่เหนือ */
+  }
+
+  /* ปรับขนาดรูป */
+  tbody img {
+    width: 60px;
+    height: 60px;
+    object-fit: cover;
+  }
+
+  /* ปรับความกว้างของคอลัมน์ */
+  table td, table th {
+    width: auto;
+    text-align: center; /* จัดให้อักษรอยู่กึ่งกลางแนวนอน */
+    vertical-align: middle; /* จัดให้อักษรอยู่กึ่งกลางแนวตั้ง */
+  }
+
+  table td:nth-child(1) {
+    width: 20%; /* ชื่องาน */
+  }
+  table td:nth-child(2),
+  table td:nth-child(3) {
+    width: 15%; /* จังหวัด ประเภท */
+  }
+  table td:nth-child(4) {
+    width: 20%; /* นักกีฬา */
+  }
+  table td:nth-child(5) {
+    width: 15%; /* คอลัมน์การจัดการ */
+  }
+  table td:nth-child(6) {
+    width: 15%; /* คอลัมน์การจัดการ */
+  }
+
+   /* ปรับขนาดและรูปลักษณ์ของปุ่ม */
+   .action-buttons button {
+    width: 120px; /* กำหนดความกว้างเท่ากัน */
+    margin: 5px; /* ระยะห่างระหว่างปุ่ม */
+    border-radius: 30px; /* ความโค้งของขอบ */
+    font-size: 14px; /* ขนาดตัวอักษร */
+  }
+  .payment-buttons button {
+    width: 200px; /* กำหนดความกว้างเท่ากัน */
+    margin: 5px; /* ระยะห่างระหว่างปุ่ม */
+    border-radius: 50px; /* ความโค้งของขอบ */
+    font-size: 14px; /* ขนาดตัวอักษร */
+  }
+
+  /* สีของปุ่มแต่ละประเภท */
+  .btn-payment {
+    background-color: #fff; /* สีฟ้าสำหรับปุ่มข้อมูล */
+    border-color: #7BD5F5;
+  }
+  .btn-danger {
+    background-color: #dc3545; /* สีแดงสำหรับปุ่มลบ */
+    border-color: #dc3545;
+  }
+
+  /* เพิ่มการเปลี่ยนสีเมื่อ hover */
+  .btn-payment:hover {
+    background-color: #fff;
+    border-color: #33c9ff;
+  }
+  .btn-danger:hover {
+    background-color: #c82333;
+    border-color: #bd2130;
+  }

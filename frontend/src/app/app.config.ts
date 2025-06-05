@@ -8,7 +8,8 @@ import { routes }                     from './app.routes';
 
 export const AppConfig = {
   apiUrl: 'http://localhost:5001/api',
-  uploadUrl: 'http://localhost:5001/uploads/'
+  uploadUrl: 'http://localhost:5001/uploads/',
+  fetchUrl: 'http://localhost:5001'
 };
 
 export const appConfig: ApplicationConfig = {

@@ -48,6 +48,7 @@
         <button class="btn btn-primary btn-sm" (click)="onViewDetail(t)">ดูรายละเอียด</button>
         <button class="btn btn-warning btn-sm"  *ngIf="t.status === 'ฉบับร่าง'" [routerLink]="['/organize','edit-tournament', t._id]">แก้ไขรายละเอียด</button>
         <button class="btn btn-success btn-sm" *ngIf="t.status === 'ฉบับร่าง'" (click)="updateStatus(t._id!, 'เปิดรับ')">เปิดรับสมัคร</button>
+        <button class="btn btn-success btn-sm" *ngIf="t.status === 'เปิดรับ'" [routerLink]="['/organize','organizer-payment', t._id]">ดูการสมัคร</button>
       </div>
 
     </div>
